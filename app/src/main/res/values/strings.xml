@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">InventoryApp</string>
+    <!-- name for the search option on the catalogue menu -->
+    <string name="action_search">Search</string>
+
+    <!-- name for the delete option on the Catalogue and Editor menu -->
+    <string name="action_delete_selected">Delete</string>
+    <!-- name for the save option on the Edit menu -->
+    <string name="action_save">Save</string>
+
+
+    <!-- Hint of the product name Field -->
+    <string name="hint_product_name">Enter a name</string>
+    <!-- Name for the label of the product's name Edit Field -->
+    <string name="category_name">Name</string>
+
+    <!-- Hint of the product price Field -->
+    <string name="hint_product_price">Enter a price</string>
+    <!-- Name for the label of the product's Price Edit Field -->
+    <string name="category_price">Price</string>
+
+    <!-- Hint of the product quantity Field -->
+    <string name="hint_product_quantity">Enter a Quantity</string>
+    <!-- Name for the label of the product's Quantity Edit Field -->
+    <string name="category_quantity">Quantity</string>
+
+    <!-- The sold default digit -->
+    <string name="default_digit">0</string>
+    <!-- Name for the label of the product's sold TextView-->
+    <string name="category_sold">Sold</string>
+    <!-- Hint of the product sold number Field -->
+    <string name="hint_product_sold">How many were sold ?</string>
+
+    <!-- Name for the label of the product's shipped TextView -->
+    <string name="category_shipped">Shipped</string>
+    <!-- Hint for the quantity of product that have been shipped -->
+    <string name="hint_product_shipped">How many were shipped ?</string>
+
+    <!-- Text for the increment button -->
+    <string name="increment">+</string>
+    <!-- Text for the decrement button -->
+    <string name="decrement">-</string>
+
+    <!-- Text for the Toast to help the user fill the name Edit Text -->
+    <string name="emptyNameMessage">The name can not be empty</string>
+
+    <!-- Hint of the product supplier Field -->
+    <string name="hint_product_supplier">Enter a supplier</string>
+    <!-- Name for the label of the product's supplier Edit Field -->
+    <string name="category_supplier">Supplier</string>
+
+    <!-- Title for the Editor Activity -->
+    <string name="addItemTitle">Add an Item</string>
+    <string name="editItemTitle">Edit Item</string>
+
+    <string name="successful_save_text">Item saved</string>
+
+
+</resources>
