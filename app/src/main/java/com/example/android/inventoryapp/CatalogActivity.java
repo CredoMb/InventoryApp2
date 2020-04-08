@@ -3,6 +3,7 @@ package com.example.android.inventoryapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.LoaderManager;
+import android.content.ContentUris;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
@@ -39,6 +40,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
+
         openButton = (Button) findViewById(R.id.open_editor);
         openButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +55,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
         // find the listView and set the CusorAdaptor on it
         ListView itemListView = (ListView) findViewById(R.id.list_view);
+
         itemListView.setAdapter(mInventoryCursorAdapter);
         itemListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -61,12 +64,11 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 // Create an intent to start the Editor Activity
                 Intent intent = new Intent(CatalogActivity.this, EditorActivity.class);
 
-                // Build the Uri of the item that has been clicked on
+                // Build the Uri of the item that has been clicked on.
                 // the Uri will be made of "content://com.example.android.inventoryapp"
                 // and the Id of the selected item. For example, if the second item was clicked
-                // the Uri would be content://com.example.android.inventoryapp/inventory/2
-                Uri itemUri = Uri.withAppendedPath(InventoryEntry.CONTENT_URI,
-                        String.format("%d",id));
+                // the Uri would be "content://com.example.android.inventoryapp/inventory/2"
+                Uri itemUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI,id);
 
                 // Add the Item Uri to the intent as an extra,
                 // So that the Editor Activiy would use it to modify the item's informations
