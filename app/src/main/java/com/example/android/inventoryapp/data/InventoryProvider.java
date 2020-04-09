@@ -12,6 +12,7 @@ import android.database.DataSetObserver;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
@@ -130,25 +131,28 @@ public class InventoryProvider extends ContentProvider {
 
         // Check that the price is valid
         Double price = values.getAsDouble(InventoryEntry.COLUMN_ITEM_PRICE);
-        if ( price < InventoryEntry.DEFAULT_PRICE || price == null) {
-            throw new IllegalArgumentException("The price shouldn't be null or have a negative value");
+        if ( price < InventoryEntry.DEFAULT_PRICE ) {
+            throw new IllegalArgumentException("The price shouldn't have a negative value");
         }
 
-        // Check that the quantity is valid
-        Integer quantity = values.getAsInteger(InventoryEntry.COLUMN_ITEM_QUANTITY);
-        if (quantity < InventoryEntry.DEFAULT_QUANTITY || quantity == null) {
-            throw new IllegalArgumentException("The quantity shouldn't be null or have a negative value");
-        }
-        // Check that the number of sold items is valid
-        Integer sold = values.getAsInteger(InventoryEntry.COLUMN_ITEM_SOLD);
-        if (sold < InventoryEntry.DEFAULT_SOLD_OR_SHIPPED) {
-            throw new IllegalArgumentException("The sold items shouldn't have a negative value");
-        }
 
         // Check that the number of shipped items is valid
         Integer shipped = values.getAsInteger(InventoryEntry.COLUMN_ITEM_SHIPPED);
         if (shipped < InventoryEntry.DEFAULT_SOLD_OR_SHIPPED) {
-            throw new IllegalArgumentException("The shipped items shouldn't have a negative value");
+            throw new IllegalArgumentException("The shipped value shouldn't be negative");
+        }
+
+        // Check that the number of sold items is valid
+        Integer sold = values.getAsInteger(InventoryEntry.COLUMN_ITEM_SOLD);
+        if (sold < InventoryEntry.DEFAULT_SOLD_OR_SHIPPED || sold > shipped) {
+            throw new IllegalArgumentException("The sold value shouldn't be negative " +
+                    "or greater than the shipped value");
+        }
+
+        // Check that the quantity is valid
+        Integer quantity = values.getAsInteger(InventoryEntry.COLUMN_ITEM_QUANTITY);
+        if (quantity < InventoryEntry.DEFAULT_QUANTITY) {
+            throw new IllegalArgumentException("The quantity shouldn't have a negative value");
         }
 
         // Insert a new item into the inventory database table with the given ContentValues
@@ -169,13 +173,112 @@ public class InventoryProvider extends ContentProvider {
         // return the new URI with the ID appended to the end of it
         return ContentUris.withAppendedId(uri, id);
     }
+
     /**
      * Updates the data base with the data in the ContentValues.
      */
     @Override
     public int update(Uri uri, ContentValues contentValues, String selection,
                       String[] selectionArgs) {
-        return 0;
+        final int match = sUriMatcher.match(uri);
+        switch (match) {
+            case INVENTORY:
+                return updateItem(uri, contentValues, selection, selectionArgs);
+            case INVENTORY_ID:
+                // For the INVENTORY_ID code, extract out the ID from the URI,
+                // so we know which row to update. Selection will be "_id=?" and selection
+                // arguments will be a String array containing the actual ID.
+                selection = InventoryEntry._ID + "=?";
+                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                return updateItem(uri, contentValues, selection, selectionArgs);
+            default:
+                throw new IllegalArgumentException("Update is not supported for " + uri);
+        }
+
+    }
+
+    /**  Helper method used to communicate with the database through the
+     *   database helper and update it.
+     *
+     *   @param   uri represent the uri of the item or group of items that should be update
+     *   @param   values contains the name of the rows that should be updated
+     *   @param   selection is the condition that will be used to help us
+     *                     narrow our search and find a specific category of items.
+     *   @param   selectionArgs The value of the condition we've entered in the selection.
+     *   */
+    private int updateItem(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+
+        // If the {@link InventoryEntry#COLUMN_ITEM_NAME} key is present,
+        // check that the name value is valid.
+        if (values.containsKey(InventoryEntry.COLUMN_ITEM_NAME)) {
+            // Check that the name is not empty
+            String name = values.getAsString(InventoryEntry.COLUMN_ITEM_NAME);
+            if (TextUtils.isEmpty(name)) {
+                throw new IllegalArgumentException("Item requires a name");
+            }
+        }
+
+        // If the {@link InventoryEntry#COLUMN_ITEM_PRICE} key is present,
+        // check that the price value is valid.
+        if (values.containsKey(InventoryEntry.COLUMN_ITEM_PRICE)) {
+            // Check that the price is valid
+            Double price = values.getAsDouble(InventoryEntry.COLUMN_ITEM_PRICE);
+            if (price < InventoryEntry.DEFAULT_PRICE) {
+                throw new IllegalArgumentException("The price shouldn't have a negative value");
+            }
+        }
+
+        // If the {@link InventoryEntry#COLUMN_ITEM_SHIPPED} key is present,
+        // check that the name value is valid.
+        if (values.containsKey(InventoryEntry.COLUMN_ITEM_SHIPPED)){
+            // Check that the shipped value is not negative
+            Integer shipped = values.getAsInteger(InventoryEntry.COLUMN_ITEM_SHIPPED);
+            if (shipped < InventoryEntry.DEFAULT_SOLD_OR_SHIPPED) {
+                throw new IllegalArgumentException("The shipped value shouldn't be negative");
+            }
+        }
+
+        // If the {@link InventoryEntry#COLUMN_ITEM_SOLD} key is present,
+        // check that the name value is valid.
+        if(values.containsKey(InventoryEntry.COLUMN_ITEM_SOLD)){
+            Integer sold = values.getAsInteger(InventoryEntry.COLUMN_ITEM_SOLD);
+            // Check that the sold value is not negative
+            if (sold < InventoryEntry.DEFAULT_SOLD_OR_SHIPPED
+                    || sold > values.getAsInteger(InventoryEntry.COLUMN_ITEM_SHIPPED)) {
+
+                throw new IllegalArgumentException("The sold value shouldn't be negative " +
+                        "or greater than the shipped value");
+            }}
+
+        // If the {@link InventoryEntry#COLUMN_ITEM_QUANTITY} key is present,
+        // check that the name value is valid.
+        if (values.containsKey(InventoryEntry.COLUMN_ITEM_QUANTITY)) {
+            // Check that the quantity is valid
+            Integer quantity = values.getAsInteger(InventoryEntry.COLUMN_ITEM_QUANTITY);
+            if (quantity < InventoryEntry.DEFAULT_QUANTITY) {
+                throw new IllegalArgumentException("The quantity shouldn't have a negative value");
+            }
+        }
+
+        // If there are no values to update, then don't try to update the database
+        if (values.size() == 0) {
+            return 0;
+        }
+
+        // Otherwise, get writeable database to update the data
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+
+        // Perform the update on the database and get the number of rows affected
+        int rowsUpdated = database.update(InventoryEntry.TABLE_NAME, values, selection, selectionArgs);
+
+        // If 1 or more rows were updated, then notify all listeners that the data at the
+        // given URI has changed
+        if (rowsUpdated != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+
+        // Return the number of rows updated
+        return rowsUpdated;
     }
 
         /**

@@ -424,20 +424,19 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // don't try to parse the string into an integer value. Use 0 by default.
         int shippedNumber = TextUtils.isEmpty(mShippedEditText.getText().toString()) ?
                 InventoryEntry.DEFAULT_SOLD_OR_SHIPPED
-                : Integer.parseInt(mShippedEditText.getText().toString());
+                : Integer.parseInt(mShippedEditText.getText().toString().trim());
 
         // If the sold number is not provided by the user,
         // don't try to parse the string into an integer value. Use 0 by default.
         int soldNumber = TextUtils.isEmpty(mSoldEditText.getText().toString()) ?
                 InventoryEntry.DEFAULT_SOLD_OR_SHIPPED
-                : Integer.parseInt(mSoldEditText.getText().toString());
+                : Integer.parseInt(mSoldEditText.getText().toString().trim());
 
         // If the price number is not provided by the user,
         // don't try to parse the string into an integer value. Use 0 by default.
         double priceNumber = TextUtils.isEmpty(mPriceEditText.getText().toString()) ?
                 InventoryEntry.DEFAULT_PRICE
-                : Double.parseDouble(mPriceEditText.getText().toString());
-
+                : Double.parseDouble(mPriceEditText.getText().toString().trim());
 
         int leftQuantity = Integer.parseInt(quantityLeft(shippedNumber, soldNumber));
 
@@ -458,27 +457,23 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         }
 
         // Create a ContentValues to store the informations of the new pet
-        ContentValues newItemValues = new ContentValues();
-        newItemValues.put(InventoryEntry.COLUMN_ITEM_NAME, nameString);
-        newItemValues.put(InventoryEntry.COLUMN_ITEM_PRICE, priceNumber);
-        newItemValues.put(InventoryEntry.COLUMN_ITEM_QUANTITY, quantityNumber);
-        newItemValues.put(InventoryEntry.COLUMN_ITEM_SOLD, soldNumber);
-        newItemValues.put(InventoryEntry.COLUMN_ITEM_SHIPPED, shippedNumber);
-        newItemValues.put(InventoryEntry.COLUMN_ITEM_SUPPLIER, supplierString);
-
-        Uri newRowUri = null;
-        int updatedPet = 0;
+        ContentValues values = new ContentValues();
+        values.put(InventoryEntry.COLUMN_ITEM_NAME, nameString);
+        values.put(InventoryEntry.COLUMN_ITEM_PRICE, priceNumber);
+        values.put(InventoryEntry.COLUMN_ITEM_QUANTITY, quantityNumber);
+        values.put(InventoryEntry.COLUMN_ITEM_SOLD, soldNumber);
+        values.put(InventoryEntry.COLUMN_ITEM_SHIPPED, shippedNumber);
+        values.put(InventoryEntry.COLUMN_ITEM_SUPPLIER, supplierString);
 
         // Check if the "mItemUri" is null.
         //  If it's "null", then we need to add
         //  a new item, otherwise, we should modify
         //  an existing item.
 
-
         if (mItemUri == null) {
-            // This is a NEW item, so insert a new item into the provider,
-            // returning the content URI for the new item.
-            Uri newUri = getContentResolver().insert(InventoryEntry.CONTENT_URI, newItemValues);
+            // This is a NEW item, so we should insert a new item into the database.
+            // This will return the content URI for the item newly inserted.
+            Uri newUri = getContentResolver().insert(InventoryEntry.CONTENT_URI, values);
 
             // Show a toast message depending on whether or not the insertion was successful.
             if (newUri == null) {
@@ -486,28 +481,39 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 Toast.makeText(this, getString(R.string.editor_insert_item_failed),
                         Toast.LENGTH_SHORT).show();
             } else {
-                // Otherwise, the insertion was successful and we can display a toast.
+                // Otherwise, the insertion was successful and we can display the corresponding.
                 Toast.makeText(this, getString(R.string.editor_insert_item_successful),
                         Toast.LENGTH_SHORT).show();
-            }   /** Continu here, mr*/
+            }
+        }   // If the mItemUri is not null, we need to update the
+            // item instead of creating a new one.
 
-        } else {
+        else {
+            // The content URI of the item is: mItemUri.
+            // Update the item and pass in the new ContentValues.
+            // Pass in null for the selection and selection args
+            // because mItemUri will already identify the correct row in the database that
+            // we want to modify.
 
-            // updatedPet = getContentResolver().update(mPetUri, newPetValues, null, null);
+            // The call to the update method of the content resolver
+            // will return the number of rows that were affected by the operation.
+            // In our case, It should be one.
+            int rowsAffected = getContentResolver().update(mItemUri, values, null, null);
+
+            // Check if the update was successfully made
+            // and display an adequate message to the user.
+            if (rowsAffected == 0){
+                // zero row affected means that no changes
+                // were made.
+                Toast.makeText(this, getString(R.string.editor_update_item_failed),
+                        Toast.LENGTH_SHORT).show();
+            }
+            else {
+                // If the rowsAffected is not equal to zero,
+                // this means that the change was made.
+                Toast.makeText(this, getString(R.string.editor_update_item_successful),
+                        Toast.LENGTH_SHORT).show();
+            }
         }
-
-        // This is only adding a pet but not updating it
-        // Go inside the "insert" of the content provider to check if
-        // it takes into account case where it's a new pet
-        /*
-        if (newRowUri == null && updatedPet == 0) {
-            mSavingStateToast.setText(R.string.unsuccessful_save_text);
-        } else if (newRowUri != null || updatedPet > 0) {
-            mSavingStateToast.setText(R.string.successful_save_text);
-        }*/
-        if (newRowUri != null || updatedPet > 0) {
-            mSavingStateToast = Toast.makeText(this, R.string.editor_insert_item_successful, Toast.LENGTH_SHORT);
-        }
-        mSavingStateToast.show();
     }
 }

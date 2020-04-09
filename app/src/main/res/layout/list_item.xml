@@ -10,7 +10,7 @@
         android:id="@+id/product_iv"
         android:layout_width="80dp"
         android:layout_height="80dp"/>
-
+    <!-- Add the supplier to the UI -->
     <RelativeLayout
         android:id="@+id/text_container"
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
             android:layout_marginBottom="8dp"
             android:textSize="14dp"
             tools:text="Shoes"/>
-
+        <!-- Add the supplier to the UI -->
         <TextView
             android:id="@+id/price_tv"
             android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
             android:layout_below="@id/name_tv"
             android:layout_marginRight="16dp"
             tools:text="200$"/>
-
+        <!-- Add the supplier to the UI -->
         <TextView
             android:id="@+id/quantity_tv"
             android:layout_width="wrap_content"
