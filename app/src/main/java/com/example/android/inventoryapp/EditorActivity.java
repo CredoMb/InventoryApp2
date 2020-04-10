@@ -184,7 +184,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // Get the intent from the CatalogActivity
         // Change the title of the Editor Activity based on the action that will occur
         // Get the item Uri from the intent made by the Catalog activity
-        mItemUri = getIntent().getData(); // There are no daya
+        mItemUri = getIntent().getData(); // There are no data
 
         if (mItemUri == null) {
             // If the extra doesn't contain an Uri, the title Activity's should be "Add an Item"
@@ -247,9 +247,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // to that item. Then, show all the information related to that item
         // inside the edit text views.
 
-        // What if the user want to add something ?
-        //if (mItemUri != InventoryEntry.CONTENT_URI)
-
         if (cursor.moveToFirst()) {
 
             // Move the cursor to the concerned row before getting data from it
@@ -293,7 +290,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-
     }
 
     /**
@@ -302,17 +298,19 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      */
 
 
-    /**This will make certain options invisible  */
-    /*@Override
+    /**This method is called after invalidateOptionsMenu(), so that the
+     * menu can be updated. I will hide the "delete" option when the
+     * user is adding a new item.*/
+    @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         // If this is a new item, hide the "Delete" menu item.
-        //if (mItemUri == InventoryEntry.CONTENT_URI) {
+        //if (mItemUri == null) {
         MenuItem menuItem = menu.findItem(R.id.action_delete);
         menuItem.setVisible(false);
         //}
         return true;
-    }*/
+    }
 
     /**
      * This will inflate the menu on the Editor Activity
@@ -341,12 +339,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
                 showDeleteConfirmationDialog();
-                // Open the dialog to confirm the deletion
-                // Call the deleteItem method to delete the correct
-                // item
-
-                // Delete item : Verify the Edit mode --> delete
-                // --> Show a toast after completion
 
                 return true;
             // Respond to a click on the "Up" arrow button in the app bar
@@ -527,8 +519,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     /**
      * Prompt the user to confirm that they want to delete this item.
      */
-
-
     private void showDeleteConfirmationDialog() {
         // Create an AlertDialog.Builder and set the message, and click listeners
         // for the positive and negative buttons on the dialog.
@@ -554,4 +544,31 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
+
+    /**
+     * Perform the deletion of the item in the database.
+     */
+    private void deleteItem() {
+        // Only perform the delete if this is an existing item.
+        if (mItemUri != null) {
+            // Call the ContentResolver to delete the item at the given content URI.
+            // Pass in null for the selection and selection args because the mItemUri
+            // content URI already identifies the item that we want.
+            int rowsDeleted = getContentResolver().delete(mItemUri, null, null);
+
+            // Show a toast message depending on whether or not the delete was successful.
+            if (rowsDeleted == 0) {
+                // If no rows were deleted, then there was an error with the delete.
+                Toast.makeText(this, getString(R.string.editor_delete_item_failed),
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                // Otherwise, the delete was successful and we can display a toast.
+                Toast.makeText(this, getString(R.string.editor_delete_item_successful),
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+        // Close the activity
+        finish();
+    }
+
 }
