@@ -1,8 +1,10 @@
 package com.example.android.inventoryapp;
 
+import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.ContentValues;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
@@ -112,7 +114,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private Toast mEmptyNameToast;
 
     /**
-     * The default value of the weight for each pet
+     * The default value of the weight for each item
      */
     private int ZERO = 0;
 
@@ -148,6 +150,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      */
     private String NUMBER_FORMAT = "%d";
 
+    /** Decimal Format*/
+    private String DECIMAL_FORMAT = "%.2f";
+
     /**
      * Default value for an item with no price
      */
@@ -173,9 +178,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mSoldEditText = (EditText) findViewById(R.id.edit_product_sold);
         mShippedEditText = (EditText) findViewById(R.id.edit_product_shipped);
 
-
-        mSoldEditText = (EditText) findViewById(R.id.edit_product_sold);
-        mShippedEditText = (EditText) findViewById(R.id.edit_product_shipped);
 
         mSupplierEdtiText = (EditText) findViewById(R.id.edit_product_supplier);
 
@@ -211,7 +213,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
 
-        // The thing is that we must create a database because it doe
+        // The thing is that we must create a database because
         String[] projection = {InventoryEntry._ID,
                 InventoryEntry.COLUMN_ITEM_NAME,
                 InventoryEntry.COLUMN_ITEM_PRICE,
@@ -235,9 +237,14 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
 
-        // If our cursor only contains 1 pet
+        // Bail early if the cursor is null or there is less than 1 row in the cursor
+        if (cursor == null || cursor.getCount() < 1) {
+            return;
+        }
+
+        // If our cursor only contains 1 item
         // this means that the user want to update informations related
-        // to that pet. Then, show all the information related to that pet
+        // to that item. Then, show all the information related to that item
         // inside the edit text views.
 
         // What if the user want to add something ?
@@ -254,23 +261,23 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
             // Get the price from the cursor and put it on the appropriate edit text
             int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_PRICE);
-            int priceNumber = cursor.getInt(priceColumnIndex);
-            mPriceEditText.setText(String.format(NUMBER_FORMAT, priceNumber), TextView.BufferType.EDITABLE);
+            double priceNumber = cursor.getDouble(priceColumnIndex);
+            mPriceEditText.setText(String.format(DECIMAL_FORMAT, priceNumber), TextView.BufferType.EDITABLE);
+
+            // Get the shipped value from the cursor and put it on the appropriate edit text
+            int shippedColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_SHIPPED);
+            int shippedNumber = cursor.getInt(shippedColumnIndex);
+            mShippedEditText.setText(String.format(NUMBER_FORMAT, shippedNumber), TextView.BufferType.EDITABLE);
+
+            // Get the sold value from the cursor and put it on the appropriate edit text
+            int soldColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_SOLD);
+            int soldNumber = cursor.getInt(soldColumnIndex);
+            mSoldEditText.setText(String.format(NUMBER_FORMAT, soldNumber), TextView.BufferType.EDITABLE);
 
             // Get the quantity from the cursor and put it on the appropriate edit text
             int quantityColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_QUANTITY);
             int quantityNumber = cursor.getInt(quantityColumnIndex);
             mQuantityTextView.setText(String.format(NUMBER_FORMAT, quantityNumber), TextView.BufferType.EDITABLE);
-
-            // Get the number of sold item from the cursor and put it on the appropriate edit text
-            int soldColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_SOLD);
-            int soldNumber = cursor.getInt(soldColumnIndex);
-            mSoldTextView.setText(String.format(NUMBER_FORMAT, soldNumber), TextView.BufferType.EDITABLE);
-
-            // Get the number of shipped items from the cursor and put it on the appropriate edit text
-            int shippedColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_SHIPPED);
-            int shippedNumber = cursor.getInt(shippedColumnIndex);
-            mShippedTextView.setText(String.format(NUMBER_FORMAT, shippedNumber), TextView.BufferType.EDITABLE);
 
             // Get the supplier from the cursor and put it on the appropriate edit text
             int supplierColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_SUPPLIER);
@@ -299,8 +306,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     /*@Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        // If this is a new pet, hide the "Delete" menu item.
-        //if (mPetUri == PetEntry.CONTENT_URI) {
+        // If this is a new item, hide the "Delete" menu item.
+        //if (mItemUri == InventoryEntry.CONTENT_URI) {
         MenuItem menuItem = menu.findItem(R.id.action_delete);
         menuItem.setVisible(false);
         //}
@@ -326,45 +333,26 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         switch (item.getItemId()) {
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
+               saveItem(); // what to do now ?
+               // finish();
 
-                if (TextUtils.isEmpty(mNameEditText.getText())) {
-                    // Initializing the Toast used when the user forget to type the name
-                    // of the product
-                    mEmptyNameToast = Toast.makeText(this, R.string.emptyNameMessage, Toast.LENGTH_LONG);
-                    mEmptyNameToast.show();
-
-                    // mNameEditText.requestFocus();
-                    // Also, is the quantity or the sold/shipped number higher than 1000 ?
-                    // Sold can not be bellow the shipped, it doesn'T make sens
-                    // If the shipped is bellow, it should give an error
-                } else {
-                    saveItem();
-                    finish();
-                }
-                /*
-                if (!allFieldsAreEmpty()) {
-                    savePet();
-                }*/
-                // We should remove the finish ?
-
-                /*Intent intent = new Intent(EditorActivity.this,CatalogActivity.class);
-                startActivity(intent);*/
                 return true;
 
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
+                showDeleteConfirmationDialog();
                 // Open the dialog to confirm the deletion
-                // Call the deletePet method to delete the correct
-                // pet
+                // Call the deleteItem method to delete the correct
+                // item
 
-                // Delete pet : Verify the Edit mode --> delete
+                // Delete item : Verify the Edit mode --> delete
                 // --> Show a toast after completion
 
                 return true;
             // Respond to a click on the "Up" arrow button in the app bar
             case android.R.id.home:
                 /*// Navigate back to parent activity (CatalogActivity)
-                if (mPetHasChanged) {
+                if (mItemHasChanged) {
                     NavUtils.navigateUpFromSameTask(this);
                 }
                 // Otherwise if there are unsaved changes, setup a dialog to warn the user.
@@ -397,25 +385,41 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         return String.format(NUMBER_FORMAT, leftQuantity);
     }
 
-    // Once the user clicks on the "save" button
-    // Verify if the form has a name and it must have
-    // a name ! If it doesn'T have a name, show a toaster ...
+    /**
+     * The method that will be called once the user
+     * clicks on "save" icon. This method contains instruction
+     * to either save or update a item in the database*/
+
     private void saveItem() {
 
         // Get the text from all the "editTexts" fields
         String nameString = mNameEditText.getText().toString().trim(); // Should not be null
         String supplierString = mSupplierEdtiText.getText().toString().trim();
 
+        // Verify if the form has a name and it must have
+        // a name ! If it doesn'T have a name, show a toaster ...
+        if (TextUtils.isEmpty(nameString)) {
+            // Initializing the Toast used when the user forget to type the name
+            // of the product
+            Toast.makeText(this, R.string.emptyNameMessage, Toast.LENGTH_LONG).show();
+
+            return;
+            // mNameEditText.requestFocus();
+            // Also, is the quantity or the sold/shipped number higher than 1000 ?
+            // Sold can not be bellow the shipped, it doesn'T make sens
+            // If the shipped is bellow, it should give an error
+        }
+
         // Check if this is supposed to be a new item
         // and check if all the fields in the editor are blank.
         // If the mItemUri is null, this means that the user clicked on the
-        // button to create a new pet.
+        // button to create a new item.
         if (mItemUri == null &&
                 TextUtils.isEmpty(nameString)
                 && TextUtils.isEmpty(mSoldEditText.getText().toString().trim()) &&
                 TextUtils.isEmpty(mShippedEditText.getText().toString().trim())
                 && TextUtils.isEmpty(supplierString)) {
-            // Since no fields were modified, we can return early without creating a new pet.
+            // Since no fields were modified, we can return early without creating a new item.
             // No need to create ContentValues and no need to do any ContentProvider operations.
             return;
         }
@@ -443,7 +447,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // Set the Quantity based on the number of shipped and sold items.
         // If the difference between the shipped and sold item is greater than 0,
         // set the quantity TextView with the value of that difference.
-        // Else, open the dialog to signify that the quantity can't be
+        // Else, show a Toast to signify that the quantity can't be
         // negative
         int quantityNumber = DEFAULT_QUANTITY_VALUE;
 
@@ -452,11 +456,13 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             mQuantityTextView.setText(String.valueOf(leftQuantity));
         }
         else {
-            // Open the dialog, bro
-            // Tell'em : no the quantity can't be negative
+            // Advise the uer to adjust the values of
+            // shipped and sold items.
+            Toast.makeText(this, R.string.invalidQuantityMessage, Toast.LENGTH_LONG).show();
+            return;
         }
 
-        // Create a ContentValues to store the informations of the new pet
+        // Create a ContentValues to store the informations of the new item
         ContentValues values = new ContentValues();
         values.put(InventoryEntry.COLUMN_ITEM_NAME, nameString);
         values.put(InventoryEntry.COLUMN_ITEM_PRICE, priceNumber);
@@ -515,5 +521,37 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                         Toast.LENGTH_SHORT).show();
             }
         }
+        finish();
+    }
+
+    /**
+     * Prompt the user to confirm that they want to delete this item.
+     */
+
+
+    private void showDeleteConfirmationDialog() {
+        // Create an AlertDialog.Builder and set the message, and click listeners
+        // for the positive and negative buttons on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.delete_dialog_msg);
+        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Delete" button, so delete the item.
+                deleteItem();
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Cancel" button, so dismiss the dialog
+                // and continue editing the item.
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

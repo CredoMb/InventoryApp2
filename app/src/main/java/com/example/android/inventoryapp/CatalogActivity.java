@@ -94,7 +94,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 InventoryEntry.COLUMN_ITEM_SUPPLIER
         };
 
-        // The cursor loader does the database connection
+        // The cursor loader makes the database connection
         // for us !
         return new CursorLoader(this,
                 InventoryEntry.CONTENT_URI,

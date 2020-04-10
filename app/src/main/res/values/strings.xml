@@ -62,6 +62,10 @@
 
     <!-- Text for the Toast to help the user fill the name Edit Text -->
     <string name="emptyNameMessage">The name can not be empty</string>
+
+    <!-- Text for the Toast to help the user correct the shipped and sold values -->
+    <string name="invalidQuantityMessage">The sold value can not be \ngreater than the shipped value</string>
+
     <!-- Toast message in editor when current item was successfully saved -->
     <string name="editor_insert_item_successful">Item saved</string>
 
@@ -73,6 +77,10 @@
 
     <!-- Toast message in editor when current item has failed to be updated [CHAR LIMIT=NONE] -->
     <string name="editor_update_item_failed">Error with updating item</string>
+
+    <!-- Text on the Delete Confirmation Dialog -->
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
 
     <!-- Toast message in editor when current item was successfully deleted [CHAR LIMIT=NONE] -->
     <string name="editor_delete_item_successful">Item deleted</string>

@@ -194,7 +194,6 @@ public class InventoryProvider extends ContentProvider {
             default:
                 throw new IllegalArgumentException("Update is not supported for " + uri);
         }
-
     }
 
     /**  Helper method used to communicate with the database through the
