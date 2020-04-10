@@ -56,6 +56,9 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         // find the listView and set the CusorAdaptor on it
         ListView itemListView = (ListView) findViewById(R.id.list_view);
 
+        // This will make it possible to select many items at once
+        itemListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+
         itemListView.setAdapter(mInventoryCursorAdapter);
         itemListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

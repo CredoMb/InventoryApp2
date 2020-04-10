@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
 
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
 import com.example.android.inventoryapp.data.InventoryDbHelper;
@@ -163,6 +166,21 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      */
     private int DEFAULT_QUANTITY_VALUE = 0;
 
+    /** Boolean flag that keeps track of whether the item has been edited (true) or not (false) */
+    private boolean mItemHasChanged = false;
+
+    /**
+     * OnTouchListener that listens for any user touches on a View, implying that they are modifying
+     * the view, and we change the mItemHasChanged boolean to true.
+     */
+    private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            mItemHasChanged = true;
+            return false;
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,6 +198,17 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
 
         mSupplierEdtiText = (EditText) findViewById(R.id.edit_product_supplier);
+
+        // Setting the same touch listener in all of the Edit Text will
+        // help us know if the user started editing an item.
+        // It will prevent the user to accidently quit the activity in
+        // the middle of an edition.
+
+        mNameEditText.setOnTouchListener(mTouchListener);
+        mPriceEditText.setOnTouchListener(mTouchListener);
+        mShippedEditText.setOnTouchListener(mTouchListener);
+        mSoldEditText.setOnTouchListener(mTouchListener);
+        mSupplierEdtiText.setOnTouchListener(mTouchListener);
 
         // Get the intent from the CatalogActivity
         // Change the title of the Editor Activity based on the action that will occur
@@ -305,10 +334,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         // If this is a new item, hide the "Delete" menu item.
-        //if (mItemUri == null) {
+        if (mItemUri == null) {
         MenuItem menuItem = menu.findItem(R.id.action_delete);
         menuItem.setVisible(false);
-        //}
+        }
         return true;
     }
 
@@ -343,7 +372,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 return true;
             // Respond to a click on the "Up" arrow button in the app bar
             case android.R.id.home:
-                /*// Navigate back to parent activity (CatalogActivity)
+                // Navigate back to parent activity (CatalogActivity)
                 if (mItemHasChanged) {
                     NavUtils.navigateUpFromSameTask(this);
                 }
@@ -361,7 +390,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
                 // Show a dialog that notifies the user they have unsaved changes
                 showUnsavedChangesDialog(discardButtonClickListener);
-                return true;*/
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -570,5 +599,35 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // Close the activity
         finish();
     }
+
+    /**
+     * Show a dialog that warns the user there are unsaved changes that will be lost
+     * if they continue leaving the editor.
+     *
+     * @param discardButtonClickListener is the click listener for what to do when
+     *                                   the user confirms they want to discard their changes
+     */
+    private void showUnsavedChangesDialog(
+            DialogInterface.OnClickListener discardButtonClickListener) {
+        // Create an AlertDialog.Builder and set the message, and click listeners
+        // for the postivie and negative buttons on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.unsaved_changes_dialog_msg);
+        builder.setPositiveButton(R.string.discard, discardButtonClickListener);
+        builder.setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked the "Keep editing" button, so dismiss the dialog
+                // and continue editing the item.
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
 
 }
