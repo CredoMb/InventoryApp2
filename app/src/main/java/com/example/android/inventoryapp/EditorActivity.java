@@ -74,47 +74,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      * EditText field to enter the supplier's name
      */
     private EditText mSupplierEdtiText;
-    /**
-     * Button to decrement the number of sales
-     */
 
-    private Button mSalesDecrement;
-
-    /**
-     * Button to increment the number of sales
-     */
-    private Button mSalesIncrement;
-
-    /**
-     * Button to decrement the number shipped item
-     */
-    private Button mShippedDecrement;
-
-    /**
-     * Button to increment the number of shipped item
-     */
-    private Button mShippedIncrement;
-
-    /**
-     * Data base helper that will provide an access to the shelter dataBase
-     */
-    InventoryDbHelper mDbHelper;
-
-    /**
-     * The toast to display after a saving attempt to the dataBase
-     */
-    private Toast mSavingStateToast;
-
-    /**
-     * The toast to display after a delete attempt to the dataBase
-     */
-    private Toast mdeleteStateToast;
-
-    /**
-     * The toast that signifies to the user that the name field
-     * must have a value
-     */
-    private Toast mEmptyNameToast;
 
     /**
      * The default value of the weight for each item
