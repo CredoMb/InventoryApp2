@@ -309,12 +309,16 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             int supplierColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_SUPPLIER);
             mSupplierEdtiText.setText(cursor.getString(supplierColumnIndex), TextView.BufferType.EDITABLE);
 
+
         }
         // Here the user wanna do what ?
         else {
             // Couper de la
             //
         }
+        // Close the cursor to avoid memory licks
+        cursor.close();
+
     }
 
     @Override
