@@ -54,7 +54,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         mInventoryCursorAdapter = new InventoryCursorAdapter(this,null);
 
         // find the listView and set the CusorAdaptor on it
-        ListView itemsListView = (ListView) findViewById(R.id.list_view);
+        final ListView itemsListView = (ListView) findViewById(R.id.list_view);
 
         // This will make it possible to select many items at once
         itemsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
@@ -88,7 +88,10 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean
                     checked) {
+                // Get the total number of selected items
+                final int checkedItems = itemsListView.getCheckedItemCount();
 
+                mode.setTitle(String.format("%d",checkedItems));
             }
 
             @Override
@@ -118,6 +121,13 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                         }
                         mode.finish();
                         mCursorAdapter.changeCursor(mDbAdapter.fetchAllReminders());*/
+                    case R.id.action_select_all:
+
+                        // Iterate through the all list and select each
+                        // item of the list
+                        for (int i=0; i< itemsListView.getCount();i++) {
+                         itemsListView.setItemChecked(i,true);
+                        };
 
                         return true;
                 }
