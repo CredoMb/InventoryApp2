@@ -11,17 +11,17 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CursorAdapter;
 import android.widget.ListView;
+import android.view.ActionMode;
+import android.widget.Toast;
 
-import com.example.android.inventoryapp.data.InventoryContract;
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
-import com.example.android.inventoryapp.data.InventoryDbHelper;
-
-import java.util.List;
 
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -54,13 +54,13 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         mInventoryCursorAdapter = new InventoryCursorAdapter(this,null);
 
         // find the listView and set the CusorAdaptor on it
-        ListView itemListView = (ListView) findViewById(R.id.list_view);
+        ListView itemsListView = (ListView) findViewById(R.id.list_view);
 
         // This will make it possible to select many items at once
-        itemListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        itemsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
-        itemListView.setAdapter(mInventoryCursorAdapter);
-        itemListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        itemsListView.setAdapter(mInventoryCursorAdapter);
+        itemsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
@@ -81,6 +81,55 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 startActivity(intent);
             }
         });
+
+        itemsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        itemsListView.setMultiChoiceModeListener((new AbsListView.MultiChoiceModeListener(){
+
+            @Override
+            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean
+                    checked) {
+
+            }
+
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                MenuInflater inflater = mode.getMenuInflater();
+                inflater.inflate(R.menu.menu_action_mode, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_delete_modal:
+
+                        Toast.makeText(getApplicationContext(),"Delete this shit",Toast.LENGTH_LONG)
+                        .show();
+
+                        /*for (int nC = mCursorAdapter.getCount() - 1; nC >= 0; nC--) {
+                            if (mListView.isItemChecked(nC)) {
+                                mDbAdapter.deleteReminderById(getIdFromPosition(nC));
+                            }
+                        }
+                        mode.finish();
+                        mCursorAdapter.changeCursor(mDbAdapter.fetchAllReminders());*/
+
+                        return true;
+                }
+                return false;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+
+            }
+        }));
+
         // Initiate the loader
         getLoaderManager().initLoader(INVENTORY_LOADER,null,this);
     }
