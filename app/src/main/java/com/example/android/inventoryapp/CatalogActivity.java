@@ -2,9 +2,11 @@ package com.example.android.inventoryapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.ContentUris;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
@@ -25,7 +27,9 @@ import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
 
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    /** Tag to display with the LOG message*/
+    /**
+     * Tag to display with the LOG message
+     */
     private String LOG_TAG = CatalogActivity.class.getSimpleName();
 
     // Id for the Loader
@@ -36,6 +40,9 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     // The cursor Adapter
     private InventoryCursorAdapter mInventoryCursorAdapter;
 
+    // Variable that will store the listview
+    ListView mItemsListView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,22 +52,22 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         openButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(CatalogActivity.this,EditorActivity.class);
+                Intent intent = new Intent(CatalogActivity.this, EditorActivity.class);
                 startActivity(intent);
             }
         });
 
         // Initialize the mInventoryCursorAdapter
-        mInventoryCursorAdapter = new InventoryCursorAdapter(this,null);
+        mInventoryCursorAdapter = new InventoryCursorAdapter(this, null);
 
         // find the listView and set the CusorAdaptor on it
-        final ListView itemsListView = (ListView) findViewById(R.id.list_view);
+        mItemsListView = (ListView) findViewById(R.id.list_view);
 
         // This will make it possible to select many items at once
-        itemsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        mItemsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
-        itemsListView.setAdapter(mInventoryCursorAdapter);
-        itemsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mItemsListView.setAdapter(mInventoryCursorAdapter);
+        mItemsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
@@ -71,7 +78,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 // the Uri will be made of "content://com.example.android.inventoryapp"
                 // and the Id of the selected item. For example, if the second item was clicked
                 // the Uri would be "content://com.example.android.inventoryapp/inventory/2"
-                Uri itemUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI,id);
+                Uri itemUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, id);
 
                 // Add the Item Uri to the intent as an extra,
                 // So that the Editor Activiy would use it to modify the item's informations
@@ -82,16 +89,17 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
             }
         });
 
-        itemsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-        itemsListView.setMultiChoiceModeListener((new AbsListView.MultiChoiceModeListener(){
+        mItemsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        mItemsListView.setMultiChoiceModeListener((new AbsListView.MultiChoiceModeListener() {
 
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean
                     checked) {
                 // Get the total number of selected items
-                final int checkedItems = itemsListView.getCheckedItemCount();
+                final int checkedItems = mItemsListView.getCheckedItemCount();
 
-                mode.setTitle(String.format("%d",checkedItems));
+                // Show it on the app bar
+                mode.setTitle(String.format("%d", checkedItems));
             }
 
             @Override
@@ -109,26 +117,23 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                 switch (item.getItemId()) {
+                    // Define the behavior for when the
+                    // user clicks on the "DELETE" button
                     case R.id.action_delete_modal:
 
-                        Toast.makeText(getApplicationContext(),"Delete this shit",Toast.LENGTH_LONG)
-                        .show();
+                        Toast.makeText(getApplicationContext(), "Delete this shit", Toast.LENGTH_LONG)
+                                .show();
 
-                        /*for (int nC = mCursorAdapter.getCount() - 1; nC >= 0; nC--) {
-                            if (mListView.isItemChecked(nC)) {
-                                mDbAdapter.deleteReminderById(getIdFromPosition(nC));
-                            }
-                        }
-                        mode.finish();
-                        mCursorAdapter.changeCursor(mDbAdapter.fetchAllReminders());*/
+                        // Get the ids of all the checked Items.
+                        long[] checkedItemsIds = mItemsListView.getCheckItemIds();
+
                     case R.id.action_select_all:
 
-                        // Iterate through the all list and select each
-                        // item of the list
-                        for (int i=0; i< itemsListView.getCount();i++) {
-                         itemsListView.setItemChecked(i,true);
-                        };
-
+                        // Iterate through the list and select each
+                        // item.
+                        for (int i = 0; i < mItemsListView.getCount(); i++) {
+                            mItemsListView.setItemChecked(i, true);
+                        }
                         return true;
                 }
                 return false;
@@ -141,13 +146,13 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         }));
 
         // Initiate the loader
-        getLoaderManager().initLoader(INVENTORY_LOADER,null,this);
+        getLoaderManager().initLoader(INVENTORY_LOADER, null, this);
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
 
-        String [] projection = {InventoryEntry._ID,
+        String[] projection = {InventoryEntry._ID,
                 InventoryEntry.COLUMN_ITEM_NAME,
                 InventoryEntry.COLUMN_ITEM_PRICE,
                 InventoryEntry.COLUMN_ITEM_QUANTITY,
@@ -170,7 +175,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         // What do you mean by notification URI ?
 
-        cursor.setNotificationUri(getContentResolver(),InventoryEntry.CONTENT_URI);
+        cursor.setNotificationUri(getContentResolver(), InventoryEntry.CONTENT_URI);
         mInventoryCursorAdapter.swapCursor(cursor);
 
         //  Why is our crusor null ? Why ? Ithink i know why !
@@ -182,7 +187,9 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         mInventoryCursorAdapter.swapCursor(null);
     }
 
-    /** This will inflate the menu on the Catalog Activity */
+    /**
+     * This will inflate the menu on the Catalog Activity
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu options from the res/menu/menu_editor.xml file.
@@ -190,4 +197,40 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         getMenuInflater().inflate(R.menu.menu_catalog, menu);
         return true;
     }
+
+
+    /** Will delete selected items of the listView.
+     *
+     *  Will be called in the showDeleteConfirmationDialog(),
+     *  which will be used inside the AbsListView.MultiChoiceModeListener()
+     *  of the listView */
+
+    public void deleteItems(long[] checkedItemsIds) {
+
+        // Get the number of checked Items.
+        int checkedItemsCount = checkedItemsIds.length;
+
+        // Build the selection that will be used
+        // after the "WHERE" clause to query the database.
+        String selection = InventoryEntry._ID + " IN (";
+
+        for (int i = 0;i < checkedItemsCount; i++) {
+            // Add the Ids to the selection
+            selection += String.valueOf(checkedItemsIds[i]);
+            // As long as there are still ids inside of the
+            // array, separate them by a ","
+            if (i < checkedItemsCount - 1) {
+                selection += ",";
+
+                // Close the "WHERE ID IN (..." with a ")"
+            } else {
+                selection += ")";
+            }
+        }
+
+        // With the content resolver, delete
+        // the selected items from the database.
+        getContentResolver().delete(InventoryEntry.CONTENT_URI, selection, null);
+    }
+
 }

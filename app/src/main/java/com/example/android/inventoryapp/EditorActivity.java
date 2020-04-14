@@ -156,7 +156,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mSoldEditText = (EditText) findViewById(R.id.edit_product_sold);
         mShippedEditText = (EditText) findViewById(R.id.edit_product_shipped);
 
-
         mSupplierEdtiText = (EditText) findViewById(R.id.edit_product_supplier);
 
         // Setting the same touch listener in all of the Edit Text will
