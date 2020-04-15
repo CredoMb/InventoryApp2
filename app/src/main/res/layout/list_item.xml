@@ -6,42 +6,52 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     >
+
     <ImageView
         android:id="@+id/product_iv"
-        android:layout_width="80dp"
-        android:layout_height="80dp"/>
+        android:layout_width="88dp"
+        android:layout_height="88dp"
+        android:scaleType="centerCrop"/>
+
     <!-- Add the supplier to the UI -->
     <RelativeLayout
         android:id="@+id/text_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:paddingLeft="8dp">
 
         <TextView
             android:id="@+id/name_tv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:textSize="14dp"
+            android:layout_height="40dp"
+            android:gravity="bottom"
+            android:textSize="18sp"
+            android:textStyle="bold"
             tools:text="Shoes"/>
+
         <!-- Add the supplier to the UI -->
         <TextView
             android:id="@+id/price_tv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="top"
             android:layout_below="@id/name_tv"
             android:layout_marginRight="16dp"
+            android:textSize="14sp"
             tools:text="200$"/>
+
         <!-- Add the supplier to the UI -->
         <TextView
             android:id="@+id/quantity_tv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="top"
             android:layout_below="@+id/name_tv"
             android:layout_toRightOf="@id/price_tv"
+            android:textSize="14sp"
             tools:text="2 left"
             />
-
     </RelativeLayout>
 
 </LinearLayout>

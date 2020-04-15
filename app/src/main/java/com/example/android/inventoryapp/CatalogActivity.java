@@ -99,10 +99,17 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 // Get the total number of selected items
                 final int checkedItems = mItemsListView.getCheckedItemCount();
 
+                // Get the item
+                // set a "selector on the item"
                 // Show it on the app bar
                 mode.setTitle(String.format("%d", checkedItems));
 
-                //
+                //get the view of that item
+                // change that view
+
+
+                //mItemsListView.getSelectedView()
+
 
             }
 
@@ -110,6 +117,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                 MenuInflater inflater = mode.getMenuInflater();
                 inflater.inflate(R.menu.menu_action_mode, menu);
+
                 return true;
             }
 
@@ -121,6 +129,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+
                 switch (item.getItemId()) {
                     // Define the behavior for when the
                     // user clicks on the "DELETE" button

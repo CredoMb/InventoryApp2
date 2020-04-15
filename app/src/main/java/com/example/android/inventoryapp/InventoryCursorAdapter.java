@@ -43,7 +43,6 @@ public class InventoryCursorAdapter extends CursorAdapter {
         return LayoutInflater.from(context).inflate(R.layout.list_item,parent,false);
     }
 
-
     /**
      * This method binds the item data (in the current row pointed to by cursor) to the given
      * list item layout. For example, the name for the current item can be set on the name TextView
