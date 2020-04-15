@@ -101,6 +101,9 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
                 // Show it on the app bar
                 mode.setTitle(String.format("%d", checkedItems));
+
+                //
+
             }
 
             @Override
