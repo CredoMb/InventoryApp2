@@ -95,6 +95,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean
                     checked) {
+
                 // Get the total number of selected items
                 final int checkedItems = mItemsListView.getCheckedItemCount();
 
@@ -111,6 +112,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
             @Override
             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+
                 return false;
             }
 
@@ -121,11 +123,12 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                     // user clicks on the "DELETE" button
                     case R.id.action_delete_modal:
 
-                        Toast.makeText(getApplicationContext(), "Delete this shit", Toast.LENGTH_LONG)
-                                .show();
-
                         // Get the ids of all the checked Items.
                         long[] checkedItemsIds = mItemsListView.getCheckItemIds();
+
+                        // Show the dialog to confirm the deletion
+                        // of the checked Items
+                        showDeleteConfirmationDialog(checkedItemsIds);
 
                     case R.id.action_select_all:
 
@@ -204,12 +207,16 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     private void showDeleteConfirmationDialog(long []checkedItemsIds) {
 
         final long [] ItemsIds = checkedItemsIds;
-        if ()
+        String deleteMsg = getString(R.string.delete_dialog_msg);
 
-            // Create an AlertDialog.Builder and set the message, and click listeners
-            // for the positive and negative buttons on the dialog.
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.delete_dialog_msg);
+        if (ItemsIds.length > 1) {
+            deleteMsg = getString(R.string.delete_dialog_msg_group);
+        }
+
+        // Create an AlertDialog.Builder and set the message, and click listeners
+        // for the positive and negative buttons on the dialog.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(deleteMsg);
         builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Delete" button, so delete the item.
@@ -230,7 +237,6 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
-
 
     /** Will delete selected items of the listView.
      *

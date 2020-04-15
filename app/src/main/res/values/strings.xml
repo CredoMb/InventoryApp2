@@ -91,6 +91,9 @@
     <!-- Dialog message to ask the user to confirm deleting the current item [CHAR LIMIT=NONE] -->
     <string name="delete_dialog_msg">Delete this item?</string>
 
+    <!-- Dialog message to ask the user to confirm deleting a set of items [CHAR LIMIT=NONE] -->
+    <string name="delete_dialog_msg_group">Delete these items?</string>
+
     <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
     <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
 
