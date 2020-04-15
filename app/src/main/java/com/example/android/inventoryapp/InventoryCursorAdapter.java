@@ -10,9 +10,12 @@ import android.widget.TextView;
 
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
 
+import java.text.NumberFormat;
+
 public class InventoryCursorAdapter extends CursorAdapter {
 
     private String NUMBER_FORMAT = "%d";
+    private String LEFT_TAG = " left";
 
     /** Will be used inside the "String.Format" to precise the
      *  conversion from integer to String */
@@ -64,12 +67,14 @@ public class InventoryCursorAdapter extends CursorAdapter {
 
         // Get the name, the price and the quantity from the cursor
         String name =  cursor.getString(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_NAME));
-        String price = cursor.getString(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_PRICE));
+        Float price = cursor.getFloat(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_PRICE));
         String quantity = String.format(NUMBER_FORMAT,cursor.getInt(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_QUANTITY)));
+
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
 
         // Put the name, the price and the quantity inside the corresponding textViews
         nameTextView.setText(name);
-        priceTextView.setText(price);
-        quantityTextView.setText(quantity);
+        priceTextView.setText(currencyFormat.format(price));
+        quantityTextView.setText(quantity + LEFT_TAG);
     }
 }
