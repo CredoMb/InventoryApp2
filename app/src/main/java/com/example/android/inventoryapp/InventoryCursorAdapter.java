@@ -70,11 +70,19 @@ public class InventoryCursorAdapter extends CursorAdapter {
         Float price = cursor.getFloat(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_PRICE));
         String quantity = String.format(NUMBER_FORMAT,cursor.getInt(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_QUANTITY)));
 
+        // Photo content provider to get the image
+        // Is the image stored with the
+
+        // How to transfert the image from the gallery database
+        // to the application it self.
+
         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
 
         // Put the name, the price and the quantity inside the corresponding textViews
         nameTextView.setText(name);
         priceTextView.setText(currencyFormat.format(price));
         quantityTextView.setText(quantity + LEFT_TAG);
+
+
     }
 }

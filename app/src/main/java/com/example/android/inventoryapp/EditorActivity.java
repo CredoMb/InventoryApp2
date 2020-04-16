@@ -5,16 +5,19 @@ import android.app.LoaderManager;
 import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,7 +27,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
 
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
-import com.example.android.inventoryapp.data.InventoryDbHelper;
+
+import java.io.InputStream;
 
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -35,8 +39,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     /**
      * ImageView to store the product's Image
+     * Unfortunatelly,for some reasons, the imageView variable doesn't work.
+     * So we couldn't use it inside "onCreate".
      */
-    private ImageView mProductImageView;
+     // private ImageView mProductImageView;
 
     /**
      * EditText field to enter the product's price
@@ -47,16 +53,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      * EditText field to enter the product'S quantity
      */
     private TextView mQuantityTextView;
-
-    /**
-     * TextView that displays the number of product sold
-     */
-    private TextView mSoldTextView;
-
-    /**
-     * TextView that displays the number of product shipped by the supplier
-     */
-    private TextView mShippedTextView;
 
     /**
      * EditText Field to enter the number of sold Items.
@@ -75,16 +71,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      */
     private EditText mSupplierEdtiText;
 
-
-    /**
-     * The default value of the weight for each item
-     */
-    private int ZERO = 0;
-
-    /**
-     * Variable that contains the integer "1"
-     */
-    private int ONE = 1;
 
     /**
      * Represent the maximum items that could be
@@ -126,6 +112,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      */
     private int DEFAULT_QUANTITY_VALUE = 0;
 
+    /**The Code to use whith the intent that
+     * should get an image from the library */
+    private static final int PICK_IMAGE = 1;
+
     /** Boolean flag that keeps track of whether the item has been edited (true) or not (false) */
     private boolean mItemHasChanged = false;
 
@@ -146,10 +136,13 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
 
+        // Get the ImageView that will contain the thumbnail of the
+        // product.
+        ;
+
         // Find the view related to the database column and store them into
         // appropriate variables
         mNameEditText = (EditText) findViewById(R.id.edit_product_name);
-        mProductImageView = (ImageView) findViewById(R.id.product_iv);
         mPriceEditText = (EditText) findViewById(R.id.edit_product_price);
         mQuantityTextView = (TextView) findViewById(R.id.product_quantity_tv);
 
@@ -158,11 +151,29 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         mSupplierEdtiText = (EditText) findViewById(R.id.edit_product_supplier);
 
+        // Set a click listener onto the product image view.
+        // When clicked, it will start an intent to find a picture
+        // from the device's files.
+
+        // This use of the Product imageView is temporary, until we find a solution
+        // to the reason why the variable is not working.
+        ((ImageView)findViewById(R.id.product_image_editor)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+            }
+        });
+
         // Setting the same touch listener in all of the Edit Text will
         // help us know if the user started editing an item.
         // It will prevent the user to accidently quit the activity in
         // the middle of an edition.
 
+        ((ImageView)findViewById(R.id.product_image_editor)).setOnTouchListener(mTouchListener);
         mNameEditText.setOnTouchListener(mTouchListener);
         mPriceEditText.setOnTouchListener(mTouchListener);
         mShippedEditText.setOnTouchListener(mTouchListener);
@@ -268,7 +279,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             int supplierColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_SUPPLIER);
             mSupplierEdtiText.setText(cursor.getString(supplierColumnIndex), TextView.BufferType.EDITABLE);
 
-
         }
         // Here the user wanna do what ?
         else {
@@ -314,6 +324,32 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         getMenuInflater().inflate(R.menu.menu_editor, menu);
         return true;
     }
+
+    /**
+     * Receives the image choosed by the user
+     * and set it into the image view of the product.
+     * */
+    @Override
+      public void onActivityResult(int requestCode, int resultCode, Intent data){
+
+        if (requestCode == PICK_IMAGE) {
+              /*Bundle extras = data.getExtras();
+              Bitmap producBitmap = (Bitmap) extras.get("data");
+              ((ImageView)findViewById(R.id.product_image_editor)).setImageBitmap(producBitmap);*/
+              try{
+                  final InputStream imageStream = getContentResolver().openInputStream(data.getData());
+                  final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                  ((ImageView)findViewById(R.id.product_image_editor)).setImageBitmap(selectedImage);
+              }
+              catch (Exception e) {
+                  // If the file is not found
+                  // details of the exception will be printed
+                  // on the log.
+                  e.printStackTrace();
+              }
+
+        }
+      }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

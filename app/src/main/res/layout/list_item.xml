@@ -11,7 +11,8 @@
         android:id="@+id/product_iv"
         android:layout_width="88dp"
         android:layout_height="88dp"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:src="@drawable/placeholder_image"/>
 
     <!-- Add the supplier to the UI -->
     <RelativeLayout
