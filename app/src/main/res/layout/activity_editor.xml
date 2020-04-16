@@ -8,10 +8,6 @@
     android:padding="@dimen/activity_margin"
     tools:context=".EditorActivity">
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
 
         <ImageView
             android:id="@+id/product_image_editor"
@@ -23,35 +19,47 @@
             android:focusable="true"
             android:scaleType="centerCrop"
             android:src="@drawable/placeholder_image" />
-    </FrameLayout>
-
 
     <!-- Name category -->
     <LinearLayout
         android:id="@+id/container_measurement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <!-- Label -->
-        <TextView
-            android:text="@string/category_name"
-            style="@style/CategoryStyle" />
-
-        <!-- Input fields -->
-        <RelativeLayout
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/outlinedTextField"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:paddingLeft="4dp">
+            android:hint="@string/hint_product_name"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            <!-- Name field -->
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_product_name"
-                android:hint="@string/hint_product_name"
-                android:inputType="text"
-                style="@style/EditorFieldStyle" />
-        </RelativeLayout>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <!-- Label -->
+        <!--        <TextView
+                    android:text="@string/category_name"
+                    style="@style/CategoryStyle" />
+
+                &lt;!&ndash; Input fields &ndash;&gt;
+                <RelativeLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:paddingLeft="4dp">
+
+                    &lt;!&ndash; Name field &ndash;&gt;
+                    <EditText
+                        android:id="@+id/edit_product_name"
+                        android:hint="@string/hint_product_name"
+                        android:inputType="text"
+                        style="@style/EditorFieldStyle" />
+                </RelativeLayout>-->
     </LinearLayout>
 
     <!-- Price category -->

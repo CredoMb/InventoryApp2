@@ -13,7 +13,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -25,7 +24,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
-
+import com.google.android.material.textfield.TextInputEditText;
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
 
 import java.io.InputStream;
@@ -35,7 +34,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     /**
      * EditText field to enter the product's name
      */
-    private EditText mNameEditText;
+    private TextInputEditText mNameInputEditText;
 
     /**
      * ImageView to store the product's Image
@@ -142,7 +141,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         // Find the view related to the database column and store them into
         // appropriate variables
-        mNameEditText = (EditText) findViewById(R.id.edit_product_name);
+        mNameInputEditText = (TextInputEditText) findViewById(R.id.edit_product_name);
         mPriceEditText = (EditText) findViewById(R.id.edit_product_price);
         mQuantityTextView = (TextView) findViewById(R.id.product_quantity_tv);
 
@@ -174,7 +173,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // the middle of an edition.
 
         ((ImageView)findViewById(R.id.product_image_editor)).setOnTouchListener(mTouchListener);
-        mNameEditText.setOnTouchListener(mTouchListener);
+        mNameInputEditText.setOnTouchListener(mTouchListener);
         mPriceEditText.setOnTouchListener(mTouchListener);
         mShippedEditText.setOnTouchListener(mTouchListener);
         mSoldEditText.setOnTouchListener(mTouchListener);
@@ -253,7 +252,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
             // Get the name from the cursor and put it on the appropriate edit text
             int nameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_NAME);
-            mNameEditText.setText(cursor.getString(nameColumnIndex), TextView.BufferType.EDITABLE);
+            mNameInputEditText.setText(cursor.getString(nameColumnIndex), TextView.BufferType.EDITABLE);
 
             // Get the price from the cursor and put it on the appropriate edit text
             int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_PRICE);
@@ -414,7 +413,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private void saveItem() {
 
         // Get the text from all the "editTexts" fields
-        String nameString = mNameEditText.getText().toString().trim(); // Should not be null
+        String nameString = mNameInputEditText.getText().toString().trim(); // Should not be null
         String supplierString = mSupplierEdtiText.getText().toString().trim();
 
         // Verify if the form has a name and it must have
@@ -425,7 +424,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             Toast.makeText(this, R.string.emptyNameMessage, Toast.LENGTH_LONG).show();
 
             return;
-            // mNameEditText.requestFocus();
+            // mNameInputEditText.requestFocus();
             // Also, is the quantity or the sold/shipped number higher than 1000 ?
             // Sold can not be bellow the shipped, it doesn'T make sens
             // If the shipped is bellow, it should give an error
