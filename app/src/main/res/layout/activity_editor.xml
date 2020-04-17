@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".EditorActivity">
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".EditorActivity">
 
 
         <ImageView
@@ -20,126 +23,122 @@
             android:scaleType="centerCrop"
             android:src="@drawable/placeholder_image" />
 
-    <LinearLayout
-        android:id="@+id/container_measurement"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="48dp"
-        android:paddingRight="48dp"
-        android:orientation="vertical">
-
-        <!-- Name category -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/outlinedTextField"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_product_name"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_product_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <!-- Price category -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/PriceOutlinedTextField"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="@string/hint_product_price"
-
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-            <!-- Price field -->
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_product_price"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <!-- Shipped Input -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/ShippedOutlinedTextField"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="@string/hint_product_shipped"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-            <!-- Shipped Input Field -->
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_product_shipped"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <!-- Container for the Shipped and Sold field -->
         <LinearLayout
-            android:id="@+id/container_shipped_sold"
+            android:id="@+id/container_measurement"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:paddingLeft="48dp"
+            android:paddingRight="48dp">
 
-            <!-- Sold category -->
+            <!-- Name category -->
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/SoldOutlinedTextField"
-                android:layout_width="0dp"
-                android:layout_weight="2"
+                android:id="@+id/outlinedTextField"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/hint_product_sold"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:hint="@string/hint_product_name">
 
-                <!-- Sold field -->
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_product_sold"
+                    android:id="@+id/edit_product_name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
+                    android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Quantity TextView -->
+
+            <!-- Price category -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/PriceOutlinedTextField"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+
+                android:hint="@string/hint_product_price">
+
+                <!-- Price field -->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_product_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Shipped Input -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ShippedOutlinedTextField"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/hint_product_shipped">
+
+                <!-- Shipped Input Field -->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_product_shipped"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <!-- Container for the Shipped and Sold field -->
+            <LinearLayout
+                android:id="@+id/container_shipped_sold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <!-- Sold category -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/SoldOutlinedTextField"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:hint="@string/hint_product_sold">
+
+                    <!-- Sold field -->
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_product_sold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Quantity TextView -->
                 <TextView
                     android:id="@+id/product_quantity_tv"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text = "Quantity: "
-                    android:hint="@string/hint_product_quantity" />
+                    android:layout_weight="1"
+                    android:hint="@string/hint_product_quantity"
+                    android:text="Quantity: " />
 
-        </LinearLayout> <!--End of the group view for shipped and sold fields -->
+            </LinearLayout> <!--End of the group view for shipped and sold fields -->
 
-        <!-- Supplier category -->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/SupplierOutlinedTextField"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="@string/hint_product_sold"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-            <!-- Supplier field -->
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_product_supplier"
+            <!-- Supplier category -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/SupplierOutlinedTextField"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                />
+                android:layout_marginTop="8dp"
+                android:hint="@string/hint_product_sold">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <!-- Supplier field -->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_product_supplier"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-    </LinearLayout> <!--End of the group view for all the fields -->
+        </LinearLayout> <!--End of the group view for all the fields -->
 
     </LinearLayout> <!--End of the root view -->
+</ScrollView>
