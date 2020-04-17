@@ -21,12 +21,12 @@
     <!-- name for the save option on the Edit menu -->
     <string name="action_save">Save</string>
     <!-- Hint of the product name Field -->
-    <string name="hint_product_name">Enter a name</string>
+    <string name="hint_product_name">Name</string>
     <!-- Name for the label of the product's name Edit Field -->
     <string name="category_name">Name</string>
 
     <!-- Hint of the product price Field -->
-    <string name="hint_product_price">Enter a price</string>
+    <string name="hint_product_price">Price</string>
     <!-- Name for the label of the product's Price Edit Field -->
     <string name="category_price">Price</string>
 
@@ -40,15 +40,15 @@
     <!-- Name for the label of the product's sold TextView-->
     <string name="category_sold">Sold</string>
     <!-- Hint of the product sold number Field -->
-    <string name="hint_product_sold">How many were sold ?</string>
+    <string name="hint_product_sold">Sold</string>
 
     <!-- Name for the label of the product's shipped TextView -->
     <string name="category_shipped">Shipped</string>
     <!-- Hint for the quantity of product that have been shipped -->
-    <string name="hint_product_shipped">How many were shipped ?</string>
+    <string name="hint_product_shipped">Shipped</string>
 
     <!-- Hint of the product supplier Field -->
-    <string name="hint_product_supplier">Enter a supplier</string>
+    <string name="hint_product_supplier">Supplier</string>
     <!-- Name for the label of the product's supplier Edit Field -->
     <string name="category_supplier">Supplier</string>
 

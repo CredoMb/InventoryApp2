@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/activity_margin"
     tools:context=".EditorActivity">
 
 
         <ImageView
             android:id="@+id/product_image_editor"
-            android:layout_width="180dp"
-            android:layout_height="180dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
             android:layout_marginBottom="8dp"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
@@ -20,13 +20,15 @@
             android:scaleType="centerCrop"
             android:src="@drawable/placeholder_image" />
 
-    <!-- Name category -->
     <LinearLayout
         android:id="@+id/container_measurement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="48dp"
+        android:paddingRight="48dp"
         android:orientation="vertical">
 
+        <!-- Name category -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/outlinedTextField"
             android:layout_width="match_parent"
@@ -41,169 +43,103 @@
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
-        <!-- Label -->
-        <!--        <TextView
-                    android:text="@string/category_name"
-                    style="@style/CategoryStyle" />
 
-                &lt;!&ndash; Input fields &ndash;&gt;
-                <RelativeLayout
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:paddingLeft="4dp">
 
-                    &lt;!&ndash; Name field &ndash;&gt;
-                    <EditText
-                        android:id="@+id/edit_product_name"
-                        android:hint="@string/hint_product_name"
-                        android:inputType="text"
-                        style="@style/EditorFieldStyle" />
-                </RelativeLayout>-->
-    </LinearLayout>
-
-    <!-- Price category -->
-    <LinearLayout
-        android:id="@+id/container_price"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <!-- Label -->
-        <TextView
-            android:text="@string/category_price"
-            style="@style/CategoryStyle" />
-
-        <!-- Input fields -->
-        <RelativeLayout
+        <!-- Price category -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/PriceOutlinedTextField"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:paddingLeft="4dp">
+            android:layout_marginTop="8dp"
+            android:hint="@string/hint_product_price"
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <!-- Price field -->
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_product_price"
-                android:hint="@string/hint_product_price"
-                android:inputType="numberDecimal"
-                style="@style/EditorFieldStyle" />
-        </RelativeLayout>
-    </LinearLayout>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
 
-    <!-- Shipped category -->
-    <LinearLayout
-        android:id="@+id/container_shipped"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Label -->
-        <TextView
-            android:text="@string/category_shipped"
-            style="@style/CategoryStyle" />
-
-        <!-- Content fields -->
-        <RelativeLayout
+        <!-- Shipped Input -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ShippedOutlinedTextField"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:paddingLeft="4dp">
+            android:layout_marginTop="8dp"
+            android:hint="@string/hint_product_shipped"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-
-            <!-- Shipped field -->
-            <EditText
+            <!-- Shipped Input Field -->
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_product_shipped"
-                android:hint="@string/hint_product_shipped"
-                android:inputType="number"
-                style="@style/EditorFieldStyle" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
 
-        </RelativeLayout>
-    </LinearLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Sold category -->
-    <LinearLayout
-        android:id="@+id/container_sold"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
-        <!-- Label -->
-        <TextView
-            android:text="@string/category_sold"
-            style="@style/CategoryStyle" />
-
-        <!-- Content fields -->
-        <RelativeLayout
+        <!-- Container for the Shipped and Sold field -->
+        <LinearLayout
+            android:id="@+id/container_shipped_sold"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:paddingLeft="4dp">
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
 
-            <!-- Sold field -->
-            <EditText
-                android:id="@+id/edit_product_sold"
+            <!-- Sold category -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/SoldOutlinedTextField"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="wrap_content"
                 android:hint="@string/hint_product_sold"
-                android:inputType="number"
-                style="@style/EditorFieldStyle" />
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-        </RelativeLayout>
-    </LinearLayout>
+                <!-- Sold field -->
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_product_sold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
 
-    <!-- Quantity category -->
-    <LinearLayout
-        android:id="@+id/container_quantity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Label -->
-        <TextView
-            android:text="@string/category_quantity"
-            style="@style/CategoryStyle" />
+            <!-- Quantity TextView -->
+                <TextView
+                    android:id="@+id/product_quantity_tv"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text = "Quantity: "
+                    android:hint="@string/hint_product_quantity" />
 
-        <!-- Input fields -->
-        <RelativeLayout
+        </LinearLayout> <!--End of the group view for shipped and sold fields -->
+
+        <!-- Supplier category -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/SupplierOutlinedTextField"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:paddingLeft="4dp">
-
-            <!-- Quantity field -->
-            <TextView
-                android:id="@+id/product_quantity_tv"
-                android:text = "0"
-                android:hint="@string/hint_product_quantity"
-                style="@style/EditorFieldStyle" />
-        </RelativeLayout>
-    </LinearLayout>
-
-
-    <!-- Supplier category -->
-    <LinearLayout
-        android:id="@+id/container_supplier"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <!-- Label -->
-        <TextView
-            android:text="@string/category_supplier"
-            style="@style/CategoryStyle" />
-
-        <!-- Input fields -->
-        <RelativeLayout
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="2"
-            android:paddingLeft="4dp">
+            android:layout_marginTop="8dp"
+            android:hint="@string/hint_product_sold"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <!-- Supplier field -->
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_product_supplier"
-                android:hint="@string/hint_product_supplier"
-                android:inputType="text"
-                style="@style/EditorFieldStyle" />
-        </RelativeLayout>
-    </LinearLayout>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
 
-</LinearLayout>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </LinearLayout> <!--End of the group view for all the fields -->
+
+    </LinearLayout> <!--End of the root view -->

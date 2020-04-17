@@ -142,6 +142,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // Find the view related to the database column and store them into
         // appropriate variables
         mNameInputEditText = (TextInputEditText) findViewById(R.id.edit_product_name);
+        //setPrefixText
         mPriceEditText = (EditText) findViewById(R.id.edit_product_price);
         mQuantityTextView = (TextView) findViewById(R.id.product_quantity_tv);
 
@@ -348,6 +349,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
               }
 
         }
+        super.onActivityResult(requestCode,resultCode,data);
       }
 
     @Override
