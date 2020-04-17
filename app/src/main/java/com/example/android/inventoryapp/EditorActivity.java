@@ -28,6 +28,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
 
 import java.io.InputStream;
+import java.text.NumberFormat;
 
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -258,7 +259,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             // Get the price from the cursor and put it on the appropriate edit text
             int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_PRICE);
             double priceNumber = cursor.getDouble(priceColumnIndex);
-            mPriceEditText.setText(String.format(DECIMAL_FORMAT, priceNumber), TextView.BufferType.EDITABLE);
+            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+
+            mPriceEditText.setText(currencyFormat.format(priceNumber), TextView.BufferType.EDITABLE);
 
             // Get the shipped value from the cursor and put it on the appropriate edit text
             int shippedColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_SHIPPED);
