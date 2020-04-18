@@ -15,21 +15,23 @@
         <ImageView
             android:id="@+id/product_image_editor"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginBottom="8dp"
+            android:layout_height="@dimen/product_image_height"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:focusable="true"
             android:scaleType="centerCrop"
             android:src="@drawable/placeholder_image" />
 
+        <!-- Container for all the input fields
+             of the form -->
         <LinearLayout
             android:id="@+id/container_measurement"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="48dp"
-            android:paddingRight="48dp">
+            android:layout_marginTop="@dimen/form_top_margin"
+            android:paddingLeft="@dimen/fields_container_padding"
+            android:paddingRight="@dimen/fields_container_padding">
 
             <!-- Name category -->
             <com.google.android.material.textfield.TextInputLayout
@@ -53,8 +55,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-
+                android:layout_marginTop="@dimen/view_margin"
                 android:hint="@string/hint_product_price">
 
                 <!-- Price field -->
@@ -71,7 +72,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/view_margin"
                 android:hint="@string/hint_product_shipped">
 
                 <!-- Shipped Input Field -->
@@ -88,7 +89,7 @@
                 android:id="@+id/container_shipped_sold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/view_margin"
                 android:orientation="horizontal">
 
                 <!-- Sold category -->
@@ -126,9 +127,9 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/hint_product_sold">
+                android:layout_marginTop="@dimen/view_margin"
+                android:layout_marginBottom="@dimen/view_margin"
+                android:hint="@string/hint_product_supplier">
 
                 <!-- Supplier field -->
                 <com.google.android.material.textfield.TextInputEditText

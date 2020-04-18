@@ -3,7 +3,48 @@
     <!-- Margin around the floating action button in CatalogActivity -->
     <dimen name="fab_margin">16dp</dimen>
 
-    <dimen name="activity_margin">16dp
-    </dimen>
+    <dimen name="activity_margin">16dp</dimen>
+
     <dimen name="tv_margin">8dp</dimen>
+
+    <!--
+        To be used in the
+        List Item Layout
+    -->
+    <dimen name=""></dimen>
+
+    <!-- Used for the dimensions of the product's ImageView -->
+    <dimen name="product_image_dimension">88dp</dimen>
+    <!--Size for the product name text -->
+    <dimen name="primary_text_size">18sp</dimen>
+
+    <!--Used for the right margin of the price textview -->
+    <dimen name="margin_price_textview">16dp</dimen>
+
+    <!--Size for the quantity and the price's text -->
+    <dimen name="secondary_text_size">14sp</dimen>
+
+    <!-- Value of the spacing between the groupview containing
+         the text-->
+    <dimen name="groupview_spacing">8dp</dimen>
+
+    <!-- Height of the textViews -->
+    <dimen name="text_view_dimension">40dp</dimen>
+
+    <!--
+        To be used in the
+        Editor Activity Layout
+    -->
+
+    <!-- The Height of the Product Image -->
+    <dimen name="product_image_height">200dp</dimen>
+
+    <!-- The margin to be used between views of the form-->
+    <dimen name="view_margin">8dp</dimen>
+
+    <!-- Margin to use on top of the fields group view-->
+    <dimen name="form_top_margin">16dp</dimen>
+
+    <!-- Side Padding for the container of the form's fields-->
+    <dimen name="fields_container_padding">48dp</dimen>
 </resources>

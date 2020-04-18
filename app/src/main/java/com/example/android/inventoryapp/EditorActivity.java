@@ -259,8 +259,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             // Get the price from the cursor and put it on the appropriate edit text
             int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_PRICE);
             double priceNumber = cursor.getDouble(priceColumnIndex);
-            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
 
+            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
             mPriceEditText.setText(currencyFormat.format(priceNumber), TextView.BufferType.EDITABLE);
 
             // Get the shipped value from the cursor and put it on the appropriate edit text
