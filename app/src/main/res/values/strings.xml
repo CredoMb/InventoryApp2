@@ -52,12 +52,7 @@
     <!-- Name for the label of the product's supplier Edit Field -->
     <string name="category_supplier">Supplier</string>
 
-    <!-- Text for the increment button -->
-    <string name="increment">+</string>
-    <!-- Text for the decrement button -->
-    <string name="decrement">-</string>
-
-    <!-- Used to display Toast related to the
+    <!-- Will be used to display Toast related to the
          user actions inside the Editor Activity-->
 
     <!-- Text for the Toast to help the user fill the name Edit Text -->

@@ -11,7 +11,6 @@
         android:orientation="vertical"
         tools:context=".EditorActivity">
 
-
         <ImageView
             android:id="@+id/product_image_editor"
             android:layout_width="match_parent"
@@ -58,7 +57,8 @@
                 android:layout_marginTop="@dimen/view_margin"
                 android:hint="@string/hint_product_price">
 
-                <!-- Price field -->
+                <!-- Price field
+                 is the font "rubik"-->
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_product_price"
                     android:layout_width="match_parent"
@@ -98,7 +98,7 @@
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:hint="@string/hint_product_sold">
 
                     <!-- Sold field -->
@@ -109,17 +109,25 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Quantity TextView -->
-                <TextView
-                    android:id="@+id/product_quantity_tv"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/QuantityOutlinedTextField"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:hint="@string/hint_product_quantity"
-                    android:text="Quantity: " />
+                    android:hint="@string/hint_product_sold">
+                    <!-- Quantity TextView -->
+                    <TextView
+                        android:id="@+id/product_quantity_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="@dimen/view_margin"
+                        android:gravity="center_vertical"
+                        android:hint="@string/hint_product_quantity"
+                        android:text="Quantity: 0"
+                        android:textSize="18sp" />
 
-            </LinearLayout> <!--End of the group view for shipped and sold fields -->
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout> <!--End of the group view for sold and left quantity-->
 
             <!-- Supplier category -->
             <com.google.android.material.textfield.TextInputLayout

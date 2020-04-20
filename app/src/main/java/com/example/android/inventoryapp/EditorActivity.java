@@ -13,6 +13,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -143,7 +144,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // Find the view related to the database column and store them into
         // appropriate variables
         mNameInputEditText = (TextInputEditText) findViewById(R.id.edit_product_name);
-        //setPrefixText
+
         mPriceEditText = (EditText) findViewById(R.id.edit_product_price);
         mQuantityTextView = (TextView) findViewById(R.id.product_quantity_tv);
 
