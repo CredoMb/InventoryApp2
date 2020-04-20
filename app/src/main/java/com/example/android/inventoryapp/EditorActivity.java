@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
 
@@ -43,7 +44,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      * Unfortunatelly,for some reasons, the imageView variable doesn't work.
      * So we couldn't use it inside "onCreate".
      */
-     // private ImageView mProductImageView;
+    // private ImageView mProductImageView;
 
     /**
      * EditText field to enter the product's price
@@ -100,7 +101,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      */
     private String NUMBER_FORMAT = "%d";
 
-    /** Decimal Format*/
+    /**
+     * Decimal Format
+     */
     private String DECIMAL_FORMAT = "%.2f";
 
     /**
@@ -113,11 +116,15 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      */
     private int DEFAULT_QUANTITY_VALUE = 0;
 
-    /**The Code to use whith the intent that
-     * should get an image from the library */
+    /**
+     * The Code to use whith the intent that
+     * should get an image from the library
+     */
     private static final int PICK_IMAGE = 1;
 
-    /** Boolean flag that keeps track of whether the item has been edited (true) or not (false) */
+    /**
+     * Boolean flag that keeps track of whether the item has been edited (true) or not (false)
+     */
     private boolean mItemHasChanged = false;
 
     /**
@@ -158,8 +165,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // from the device's files.
 
         // This use of the Product imageView is temporary, until we find a solution
-        // to the reason why the variable is not working.
-        ((ImageView)findViewById(R.id.product_image_editor)).setOnClickListener(new View.OnClickListener() {
+        // because storing the ImageView inside a variable doesn't work.
+        ((ImageView) findViewById(R.id.product_image_editor)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -175,7 +182,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // It will prevent the user to accidently quit the activity in
         // the middle of an edition.
 
-        ((ImageView)findViewById(R.id.product_image_editor)).setOnTouchListener(mTouchListener);
+        ((ImageView) findViewById(R.id.product_image_editor)).setOnTouchListener(mTouchListener);
         mNameInputEditText.setOnTouchListener(mTouchListener);
         mPriceEditText.setOnTouchListener(mTouchListener);
         mShippedEditText.setOnTouchListener(mTouchListener);
@@ -192,23 +199,18 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             setTitle(R.string.addItemTitle);
 
             // Invalidate the options menu, so the "Delete" menu option can be hidden.
-            // (It doesn't make sense to delete a item that hasn't been created yet.)
+            // (It doesn't make sense to delete an item that hasn't been created yet.)
             invalidateOptionsMenu();
 
         } else {
             // If the extra contains an Uri, the Activity 's title should be "Edit Item"
             setTitle(R.string.editItemTitle);
 
-            // initiate the loader here
-
             // Initialize a loader to read the item data from the database
             // and display the current values in the editor
             getLoaderManager().initLoader(EDITOR_LOADER_ID, null, this);
-
         }
 
-        // Initiate the loader. Why do that here ? Why bro ?
-        /*getLoaderManager().initLoader(EDITOR_LOADER_ID, null, this);*/
     }
 
     @Override
@@ -232,9 +234,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 null);
     }
 
-    // The database name has nothing to do with it, bitch !!!
-    // But why is this bugging ?
-
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
 
@@ -251,7 +250,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         if (cursor.moveToFirst()) {
 
             // Move the cursor to the concerned row before getting data from it
-           // cursor.moveToFirst();
+            // cursor.moveToFirst();
 
             // Get the name from the cursor and put it on the appropriate edit text
             int nameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_NAME);
@@ -261,6 +260,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_PRICE);
             double priceNumber = cursor.getDouble(priceColumnIndex);
 
+            // Create a number format to set the currency sign next to
+            // the price
             NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
             mPriceEditText.setText(currencyFormat.format(priceNumber), TextView.BufferType.EDITABLE);
 
@@ -284,10 +285,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             mSupplierEdtiText.setText(cursor.getString(supplierColumnIndex), TextView.BufferType.EDITABLE);
 
         }
-        // Here the user wanna do what ?
+        // In case we need
         else {
-            // Couper de la
-            //
         }
         // Close the cursor to avoid memory licks
         cursor.close();
@@ -299,21 +298,17 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     /**
-     * Is called when the decrement button of
-     * the sold item is pressed.
-     */
-
-
-    /**This method is called after invalidateOptionsMenu(), so that the
+     * This method is called after invalidateOptionsMenu() so that the
      * menu can be updated. I will hide the "delete" option when the
-     * user is adding a new item.*/
+     * user is adding a new item.
+     */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         // If this is a new item, hide the "Delete" menu item.
         if (mItemUri == null) {
-        MenuItem menuItem = menu.findItem(R.id.action_delete);
-        menuItem.setVisible(false);
+            MenuItem menuItem = menu.findItem(R.id.action_delete);
+            menuItem.setVisible(false);
         }
         return true;
     }
@@ -332,40 +327,36 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     /**
      * Receives the image choosed by the user
      * and set it into the image view of the product.
-     * */
+     */
     @Override
-      public void onActivityResult(int requestCode, int resultCode, Intent data){
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == PICK_IMAGE) {
-              /*Bundle extras = data.getExtras();
-              Bitmap producBitmap = (Bitmap) extras.get("data");
-              ((ImageView)findViewById(R.id.product_image_editor)).setImageBitmap(producBitmap);*/
-              try{
-                  final InputStream imageStream = getContentResolver().openInputStream(data.getData());
-                  final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                  ((ImageView)findViewById(R.id.product_image_editor)).setImageBitmap(selectedImage);
-              }
-              catch (Exception e) {
-                  // If the file is not found
-                  // details of the exception will be printed
-                  // on the log.
-                  e.printStackTrace();
-              }
+            try {
+                // Get the Image as an InputStream by using its "URI".
+                final InputStream imageStream = getContentResolver().openInputStream(data.getData());
+                // Turns the imageStream to a Bitmap
+                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                ((ImageView) findViewById(R.id.product_image_editor)).setImageBitmap(selectedImage);
+            } catch (Exception e) {
+                // If the file is not found
+                // details of the exception will be printed
+                // on the log.
+                e.printStackTrace();
+            }
 
         }
-        super.onActivityResult(requestCode,resultCode,data);
-      }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        // saveItem()
         // User clicked on a menu option in the app bar overflow menu
         switch (item.getItemId()) {
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
-               saveItem(); // what to do now ?
-               // finish();
+                saveItem();
 
                 return true;
 
@@ -379,11 +370,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 // Navigate back to parent activity (CatalogActivity)
                 if (!mItemHasChanged) {
                     NavUtils.navigateUpFromSameTask(this);
-                }
-                else {
+                } else {
                     // Otherwise if there are unsaved changes, setup a dialog to warn the user.
-                    // Create a click listener to handle the user confirming that
-                    // changes should be discarded.
                     DialogInterface.OnClickListener discardButtonClickListener =
                             new DialogInterface.OnClickListener() {
                                 @Override
@@ -395,7 +383,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
                     // Show a dialog that notifies the user they have unsaved changes
                     showUnsavedChangesDialog(discardButtonClickListener);
-                    return true;}
+                    return true;
+                }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -412,32 +401,30 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     /**
-     * The method that will be called once the user
-     * clicks on "save" icon. This method contains instruction
-     * to either save or update a item in the database*/
+     * This method will be called once the user
+     * clicks on "save" icon. It contains instruction
+     * to either save or update an item in the database
+     */
 
     private void saveItem() {
 
         // Get the text from all the "editTexts" fields
-        String nameString = mNameInputEditText.getText().toString().trim(); // Should not be null
+        String nameString = mNameInputEditText.getText().toString().trim();
         String supplierString = mSupplierEdtiText.getText().toString().trim();
 
         // Verify if the form has a name and it must have
         // a name ! If it doesn'T have a name, show a toaster ...
         if (TextUtils.isEmpty(nameString)) {
             // Initializing the Toast used when the user forget to type the name
-            // of the product
+            // of the product.
             Toast.makeText(this, R.string.emptyNameMessage, Toast.LENGTH_LONG).show();
 
             return;
-            // mNameInputEditText.requestFocus();
-            // Also, is the quantity or the sold/shipped number higher than 1000 ?
-            // Sold can not be bellow the shipped, it doesn'T make sens
-            // If the shipped is bellow, it should give an error
+
         }
 
-        // Check if this is supposed to be a new item
-        // and check if all the fields in the editor are blank.
+        // Check if it's a new item
+        // and check if all the fields are blank.
         // If the mItemUri is null, this means that the user clicked on the
         // button to create a new item.
         if (mItemUri == null &&
@@ -480,8 +467,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         if (leftQuantity >= DEFAULT_QUANTITY_VALUE) {
             quantityNumber = leftQuantity;
             mQuantityTextView.setText(String.valueOf(leftQuantity));
-        }
-        else {
+        } else {
             // Advise the uer to adjust the values of
             // shipped and sold items.
             Toast.makeText(this, R.string.invalidQuantityMessage, Toast.LENGTH_LONG).show();
@@ -518,7 +504,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                         Toast.LENGTH_SHORT).show();
             }
         }   // If the mItemUri is not null, we need to update the
-            // item instead of creating a new one.
+        // item instead of creating a new one.
 
         else {
             // The content URI of the item is: mItemUri.
@@ -534,13 +520,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
             // Check if the update was successfully made
             // and display an adequate message to the user.
-            if (rowsAffected == 0){
+            if (rowsAffected == 0) {
                 // zero row affected means that no changes
                 // were made.
                 Toast.makeText(this, getString(R.string.editor_update_item_failed),
                         Toast.LENGTH_SHORT).show();
-            }
-            else {
+            } else {
                 // If the rowsAffected is not equal to zero,
                 // this means that the change was made.
                 Toast.makeText(this, getString(R.string.editor_update_item_successful),
@@ -633,6 +618,4 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
-
-
 }
