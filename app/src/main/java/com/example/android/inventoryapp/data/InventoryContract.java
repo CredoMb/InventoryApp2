@@ -32,14 +32,6 @@ public class InventoryContract {
         public static final String COLUMN_ITEM_SHIPPED ="shipped";
         public static final String COLUMN_ITEM_SUPPLIER = "supplier";
 
-        // When it sold, the quantity decreases
-        // When it shipped, the quantity increases
-
-        // Do we have a list of shipped and sold items ?
-        // May be the tracking part comes later on the Lesson 4, who knows ?
-
-        //
-
         /* Represent the value of the default image */
         public static final int DEFAULT_IMAGE = -1;
         public static final Integer DEFAULT_QUANTITY = 0;

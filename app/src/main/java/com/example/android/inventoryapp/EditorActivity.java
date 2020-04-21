@@ -91,6 +91,17 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      */
     private Uri mItemUri;
 
+    /** Will store the index received from the CatalogActivity*/
+    private int mItemPostion;
+
+    /** Default index for the position received as an intent extra
+     *  sent by the CatalogActivity*/
+    private int DEFAULT_INDEX = -1;
+
+    /** Will receive the stream for the image that should be set
+     *  as the thumbnail of the item*/
+    private InputStream mImageStream;
+
     /**
      * The Id for the Loader of the Editor Activity
      */
@@ -193,6 +204,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // Change the title of the Editor Activity based on the action that will occur
         // Get the item Uri from the intent made by the Catalog activity
         mItemUri = getIntent().getData(); // There are no data
+        mItemPostion = getIntent().getIntExtra(Intent.EXTRA_INDEX,DEFAULT_INDEX);
 
         if (mItemUri == null) {
             // If the extra doesn't contain an Uri, the title Activity's should be "Add an Item"
@@ -334,9 +346,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         if (requestCode == PICK_IMAGE) {
             try {
                 // Get the Image as an InputStream by using its "URI".
-                final InputStream imageStream = getContentResolver().openInputStream(data.getData());
+                mImageStream = getContentResolver().openInputStream(data.getData());
                 // Turns the imageStream to a Bitmap
-                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                final Bitmap selectedImage = BitmapFactory.decodeStream(mImageStream);
                 ((ImageView) findViewById(R.id.product_image_editor)).setImageBitmap(selectedImage);
             } catch (Exception e) {
                 // If the file is not found
@@ -344,7 +356,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 // on the log.
                 e.printStackTrace();
             }
-
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -420,7 +431,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             Toast.makeText(this, R.string.emptyNameMessage, Toast.LENGTH_LONG).show();
 
             return;
-
         }
 
         // Check if it's a new item
@@ -532,7 +542,28 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                         Toast.LENGTH_SHORT).show();
             }
         }
-        finish();
+
+        // If the Image is null, finish the activity right away
+        if (mImageStream == null) {
+            finish();
+        }
+
+        // Start an intent to open back the CatalogActivity.
+        // Add the position and the corresponding Image of the item.
+        // This will help to update the item's thumbNail
+        // inside of the CatalogActivity.
+
+        Intent intent = new Intent(EditorActivity.this, CatalogActivity.class);
+
+        Bitmap selectedImage = BitmapFactory.decodeStream(mImageStream);
+
+        // Send the image and the position of the item to the CatalogActivity.
+        // This will help the CatalogActivity to update the image of the given item
+        intent.putExtra(Intent.EXTRA_STREAM,selectedImage);
+        intent.putExtra(Intent.EXTRA_INDEX,mItemPostion);
+
+        startActivity(intent);
+
     }
 
     /**

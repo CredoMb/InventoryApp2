@@ -2,6 +2,7 @@ package com.example.android.inventoryapp;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,6 @@ public class InventoryCursorAdapter extends CursorAdapter {
      */
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-
         return LayoutInflater.from(context).inflate(R.layout.list_item,parent,false);
     }
 
@@ -75,7 +75,6 @@ public class InventoryCursorAdapter extends CursorAdapter {
 
         // How to transfert the image from the gallery database
         // to the application it self.
-
         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
 
         // Put the name, the price and the quantity inside the corresponding textViews
@@ -83,6 +82,8 @@ public class InventoryCursorAdapter extends CursorAdapter {
         priceTextView.setText(currencyFormat.format(price));
         quantityTextView.setText(quantity + LEFT_TAG);
 
-
     }
+
+    // How to get the position --> Get the view at that position
+    // By view, I mean the entire layout! Bitch !
 }

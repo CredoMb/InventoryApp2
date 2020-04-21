@@ -10,8 +10,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,6 +29,14 @@ import android.widget.Toast;
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
 
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+
+    /** Default index for the position received as an intent extra
+     *  sent by the EditorActivity*/
+    private int DEFAULT_INDEX = -1;
+
+    /**The key used to pass the an item position
+     * as an extra of the intent. */
+    private static String ITEM_POSITION = "item_position";
 
     /**
      * Tag to display with the LOG message
@@ -60,6 +71,14 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         // Initialize the mInventoryCursorAdapter
         mInventoryCursorAdapter = new InventoryCursorAdapter(this, null);
 
+        // Get the intent from EditorActivity to set the image
+        // of the item. The intent will contain 2 extras, the Bitmap Image as a
+        // parcelable and the position as an integer.
+
+        int itemPosition = getIntent().getIntExtra(Intent.EXTRA_INDEX,DEFAULT_INDEX);
+        Bitmap itemImage = (Bitmap) getIntent().getParcelableExtra(Intent.EXTRA_STREAM);
+
+
         // find the listView and set the CusorAdaptor on it
         mItemsListView = (ListView) findViewById(R.id.list_view);
 
@@ -83,6 +102,9 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 // Add the Item Uri to the intent as an extra,
                 // So that the Editor Activiy would use it to modify the item's informations
                 intent.setData(itemUri);
+
+                // Add the position of the item to the intent
+                intent.putExtra(Intent.EXTRA_INDEX,position);
 
                 // Start the Editor Activity
                 startActivity(intent);
