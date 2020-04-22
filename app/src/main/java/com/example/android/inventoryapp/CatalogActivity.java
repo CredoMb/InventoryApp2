@@ -75,8 +75,11 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         // of the item. The intent will contain 2 extras, the Bitmap Image as a
         // parcelable and the position as an integer.
 
+
+/*
         int itemPosition = getIntent().getIntExtra(Intent.EXTRA_INDEX,DEFAULT_INDEX);
         Bitmap itemImage = (Bitmap) getIntent().getParcelableExtra(Intent.EXTRA_STREAM);
+*/
 
 
         // find the listView and set the CusorAdaptor on it
@@ -191,6 +194,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
         String[] projection = {InventoryEntry._ID,
                 InventoryEntry.COLUMN_ITEM_NAME,
+                InventoryEntry.COLUMN_ITEM_IMAGE,
                 InventoryEntry.COLUMN_ITEM_PRICE,
                 InventoryEntry.COLUMN_ITEM_QUANTITY,
                 InventoryEntry.COLUMN_ITEM_SOLD,

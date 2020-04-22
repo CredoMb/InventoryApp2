@@ -28,9 +28,10 @@
 
     <!-- Hint of the product quantity Field -->
     <string name="hint_product_quantity">Quantity after sales</string>
-    <!-- Name for the label of the product's Quantity Edit Field -->
+    <!-- Initial Text for the product's Quantity TextView -->
     <string name="quantity_initial_text">Quantity: 0</string>
-
+    <!-- Text used in the Editor Activity-->
+    <string name="quantity_text">Quantity: </string>
 
     <!-- Hint of the product sold number Field -->
     <string name="hint_product_sold">Sold</string>

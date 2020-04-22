@@ -26,10 +26,12 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
 
+import com.example.android.inventoryapp.data.InventoryContract;
 import com.google.android.material.textfield.TextInputEditText;
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
 
 import java.io.InputStream;
+import java.net.URI;
 import java.text.NumberFormat;
 
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -38,6 +40,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      * EditText field to enter the product's name
      */
     private TextInputEditText mNameInputEditText;
+
+    /**
+     * This will contain the uri of the image
+     * in a String format*/
+
+    private String mImageUriString;
 
     /**
      * ImageView to store the product's Image
@@ -231,6 +239,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // The thing is that we must create a database because
         String[] projection = {InventoryEntry._ID,
                 InventoryEntry.COLUMN_ITEM_NAME,
+                InventoryEntry.COLUMN_ITEM_IMAGE,
                 InventoryEntry.COLUMN_ITEM_PRICE,
                 InventoryEntry.COLUMN_ITEM_QUANTITY,
                 InventoryEntry.COLUMN_ITEM_SOLD,
@@ -268,14 +277,21 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             int nameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_NAME);
             mNameInputEditText.setText(cursor.getString(nameColumnIndex), TextView.BufferType.EDITABLE);
 
+            // Get the uri of the image in a String form.
+            // Turn the String into an Uri and set the image onto the
+            // item's ImageView
+            int imageColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_IMAGE);
+            Log.e("the image index",String.valueOf(imageColumnIndex));
+            mImageUriString = cursor.getString(imageColumnIndex);
+
+            Uri imageUri = Uri.parse(mImageUriString);
+            setItemImage(imageUri, ((ImageView) findViewById(R.id.product_image_editor)));
+
             // Get the price from the cursor and put it on the appropriate edit text
             int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_PRICE);
             double priceNumber = cursor.getDouble(priceColumnIndex);
 
-            // Create a number format to set the currency sign next to
-            // the price
-            NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
-            mPriceEditText.setText(currencyFormat.format(priceNumber), TextView.BufferType.EDITABLE);
+            mPriceEditText.setText(String.valueOf(priceNumber), TextView.BufferType.EDITABLE);
 
             // Get the shipped value from the cursor and put it on the appropriate edit text
             int shippedColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_SHIPPED);
@@ -290,7 +306,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             // Get the quantity from the cursor and put it on the appropriate edit text
             int quantityColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_QUANTITY);
             int quantityNumber = cursor.getInt(quantityColumnIndex);
-            mQuantityTextView.setText(String.format(NUMBER_FORMAT, quantityNumber), TextView.BufferType.EDITABLE);
+
+            mQuantityTextView.setText(getString(R.string.quantity_text) +
+                            String.format(NUMBER_FORMAT, quantityNumber)
+                    , TextView.BufferType.EDITABLE);
 
             // Get the supplier from the cursor and put it on the appropriate edit text
             int supplierColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_SUPPLIER);
@@ -345,11 +364,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         if (requestCode == PICK_IMAGE) {
             try {
-                // Get the Image as an InputStream by using its "URI".
-                mImageStream = getContentResolver().openInputStream(data.getData());
-                // Turns the imageStream to a Bitmap
-                final Bitmap selectedImage = BitmapFactory.decodeStream(mImageStream);
-                ((ImageView) findViewById(R.id.product_image_editor)).setImageBitmap(selectedImage);
+                // Turn the uri of the image into a String
+                // to store it inside the mImageUriString.
+                mImageUriString = data.getData().toString();
+                // Use the Uri to set the image onto its ImageView
+                setItemImage(data,((ImageView) findViewById(R.id.product_image_editor)));
+
             } catch (Exception e) {
                 // If the file is not found
                 // details of the exception will be printed
@@ -360,6 +380,24 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    /**Set the image of the item using its Uri path*/
+    public void setItemImage(Intent imageIntent, ImageView itemIv) {
+        // Get the Uri of attached to the intent
+        Uri imagePath = imageIntent.getData();
+
+
+        try {
+        // Get the Image as an InputStream by using its "URI".
+        InputStream imageStream = getContentResolver().openInputStream(imagePath);
+
+        // Turns the imageStream to a Bitmap
+        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+        itemIv.setImageBitmap(selectedImage);}
+
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -421,6 +459,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         // Get the text from all the "editTexts" fields
         String nameString = mNameInputEditText.getText().toString().trim();
+        String imageStringUri = mImageUriString;
         String supplierString = mSupplierEdtiText.getText().toString().trim();
 
         // Verify if the form has a name and it must have
@@ -487,6 +526,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // Create a ContentValues to store the informations of the new item
         ContentValues values = new ContentValues();
         values.put(InventoryEntry.COLUMN_ITEM_NAME, nameString);
+        values.put(InventoryEntry.COLUMN_ITEM_IMAGE,imageStringUri);
         values.put(InventoryEntry.COLUMN_ITEM_PRICE, priceNumber);
         values.put(InventoryEntry.COLUMN_ITEM_QUANTITY, quantityNumber);
         values.put(InventoryEntry.COLUMN_ITEM_SOLD, soldNumber);
@@ -543,17 +583,21 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             }
         }
 
-        // If the Image is null, finish the activity right away
-        if (mImageStream == null) {
-            finish();
-        }
+        finish();
 
-        // Start an intent to open back the CatalogActivity.
+        // If the Image is null, finish the activity right away
+        /* if (mImageStream == null) {
+            finish();
+        } */
+
+        //  Start an intent to open back the CatalogActivity.
         // Add the position and the corresponding Image of the item.
         // This will help to update the item's thumbNail
         // inside of the CatalogActivity.
 
-        Intent intent = new Intent(EditorActivity.this, CatalogActivity.class);
+        // The following will bot be needed anymore, I think.
+        //
+        /*Intent intent = new Intent(EditorActivity.this, CatalogActivity.class);
 
         Bitmap selectedImage = BitmapFactory.decodeStream(mImageStream);
 
@@ -562,8 +606,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         intent.putExtra(Intent.EXTRA_STREAM,selectedImage);
         intent.putExtra(Intent.EXTRA_INDEX,mItemPostion);
 
-        startActivity(intent);
-
+        startActivity(intent); */
     }
 
     /**

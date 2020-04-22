@@ -24,6 +24,7 @@ public class InventoryContract {
         //The name of the first table of the data base
         public static final String TABLE_NAME = "inventory";
         public static final String _ID = BaseColumns._ID;
+
         public static final String COLUMN_ITEM_NAME = "name";
         public static final String COLUMN_ITEM_IMAGE = "image";
         public static final String COLUMN_ITEM_PRICE = "price";
