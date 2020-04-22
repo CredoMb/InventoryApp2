@@ -367,8 +367,15 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 // Turn the uri of the image into a String
                 // to store it inside the mImageUriString.
                 mImageUriString = data.getData().toString();
-                // Use the Uri to set the image onto its ImageView
-                setItemImage(data,((ImageView) findViewById(R.id.product_image_editor)));
+
+                // Get permanent permission to access the file
+                // associated with the uri "imagePath"
+                int takeFlags = data.getFlags()
+                        & (Intent.FLAG_GRANT_READ_URI_PERMISSION
+                        | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                getContentResolver().takePersistableUriPermission(data.getData(), takeFlags);
+                // Finaly, set the image onto the image view
+                setItemImage(data.getData(),((ImageView) findViewById(R.id.product_image_editor)));
 
             } catch (Exception e) {
                 // If the file is not found
@@ -381,13 +388,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     /**Set the image of the item using its Uri path*/
-    public void setItemImage(Intent imageIntent, ImageView itemIv) {
+    public void setItemImage(Uri imagePath, ImageView itemIv) {
         // Get the Uri of attached to the intent
-        Uri imagePath = imageIntent.getData();
-
 
         try {
         // Get the Image as an InputStream by using its "URI".
+            //InputStream imageStream =
         InputStream imageStream = getContentResolver().openInputStream(imagePath);
 
         // Turns the imageStream to a Bitmap
