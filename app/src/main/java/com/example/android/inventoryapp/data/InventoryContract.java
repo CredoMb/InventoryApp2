@@ -38,7 +38,7 @@ public class InventoryContract {
         public static final Integer DEFAULT_QUANTITY = 0;
         public static final Double DEFAULT_PRICE = 0.0;
         public static final Integer DEFAULT_SOLD_OR_SHIPPED = 0;
-
+        public static final String DEFAULT_URI ="no_uri";
 
         /* The MIME type for the all inventory table */
         public static final String CONTENT_LIST_TYPE =

@@ -165,9 +165,11 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
                         // Show the dialog to confirm the deletion
                         // of the checked Items
-                        showDeleteConfirmationDialog(checkedItemsIds);
-                        mode.finish();
+                        showDeleteConfirmationDialog(checkedItemsIds, mode);
+                        return true;
 
+                        // Define the behavior for when the
+                        // user clicks on the "SELECT ALL" option
                     case R.id.action_select_all:
 
                         // Iterate through the list and select each
@@ -177,6 +179,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                         }
                         mode.finish();
                         return true;
+
                 }
                 return false;
             }
@@ -244,7 +247,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     /**
      * Prompt the user to confirm that they want to delete the checked items.
      */
-    private void showDeleteConfirmationDialog(long []checkedItemsIds) {
+    private void showDeleteConfirmationDialog(long []checkedItemsIds, final ActionMode mode) {
 
         final long [] ItemsIds = checkedItemsIds;
         String deleteMsg = getString(R.string.delete_dialog_msg);
@@ -269,6 +272,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 // and continue editing the item.
                 if (dialog != null) {
                     dialog.dismiss();
+                    mode.finish();
                 }
             }
         });
@@ -276,6 +280,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         // Create and show the AlertDialog
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+
     }
 
     /** Will delete selected items of the listView.

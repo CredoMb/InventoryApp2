@@ -465,7 +465,13 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         // Get the text from all the "editTexts" fields
         String nameString = mNameInputEditText.getText().toString().trim();
-        String imageStringUri = mImageUriString;
+
+        // If the uriString is not provided by the user,
+        // Use "no_uri" by default.
+        String imageStringUri = TextUtils.isEmpty(mImageUriString) ?
+                InventoryEntry.DEFAULT_URI
+                : mImageUriString;
+
         String supplierString = mSupplierEdtiText.getText().toString().trim();
 
         // Verify if the form has a name and it must have
@@ -485,7 +491,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         if (mItemUri == null &&
                 TextUtils.isEmpty(nameString)
                 && TextUtils.isEmpty(mSoldEditText.getText().toString().trim()) &&
-                TextUtils.isEmpty(mShippedEditText.getText().toString().trim())
+                TextUtils.isEmpty(mShippedEditText.getText().toString().trim()) &&
+                TextUtils.isEmpty(imageStringUri)
                 && TextUtils.isEmpty(supplierString)) {
             // Since no fields were modified, we can return early without creating a new item.
             // No need to create ContentValues and no need to do any ContentProvider operations.
