@@ -11,7 +11,7 @@ import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.android.popularmovies.R;
+
 
 public class GlideHelperClass extends AppGlideModule {
 

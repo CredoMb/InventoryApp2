@@ -23,6 +23,8 @@ public class InventoryCursorAdapter extends CursorAdapter {
 
     private String NUMBER_FORMAT = "%d";
     private String LEFT_TAG = " left";
+    private GlideHelperClass glideHelper;
+
 
     /** Will be used inside the "String.Format" to precise the
      *  conversion from integer to String */
@@ -36,6 +38,7 @@ public class InventoryCursorAdapter extends CursorAdapter {
 
     InventoryCursorAdapter(Context context, Cursor c) {
         super(context,c,0);
+
     }
 
     /**
@@ -72,19 +75,29 @@ public class InventoryCursorAdapter extends CursorAdapter {
         TextView quantityTextView = (TextView) view.findViewById(R.id.quantity_tv);
         ImageView itemThumbnail = (ImageView) view.findViewById(R.id.product_iv);
 
+
         // Get the name, the price and the quantity from the cursor
         String name =  cursor.getString(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_NAME));
         Float price = cursor.getFloat(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_PRICE));
         String quantity = String.format(NUMBER_FORMAT,cursor.getInt(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_QUANTITY)));
         String imageUriString = cursor.getString(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_IMAGE));
 
-        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+        // Turn the stringUri into an actual Uri
+        Uri imagePath = Uri.parse(imageUriString);
+        // Initialize the Glide Helper
+        glideHelper = new GlideHelperClass(context,imageUriString,R.drawable.placeholder_image,itemThumbnail);
 
         // Put the name, the price and the quantity inside the corresponding textViews
         nameTextView.setText(name);
+        // Set the image onto the item ImageView
+        glideHelper.loadImage();
 
-         Uri imagePath = Uri.parse(imageUriString);
-         itemThumbnail.setImageURI(imagePath);
+        // Format the price to appear with the currency
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
+        priceTextView.setText(currencyFormat.format(price));
+        quantityTextView.setText(quantity + LEFT_TAG);
+
+       //  itemThumbnail.setImageURI(imagePath);
 
         // itemThumbnail.setImageResource(R.drawable.ic_launcher_background);
        // Log.e("the uri",imageUriString);
@@ -104,8 +117,6 @@ public class InventoryCursorAdapter extends CursorAdapter {
         }*/
         //setItemImage(imagePath,itemThumbnail,context);
 
-        priceTextView.setText(currencyFormat.format(price));
-        quantityTextView.setText(quantity + LEFT_TAG);
 
 
     }
