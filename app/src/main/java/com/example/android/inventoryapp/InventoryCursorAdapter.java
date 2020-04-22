@@ -85,8 +85,9 @@ public class InventoryCursorAdapter extends CursorAdapter {
 
         Uri imagePath = Uri.parse(imageUriString);
         itemThumbnail.setImageURI(imagePath);
-       // itemThumbnail.setImageResource(R.drawable.ic_launcher_background);
-        Log.e("the uri",imageUriString);
+
+        // itemThumbnail.setImageResource(R.drawable.ic_launcher_background);
+       // Log.e("the uri",imageUriString);
 
         /*try {
             // Get the Image as an InputStream by using its "URI".

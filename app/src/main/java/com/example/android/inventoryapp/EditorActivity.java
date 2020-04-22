@@ -368,15 +368,16 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 // to store it inside the mImageUriString.
                 mImageUriString = data.getData().toString();
 
-                // Get permanent permission to access the file
-                // associated with the uri "imagePath"
-                int takeFlags = data.getFlags()
-                        & (Intent.FLAG_GRANT_READ_URI_PERMISSION
-                        | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                getContentResolver().takePersistableUriPermission(data.getData(), takeFlags);
                 // Finaly, set the image onto the image view
                 setItemImage(data.getData(),((ImageView) findViewById(R.id.product_image_editor)));
 
+                // Get permanent permission to access the file
+                // associated with the uri "imagePath"
+                /*int takeFlags = data.getFlags()
+                        & (Intent.FLAG_GRANT_READ_URI_PERMISSION
+                        | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                getContentResolver().takePersistableUriPermission(data.getData(), takeFlags);
+*/
             } catch (Exception e) {
                 // If the file is not found
                 // details of the exception will be printed
@@ -393,7 +394,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         try {
         // Get the Image as an InputStream by using its "URI".
-            //InputStream imageStream =
         InputStream imageStream = getContentResolver().openInputStream(imagePath);
 
         // Turns the imageStream to a Bitmap

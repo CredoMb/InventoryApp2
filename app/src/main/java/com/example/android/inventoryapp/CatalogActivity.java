@@ -166,6 +166,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                         // Show the dialog to confirm the deletion
                         // of the checked Items
                         showDeleteConfirmationDialog(checkedItemsIds);
+                        mode.finish();
 
                     case R.id.action_select_all:
 
@@ -174,6 +175,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                         for (int i = 0; i < mItemsListView.getCount(); i++) {
                             mItemsListView.setItemChecked(i, true);
                         }
+                        mode.finish();
                         return true;
                 }
                 return false;
