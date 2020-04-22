@@ -76,15 +76,15 @@ public class InventoryCursorAdapter extends CursorAdapter {
         String name =  cursor.getString(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_NAME));
         Float price = cursor.getFloat(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_PRICE));
         String quantity = String.format(NUMBER_FORMAT,cursor.getInt(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_QUANTITY)));
-       // String imageUriString = cursor.getString(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_IMAGE));
+        String imageUriString = cursor.getString(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_IMAGE));
 
         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
 
         // Put the name, the price and the quantity inside the corresponding textViews
         nameTextView.setText(name);
 
-        // Uri imagePath = Uri.parse(imageUriString);
-        // itemThumbnail.setImageURI(imagePath);
+         Uri imagePath = Uri.parse(imageUriString);
+         itemThumbnail.setImageURI(imagePath);
 
         // itemThumbnail.setImageResource(R.drawable.ic_launcher_background);
        // Log.e("the uri",imageUriString);

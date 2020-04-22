@@ -373,11 +373,11 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
                 // Get permanent permission to access the file
                 // associated with the uri "imagePath"
-                /*int takeFlags = data.getFlags()
+                int takeFlags = data.getFlags()
                         & (Intent.FLAG_GRANT_READ_URI_PERMISSION
                         | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 getContentResolver().takePersistableUriPermission(data.getData(), takeFlags);
-*/
+
             } catch (Exception e) {
                 // If the file is not found
                 // details of the exception will be printed
