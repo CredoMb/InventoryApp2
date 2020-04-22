@@ -82,8 +82,6 @@ public class InventoryCursorAdapter extends CursorAdapter {
         String quantity = String.format(NUMBER_FORMAT,cursor.getInt(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_QUANTITY)));
         String imageUriString = cursor.getString(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_IMAGE));
 
-        // Turn the stringUri into an actual Uri
-        Uri imagePath = Uri.parse(imageUriString);
         // Initialize the Glide Helper
         glideHelper = new GlideHelperClass(context,imageUriString,R.drawable.placeholder_image,itemThumbnail);
 

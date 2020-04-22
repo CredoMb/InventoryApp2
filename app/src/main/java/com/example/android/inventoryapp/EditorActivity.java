@@ -54,6 +54,11 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      */
     // private ImageView mProductImageView;
 
+    /**Will help us to load the item image onto its
+     * ImageView */
+
+    private GlideHelperClass mGlideHelper;
+
     /**
      * EditText field to enter the product's price
      */
@@ -179,6 +184,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         mSupplierEdtiText = (EditText) findViewById(R.id.edit_product_supplier);
 
+        mGlideHelper = new GlideHelperClass(getApplicationContext(),mImageUriString
+                ,R.drawable.placeholder_image,((ImageView) findViewById(R.id.product_image_editor)));
+
         // Set a click listener onto the product image view.
         // When clicked, it will start an intent to find a picture
         // from the device's files.
@@ -280,12 +288,19 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             // Get the uri of the image in a String form.
             // Turn the String into an Uri and set the image onto the
             // item's ImageView
-            int imageColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_IMAGE);
+            /*int imageColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_IMAGE);
             Log.e("the image index",String.valueOf(imageColumnIndex));
-            mImageUriString = cursor.getString(imageColumnIndex);
+            mImageUriString = cursor.getString(imageColumnIndex);*/
 
-            Uri imageUri = Uri.parse(mImageUriString);
-            setItemImage(imageUri, ((ImageView) findViewById(R.id.product_image_editor)));
+            mImageUriString = cursor.getString(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_IMAGE));
+
+            Log.e("Uri is not empty",mImageUriString);
+
+            mGlideHelper.setImageLink(mImageUriString);
+            mGlideHelper.loadImage();
+
+            /*Uri imageUri = Uri.parse(mImageUriString);
+            setItemImage(imageUri, ((ImageView) findViewById(R.id.product_image_editor)));*/
 
             // Get the price from the cursor and put it on the appropriate edit text
             int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_PRICE);
@@ -369,14 +384,17 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 mImageUriString = data.getData().toString();
 
                 // Finaly, set the image onto the image view
-                setItemImage(data.getData(),((ImageView) findViewById(R.id.product_image_editor)));
+                //setItemImage(data.getData(),((ImageView) findViewById(R.id.product_image_editor)));
 
+                mGlideHelper.setImageLink(mImageUriString);
+                mGlideHelper.loadImage();
                 // Get permanent permission to access the file
                 // associated with the uri "imagePath"
-                int takeFlags = data.getFlags()
+
+                /*int takeFlags = data.getFlags()
                         & (Intent.FLAG_GRANT_READ_URI_PERMISSION
                         | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                getContentResolver().takePersistableUriPermission(data.getData(), takeFlags);
+                getContentResolver().takePersistableUriPermission(data.getData(), takeFlags);*/
 
             } catch (Exception e) {
                 // If the file is not found

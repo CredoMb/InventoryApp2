@@ -41,4 +41,9 @@ public class GlideHelperClass extends AppGlideModule {
             //.error(mErrorImageId)
         }
     }
+
+    // Important setters
+    public void setImageLink (String imageLink) {
+        mImageLink = imageLink;
+    }
 }
