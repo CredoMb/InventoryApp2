@@ -129,13 +129,18 @@ public class InventoryProvider extends ContentProvider {
             throw new IllegalArgumentException("Item requires a name");
         }
 
+        // Check that the imageUri is not null
+        String imageStringUri = values.getAsString(InventoryEntry.COLUMN_ITEM_IMAGE);
+        if (imageStringUri == null) {
+            throw new IllegalArgumentException("Image String Uri should not be null");
+        }
+
 
         // Check that the price is valid
         Double price = values.getAsDouble(InventoryEntry.COLUMN_ITEM_PRICE);
         if ( price < InventoryEntry.DEFAULT_PRICE ) {
             throw new IllegalArgumentException("The price shouldn't have a negative value");
         }
-
 
         // Check that the number of shipped items is valid
         Integer shipped = values.getAsInteger(InventoryEntry.COLUMN_ITEM_SHIPPED);
