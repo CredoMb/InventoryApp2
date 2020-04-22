@@ -271,36 +271,21 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             return;
         }
 
-        // If our cursor only contains 1 item
-        // this means that the user want to update informations related
-        // to that item. Then, show all the information related to that item
-        // inside the edit text views.
-
+        // If our cursor only contains al least 1 item,
+        // it means that the user want to update it.
         if (cursor.moveToFirst()) {
-
-            // Move the cursor to the concerned row before getting data from it
-            // cursor.moveToFirst();
 
             // Get the name from the cursor and put it on the appropriate edit text
             int nameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_NAME);
             mNameInputEditText.setText(cursor.getString(nameColumnIndex), TextView.BufferType.EDITABLE);
 
             // Get the uri of the image in a String form.
-            // Turn the String into an Uri and set the image onto the
+            // Using GlideHelper set the image onto the
             // item's ImageView
-            /*int imageColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_IMAGE);
-            Log.e("the image index",String.valueOf(imageColumnIndex));
-            mImageUriString = cursor.getString(imageColumnIndex);*/
-
             mImageUriString = cursor.getString(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_IMAGE));
-
-            Log.e("Uri is not empty",mImageUriString);
 
             mGlideHelper.setImageLink(mImageUriString);
             mGlideHelper.loadImage();
-
-            /*Uri imageUri = Uri.parse(mImageUriString);
-            setItemImage(imageUri, ((ImageView) findViewById(R.id.product_image_editor)));*/
 
             // Get the price from the cursor and put it on the appropriate edit text
             int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_PRICE);
@@ -384,17 +369,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 mImageUriString = data.getData().toString();
 
                 // Finaly, set the image onto the image view
-                //setItemImage(data.getData(),((ImageView) findViewById(R.id.product_image_editor)));
 
                 mGlideHelper.setImageLink(mImageUriString);
                 mGlideHelper.loadImage();
-                // Get permanent permission to access the file
-                // associated with the uri "imagePath"
-
-                /*int takeFlags = data.getFlags()
-                        & (Intent.FLAG_GRANT_READ_URI_PERMISSION
-                        | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                getContentResolver().takePersistableUriPermission(data.getData(), takeFlags);*/
 
             } catch (Exception e) {
                 // If the file is not found
@@ -406,22 +383,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    /**Set the image of the item using its Uri path*/
-    public void setItemImage(Uri imagePath, ImageView itemIv) {
-        // Get the Uri of attached to the intent
-
-        try {
-        // Get the Image as an InputStream by using its "URI".
-        InputStream imageStream = getContentResolver().openInputStream(imagePath);
-
-        // Turns the imageStream to a Bitmap
-        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-        itemIv.setImageBitmap(selectedImage);}
-
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -509,8 +470,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         if (mItemUri == null &&
                 TextUtils.isEmpty(nameString)
                 && TextUtils.isEmpty(mSoldEditText.getText().toString().trim()) &&
-                TextUtils.isEmpty(mShippedEditText.getText().toString().trim()) &&
-                TextUtils.isEmpty(imageStringUri)
+                TextUtils.isEmpty(mShippedEditText.getText().toString().trim())
                 && TextUtils.isEmpty(supplierString)) {
             // Since no fields were modified, we can return early without creating a new item.
             // No need to create ContentValues and no need to do any ContentProvider operations.
@@ -616,28 +576,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         finish();
 
-        // If the Image is null, finish the activity right away
-        /* if (mImageStream == null) {
-            finish();
-        } */
-
-        //  Start an intent to open back the CatalogActivity.
-        // Add the position and the corresponding Image of the item.
-        // This will help to update the item's thumbNail
-        // inside of the CatalogActivity.
-
-        // The following will bot be needed anymore, I think.
-        //
-        /*Intent intent = new Intent(EditorActivity.this, CatalogActivity.class);
-
-        Bitmap selectedImage = BitmapFactory.decodeStream(mImageStream);
-
-        // Send the image and the position of the item to the CatalogActivity.
-        // This will help the CatalogActivity to update the image of the given item
-        intent.putExtra(Intent.EXTRA_STREAM,selectedImage);
-        intent.putExtra(Intent.EXTRA_INDEX,mItemPostion);
-
-        startActivity(intent); */
     }
 
     /**

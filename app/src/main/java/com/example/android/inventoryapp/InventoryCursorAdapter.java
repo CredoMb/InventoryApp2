@@ -95,59 +95,6 @@ public class InventoryCursorAdapter extends CursorAdapter {
         priceTextView.setText(currencyFormat.format(price));
         quantityTextView.setText(quantity + LEFT_TAG);
 
-       //  itemThumbnail.setImageURI(imagePath);
-
-        // itemThumbnail.setImageResource(R.drawable.ic_launcher_background);
-       // Log.e("the uri",imageUriString);
-
-        /*try {
-            // Get the Image as an InputStream by using its "URI".
-            InputStream imageStream = context.getContentResolver().openInputStream(imagePath);
-
-            // Turns the imageStream to a Bitmap
-            final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-            itemThumbnail.setImage(selectedImage);
-            itemThumbnail.setImageURI();
-            //itemThumbnail.setImageBitmap(selectedImage);}
-
-        catch (Exception e) {
-            e.printStackTrace();
-        }*/
-        //setItemImage(imagePath,itemThumbnail,context);
-
-
-
     }
 
-    /**Set the image of the item using its Uri path*/
-    public void setItemImage(Uri imagePath, ImageView itemIv,Context context) {
-
-        try {
-
-        /*    *//**Une solution *//*
-            final int takeFlags = data.getFlags()
-                    & (Intent.FLAG_GRANT_READ_URI_PERMISSION
-                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-// Check for the freshest data.
-            getContentResolver().takePersistableUriPermission(originalUri, takeFlags);
-            *//** Et voilà*//*
-*/
-
-            // Get the Image as an InputStream by using its "URI".
-            // This is not an intent right ? Why should we treat like one ?
-            // I don't get it bro, I don't !
-            Intent intent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-           // intent.getF
-            InputStream imageStream = context.getContentResolver().openInputStream(imagePath);
-
-            // Turns the imageStream to a Bitmap
-            final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-            itemIv.setImageBitmap(selectedImage);}
-
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    // How to get the position --> Get the view at that position
-    // By view, I mean the entire layout! Bitch !
 }

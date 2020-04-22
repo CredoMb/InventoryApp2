@@ -129,6 +129,7 @@ public class InventoryProvider extends ContentProvider {
             throw new IllegalArgumentException("Item requires a name");
         }
 
+
         // Check that the price is valid
         Double price = values.getAsDouble(InventoryEntry.COLUMN_ITEM_PRICE);
         if ( price < InventoryEntry.DEFAULT_PRICE ) {
