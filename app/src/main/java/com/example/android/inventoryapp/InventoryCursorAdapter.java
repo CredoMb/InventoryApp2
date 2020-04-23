@@ -1,5 +1,7 @@
 package com.example.android.inventoryapp;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,16 +16,24 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.app.ActivityCompat;
+
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
 
 import java.io.InputStream;
 import java.text.NumberFormat;
 
+
 public class InventoryCursorAdapter extends CursorAdapter {
 
     private String NUMBER_FORMAT = "%d";
+
     private String LEFT_TAG = " left";
+    // To help us laod photo using Glide library
     private GlideHelperClass glideHelper;
+
+    // The code to request the "READ_EXTERNAL_STORAGE" permission
+    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 3;
 
 
     /** Will be used inside the "String.Format" to precise the
@@ -39,6 +49,13 @@ public class InventoryCursorAdapter extends CursorAdapter {
     InventoryCursorAdapter(Context context, Cursor c) {
         super(context,c,0);
 
+        // Request the permission to read external storage.
+        // For instance, the permission to read photos from the
+        // Gallery.
+        ActivityCompat.requestPermissions(
+                (Activity) context,
+                new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
+                MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
     }
 
     /**
@@ -83,12 +100,13 @@ public class InventoryCursorAdapter extends CursorAdapter {
         String imageUriString = cursor.getString(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_IMAGE));
 
         // Initialize the Glide Helper
-        glideHelper = new GlideHelperClass(context,imageUriString,R.drawable.placeholder_image,itemThumbnail);
+        glideHelper = new GlideHelperClass(context.getApplicationContext(),imageUriString,R.drawable.placeholder_image,itemThumbnail);
+        // Set the image onto the item ImageView
+        glideHelper.loadImage();
 
         // Put the name, the price and the quantity inside the corresponding textViews
         nameTextView.setText(name);
-        // Set the image onto the item ImageView
-        glideHelper.loadImage();
+
 
         // Format the price to appear with the currency
         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();

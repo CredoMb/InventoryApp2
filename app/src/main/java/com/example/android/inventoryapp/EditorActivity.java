@@ -208,6 +208,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             }
         });
 
+
         // Setting the same touch listener in all of the Edit Text will
         // help us know if the user started editing an item.
         // It will prevent the user to accidently quit the activity in
@@ -373,7 +374,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 mImageUriString = data.getData().toString();
 
                 // Finaly, set the image onto the image view
-
                 mGlideHelper.setImageLink(mImageUriString);
                 mGlideHelper.loadImage();
 
