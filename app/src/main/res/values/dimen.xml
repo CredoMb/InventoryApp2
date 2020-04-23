@@ -38,6 +38,9 @@
     <!-- The Height of the Product Image -->
     <dimen name="product_image_height">200dp</dimen>
 
+    <!-- Dimensions of the icons -->
+    <dimen name="icon_dimensions">48dp</dimen>
+
     <!-- The margin to be used between views of the form-->
     <dimen name="view_margin">8dp</dimen>
 

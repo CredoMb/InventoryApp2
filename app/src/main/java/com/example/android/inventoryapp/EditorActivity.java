@@ -8,17 +8,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,13 +24,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
 
-import com.example.android.inventoryapp.data.InventoryContract;
 import com.google.android.material.textfield.TextInputEditText;
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
 
 import java.io.InputStream;
-import java.net.URI;
-import java.text.NumberFormat;
 
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -46,6 +41,13 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      * in a String format*/
 
     private String mImageUriString;
+
+    /**
+     * This will contain the image Button
+     * used to modify the item picture*/
+
+    private ImageButton mEditPictureIb;
+
 
     /**
      * ImageView to store the product's Image
@@ -176,6 +178,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // appropriate variables
         mNameInputEditText = (TextInputEditText) findViewById(R.id.edit_product_name);
 
+        mEditPictureIb = (ImageButton) findViewById(R.id.edit_picture_IB);
+
         mPriceEditText = (EditText) findViewById(R.id.edit_product_price);
         mQuantityTextView = (TextView) findViewById(R.id.product_quantity_tv);
 
@@ -193,7 +197,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         // This use of the Product imageView is temporary, until we find a solution
         // because storing the ImageView inside a variable doesn't work.
-        ((ImageView) findViewById(R.id.product_image_editor)).setOnClickListener(new View.OnClickListener() {
+        mEditPictureIb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

@@ -135,7 +135,6 @@ public class InventoryProvider extends ContentProvider {
             throw new IllegalArgumentException("Image String Uri should not be null");
         }
 
-
         // Check that the price is valid
         Double price = values.getAsDouble(InventoryEntry.COLUMN_ITEM_PRICE);
         if ( price < InventoryEntry.DEFAULT_PRICE ) {

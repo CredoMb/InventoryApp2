@@ -11,15 +11,34 @@
         android:orientation="vertical"
         tools:context=".EditorActivity">
 
-        <ImageView
-            android:id="@+id/product_image_editor"
+        <RelativeLayout
+            android:id="@+id/image_viewGroup"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/product_image_height"
-            android:background="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/placeholder_image" />
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/product_image_editor"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/product_image_height"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/placeholder_image" />
+
+            <ImageButton
+                android:id="@+id/edit_picture_IB"
+                android:layout_width="@dimen/icon_dimensions"
+                android:layout_height="@dimen/icon_dimensions"
+                android:layout_marginLeft="@dimen/view_margin"
+                android:layout_marginTop="@dimen/view_margin"
+                android:layout_marginRight="@dimen/view_margin"
+                android:layout_marginBottom="@dimen/view_margin"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/baseline_edit_black_24"
+                />
+        </RelativeLayout>
+
 
         <!-- Container for all the input fields
              of the form -->
