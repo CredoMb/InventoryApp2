@@ -5,7 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:background="@drawable/select_list_background"
     >
+
+    <!-- android:
+    background="@drawable/select_list_background" -->
 
     <ImageView
         android:id="@+id/product_iv"

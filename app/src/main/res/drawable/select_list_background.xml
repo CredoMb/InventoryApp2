@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item  android:state_pressed="true"
-        android:state_activated="true"
-        android:drawable="@color/list_select_background"></item>
+   <item android:state_activated="true"
+       android:drawable="@android:color/darker_gray"/>
+</selector>
 
+    <!--<item  android:state_pressed="true"
+            android:state_activated="true"
+            android:drawable="@color/list_select_background"></item>
+    -->
     <!-- Test the following code
 
     <?xml version="1.0" encoding="utf-8"?>
@@ -11,6 +15,8 @@
     <item android:drawable="@color/menuitem_press_background_color" android:state_activated="true" />
     <item android:drawable="@color/white" />
 </selector>
-
-    -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/menuitem_press_background_color" android:state_activated="true" />
+    <item android:drawable="@color/white" />
 </selector>
+    -->
