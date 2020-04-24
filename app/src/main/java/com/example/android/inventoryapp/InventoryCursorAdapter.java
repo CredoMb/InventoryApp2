@@ -107,33 +107,6 @@ public class InventoryCursorAdapter extends CursorAdapter {
         priceTextView.setText(currencyFormat.format(price));
         quantityTextView.setText(quantity + LEFT_TAG);
 
-
-        if (view.isActivated()) {
-            itemThumbnail.setImageResource(R.drawable.ic_launcher_background);
-            notifyDataSetChanged();
-        }
-
-/*        view.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                ((ImageView) view.findViewById(R.id.catalog_product_iv)).setImageResource(R.drawable.ic_launcher_background);
-                return true;
-            }
-        });*/
-        // Qu'est ce qui fait que la chose puisse changer
-        // de background couleur ?
-
-        // Je ne sais pas, bitch! Je ne sais pas
-
     }
 
-    // If this view is selected --> Change it ImageView
-    // ToggleSelection --> uses selectView --> add it to the mSelectedItems
-    //
-
-    /*@Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView.isSelected())
-        return super.getView(position, convertView, parent);
-    }*/
 }

@@ -8,7 +8,10 @@
 
     <!--This will be used to highlight a selected
         item in the CatalogActivity-->
-    <color name="quantity_tv_color">#000000</color>
+    <color name="light_gray">#d3d3d3</color>
+
+    <color name="quantity_tv_color">#080808</color>
+
 </resources>
 
 

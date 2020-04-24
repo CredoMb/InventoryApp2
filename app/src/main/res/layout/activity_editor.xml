@@ -135,6 +135,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:hint="@string/hint_product_sold">
+
                     <!-- Quantity TextView -->
                     <TextView
                         android:id="@+id/product_quantity_tv"

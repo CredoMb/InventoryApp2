@@ -1,6 +1,6 @@
 package com.example.android.inventoryapp;
 
-import android.app.AlertDialog;
+
 import android.app.LoaderManager;
 import android.content.ContentValues;
 import android.content.CursorLoader;
@@ -25,6 +25,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
 import com.google.android.material.textfield.TextInputLayout;
@@ -314,7 +315,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             int quantityColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_QUANTITY);
             int quantityNumber = cursor.getInt(quantityColumnIndex);
 
-            mQuantityTextView.setText(getString(R.string.quantity_text) +
+            mQuantityTextView.setText( getString(R.string.quantity_text) +
                             String.format(NUMBER_FORMAT, quantityNumber)
                     , TextView.BufferType.EDITABLE);
 
@@ -588,17 +589,17 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      * Prompt the user to confirm that they want to delete this item.
      */
     private void showDeleteConfirmationDialog() {
-        // Create an AlertDialog.Builder and set the message, and click listeners
-        // for the positive and negative buttons on the dialog.
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.delete_dialog_msg);
-        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+
+        MaterialAlertDialogBuilder alertDialog = new MaterialAlertDialogBuilder(this);
+        alertDialog.setMessage(R.string.delete_dialog_msg);
+
+        alertDialog.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Delete" button, so delete the item.
                 deleteItem();
             }
         });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Cancel" button, so dismiss the dialog
                 // and continue editing the item.
@@ -608,8 +609,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             }
         });
 
-        // Create and show the AlertDialog
-        AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
 
@@ -650,10 +649,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             DialogInterface.OnClickListener discardButtonClickListener) {
         // Create an AlertDialog.Builder and set the message, and click listeners
         // for the postivie and negative buttons on the dialog.
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.unsaved_changes_dialog_msg);
-        builder.setPositiveButton(R.string.discard, discardButtonClickListener);
-        builder.setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
+        MaterialAlertDialogBuilder alertDialog = new MaterialAlertDialogBuilder(this);
+        alertDialog.setMessage(R.string.unsaved_changes_dialog_msg);
+        alertDialog.setPositiveButton(R.string.discard, discardButtonClickListener);
+        alertDialog.setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Keep editing" button, so dismiss the dialog
                 // and continue editing the item.
@@ -664,7 +663,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         });
 
         // Create and show the AlertDialog
-        AlertDialog alertDialog = builder.create();
+
         alertDialog.show();
     }
 }

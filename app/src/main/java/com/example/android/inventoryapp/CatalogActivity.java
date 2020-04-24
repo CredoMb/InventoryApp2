@@ -2,7 +2,6 @@ package com.example.android.inventoryapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.ContentUris;
 import android.content.CursorLoader;
@@ -23,6 +22,7 @@ import android.widget.ListView;
 import android.view.ActionMode;
 
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -236,15 +236,15 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
         // Create an AlertDialog.Builder and set the message, and click listeners
         // for the positive and negative buttons on the dialog.
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(deleteMsg);
-        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+        MaterialAlertDialogBuilder alertDialog = new MaterialAlertDialogBuilder(this);
+        alertDialog.setMessage(deleteMsg);
+        alertDialog.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Delete" button, so delete the item.
                 deleteItems(ItemsIds);
             }
         });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+        alertDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Cancel" button, so dismiss the dialog
                 // and continue editing the item.
@@ -256,7 +256,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         });
 
         // Create and show the AlertDialog
-        AlertDialog alertDialog = builder.create();
+
         alertDialog.show();
 
     }

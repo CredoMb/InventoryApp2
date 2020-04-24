@@ -8,8 +8,20 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="actionModeBackground">@color/colorPrimary</item>
 
-        <item name="android:textColorHint"></item>
+
+        <item name="android:editTextColor">@color/quantity_tv_color</item>
+        <item name="alertDialogTheme">@style/ThemeOverlay.MaterialComponents.Dialog.Alert</item>
     </style>
+
+<!--
+    <style name="MaterialAlertDialog" parent="Theme.MaterialComponents.Dialog.Alert">
+        <item name="dialogButtonText"></item>
+        <item name="">
+    </style>
+
+    ThemeOverlay.MaterialComponents.MaterialAlertDialog
+
+-->
 
     <!-- Style for a category in the editor -->
     <style name="CategoryStyle">
