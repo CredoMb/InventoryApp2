@@ -5,6 +5,7 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name ="list_select_background">#D81B60</color>
+    <color name="light_gray">#d3d3d3</color>
 </resources>
 
 

@@ -1,24 +1,17 @@
 package com.example.android.inventoryapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.ContentUris;
-import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,9 +19,9 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.view.ActionMode;
-import android.widget.Toast;
 
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
 
@@ -115,6 +108,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         mItemsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         mItemsListView.setMultiChoiceModeListener((new AbsListView.MultiChoiceModeListener() {
 
+
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean
                     checked) {
@@ -122,17 +116,9 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 // Get the total number of selected items
                 final int checkedItems = mItemsListView.getCheckedItemCount();
 
-                // Get the item
-                // set a "selector on the item"
-                // Show it on the app bar
+                // Show the number of selected items
+                // in the app bar
                 mode.setTitle(String.format("%d", checkedItems));
-
-                //get the view of that item
-                // change that view
-
-
-                //mItemsListView.getSelectedView()
-
 
             }
 

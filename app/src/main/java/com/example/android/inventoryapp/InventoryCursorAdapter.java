@@ -3,11 +3,7 @@ package com.example.android.inventoryapp;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +16,6 @@ import androidx.core.app.ActivityCompat;
 
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
 
-import java.io.InputStream;
 import java.text.NumberFormat;
 
 
@@ -72,6 +67,7 @@ public class InventoryCursorAdapter extends CursorAdapter {
         return LayoutInflater.from(context).inflate(R.layout.list_item,parent,false);
     }
 
+
     /**
      * This method binds the item data (in the current row pointed to by cursor) to the given
      * list item layout. For example, the name for the current item can be set on the name TextView
@@ -90,8 +86,7 @@ public class InventoryCursorAdapter extends CursorAdapter {
         TextView nameTextView = (TextView) view.findViewById(R.id.name_tv);
         TextView priceTextView = (TextView) view.findViewById(R.id.price_tv);
         TextView quantityTextView = (TextView) view.findViewById(R.id.quantity_tv);
-        ImageView itemThumbnail = (ImageView) view.findViewById(R.id.product_iv);
-
+        ImageView itemThumbnail = (ImageView) view.findViewById(R.id.catalog_product_iv);
 
         // Get the name, the price and the quantity from the cursor
         String name =  cursor.getString(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_NAME));
@@ -107,12 +102,38 @@ public class InventoryCursorAdapter extends CursorAdapter {
         // Put the name, the price and the quantity inside the corresponding textViews
         nameTextView.setText(name);
 
-
         // Format the price to appear with the currency
         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
         priceTextView.setText(currencyFormat.format(price));
         quantityTextView.setText(quantity + LEFT_TAG);
 
+
+        if (view.isActivated()) {
+            itemThumbnail.setImageResource(R.drawable.ic_launcher_background);
+            notifyDataSetChanged();
+        }
+
+/*        view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                ((ImageView) view.findViewById(R.id.catalog_product_iv)).setImageResource(R.drawable.ic_launcher_background);
+                return true;
+            }
+        });*/
+        // Qu'est ce qui fait que la chose puisse changer
+        // de background couleur ?
+
+        // Je ne sais pas, bitch! Je ne sais pas
+
     }
 
+    // If this view is selected --> Change it ImageView
+    // ToggleSelection --> uses selectView --> add it to the mSelectedItems
+    //
+
+    /*@Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if (convertView.isSelected())
+        return super.getView(position, convertView, parent);
+    }*/
 }
