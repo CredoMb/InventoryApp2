@@ -19,11 +19,11 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.view.ActionMode;
 
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -43,7 +43,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     // Id for the Loader
     private static int INVENTORY_LOADER = 1;
 
-    private Button openButton;
+    private FloatingActionButton fabNewItem;
 
     // The cursor Adapter
     private InventoryCursorAdapter mInventoryCursorAdapter;
@@ -56,8 +56,8 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_catalog);
 
-        openButton = (Button) findViewById(R.id.open_editor);
-        openButton.setOnClickListener(new View.OnClickListener() {
+        fabNewItem = (FloatingActionButton) findViewById(R.id.fab);
+        fabNewItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(CatalogActivity.this, EditorActivity.class);
