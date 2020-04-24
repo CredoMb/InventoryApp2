@@ -5,7 +5,10 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name ="list_select_background">#D81B60</color>
-    <color name="light_gray">#d3d3d3</color>
+
+    <!--This will be used to highlight a selected
+        item in the CatalogActivity-->
+    <color name="quantity_tv_color">#000000</color>
 </resources>
 
 

@@ -68,11 +68,6 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         // Initialize the mInventoryCursorAdapter
         mInventoryCursorAdapter = new InventoryCursorAdapter(this, null);
 
-        // Get the intent from EditorActivity to set the image
-        // of the item. The intent will contain 2 extras, the Bitmap Image as a
-        // parcelable and the position as an integer.
-
-
         // find the listView and set the CusorAdaptor on it
         mItemsListView = (ListView) findViewById(R.id.list_view);
 
@@ -119,7 +114,6 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 // Show the number of selected items
                 // in the app bar
                 mode.setTitle(String.format("%d", checkedItems));
-
             }
 
             @Override

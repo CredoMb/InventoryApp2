@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -26,6 +27,7 @@ import androidx.core.app.NavUtils;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.InputStream;
 
