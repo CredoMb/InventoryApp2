@@ -207,14 +207,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         TextWatcher soldAndShippedTextWatcher = new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
 
             // After the text of the sold Editor has been changed
             // update the Quantity value.
@@ -237,7 +232,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                     // and deduct the left quantity
                     else{
                         leftQuantity = quantityLeft(0,
-                                Integer.parseInt(editable.toString()));
+                                Integer.parseInt(mSoldEditText.getText().toString()));
                     }
                 }
 
@@ -258,6 +253,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 mQuantityValueTextView.setText(leftQuantity);
             }
         };
+
         // Set the TextWatcher onto the Shipped and Sold Edit Text
         mSoldEditText.addTextChangedListener(soldAndShippedTextWatcher);
         mShippedEditText.addTextChangedListener(soldAndShippedTextWatcher);
