@@ -201,8 +201,11 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mGlideHelper = new GlideHelperClass(getApplicationContext(),mImageUriString
                 ,R.drawable.placeholder_image,((ImageView) findViewById(R.id.product_image_editor)));
 
+        // Create a TextWatcher that is going to be used inside of the
+        // Sold and Shipped Edit Text. This will help update in real time
+        // the mQuantityValueTextView
 
-        mSoldEditText.addTextChangedListener(new TextWatcher() {
+        TextWatcher soldAndShippedTextWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -220,17 +223,17 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 String leftQuantity = "0";
 
                 // Check if the Sold Editor is not empty
-                if (!(TextUtils.isEmpty(editable.toString()))){
+                if (!(TextUtils.isEmpty(mSoldEditText.getText().toString()))){
                     // If so, make sure that the shipped editText is not
                     // null/empty and get the difference between the shipped and sold value
 
                     if (!(TextUtils.isEmpty(mShippedEditText.getText().toString()))) {
                         leftQuantity = quantityLeft(Integer.parseInt(mShippedEditText.getText().toString()),
-                                Integer.parseInt(editable.toString()));
+                                Integer.parseInt(mSoldEditText.getText().toString()));
                     }
 
                     // In case the Shipped value is empty,
-                    // Then assign it the value of zero
+                    // assign it the default value of zero
                     // and deduct the left quantity
                     else{
                         leftQuantity = quantityLeft(0,
@@ -252,10 +255,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
                     }
                 }
-
                 mQuantityValueTextView.setText(leftQuantity);
             }
-        });
+        };
+        // Set the TextWatcher onto the Shipped and Sold Edit Text
+        mSoldEditText.addTextChangedListener();
+        mShippedEditText.addTextChangedListener();
 
 
         // Set a click listener onto the item Image Button.
