@@ -259,8 +259,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             }
         };
         // Set the TextWatcher onto the Shipped and Sold Edit Text
-        mSoldEditText.addTextChangedListener();
-        mShippedEditText.addTextChangedListener();
+        mSoldEditText.addTextChangedListener(soldAndShippedTextWatcher);
+        mShippedEditText.addTextChangedListener(soldAndShippedTextWatcher);
 
 
         // Set a click listener onto the item Image Button.
