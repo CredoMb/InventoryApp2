@@ -10,8 +10,9 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
-import android.util.Log;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -28,7 +29,6 @@ import androidx.core.app.NavUtils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.InputStream;
 
@@ -70,9 +70,15 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private EditText mPriceEditText;
 
     /**
-     * EditText field to enter the product'S quantity
+     * TextView displaying the Quantity label
      */
-    private TextView mQuantityTextView;
+    private TextView mQuantityLabelTextView;
+
+    /** TextView that holds the value of the
+     *  item's Quantity
+     */
+
+    private TextView mQuantityValueTextView;
 
     /**
      * EditText Field to enter the number of sold Items.
@@ -184,7 +190,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mEditPictureIb = (ImageButton) findViewById(R.id.edit_picture_IB);
 
         mPriceEditText = (EditText) findViewById(R.id.edit_product_price);
-        mQuantityTextView = (TextView) findViewById(R.id.product_quantity_tv);
+        mQuantityLabelTextView = (TextView) findViewById(R.id.quantity_label_tv);
+        mQuantityValueTextView = (TextView) findViewById(R.id.quantity_value_tv);
 
         mSoldEditText = (EditText) findViewById(R.id.edit_product_sold);
         mShippedEditText = (EditText) findViewById(R.id.edit_product_shipped);
@@ -194,7 +201,64 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mGlideHelper = new GlideHelperClass(getApplicationContext(),mImageUriString
                 ,R.drawable.placeholder_image,((ImageView) findViewById(R.id.product_image_editor)));
 
-        // Set a click listener onto the product image view.
+
+        mSoldEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            // After the text of the sold Editor has been changed
+            // update the Quantity value.
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String leftQuantity = "0";
+
+                // Check if the Sold Editor is not empty
+                if (!(TextUtils.isEmpty(editable.toString()))){
+                    // If so, make sure that the shipped editText is not
+                    // null/empty and get the difference between the shipped and sold value
+
+                    if (!(TextUtils.isEmpty(mShippedEditText.getText().toString()))) {
+                        leftQuantity = quantityLeft(Integer.parseInt(mShippedEditText.getText().toString()),
+                                Integer.parseInt(editable.toString()));
+                    }
+
+                    // In case the Shipped value is empty,
+                    // Then assign it the value of zero
+                    // and deduct the left quantity
+                    else{
+                        leftQuantity = quantityLeft(0,
+                                Integer.parseInt(editable.toString()));
+                    }
+                }
+
+                // If the soldEditText value is empty,
+                // then get the value inside of the
+                // shippedEditText and set it in the QuantityValueTextView
+                else {
+
+                    if (!(TextUtils.isEmpty(mShippedEditText.getText().toString()))) {
+                        leftQuantity = mShippedEditText.getText().toString();
+                    }
+                    // If both the shipped and sold value are empty
+                    // then
+                    else {
+
+                    }
+                }
+
+                mQuantityValueTextView.setText(leftQuantity);
+            }
+        });
+
+
+        // Set a click listener onto the item Image Button.
         // When clicked, it will start an intent to find a picture
         // from the device's files.
 
@@ -313,10 +377,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
             // Get the quantity from the cursor and put it on the appropriate edit text
             int quantityColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_QUANTITY);
-            int quantityNumber = cursor.getInt(quantityColumnIndex);
+            int quantityValueNumber = cursor.getInt(quantityColumnIndex);
 
-            mQuantityTextView.setText( getString(R.string.quantity_text) +
-                            String.format(NUMBER_FORMAT, quantityNumber)
+            mQuantityValueTextView.setText(String.format(NUMBER_FORMAT, quantityValueNumber)
                     , TextView.BufferType.EDITABLE);
 
             // Get the supplier from the cursor and put it on the appropriate edit text
@@ -365,7 +428,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     /**
      * Receives the image choosed by the user
-     * and set it into the image view of the product.
+     * and set it into the image view of the item.
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -376,7 +439,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 // to store it inside the mImageUriString.
                 mImageUriString = data.getData().toString();
 
-                // Finaly, set the image onto the image view
+                // Finally, set the image onto the image view
                 mGlideHelper.setImageLink(mImageUriString);
                 mGlideHelper.loadImage();
 
@@ -513,7 +576,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         if (leftQuantity >= DEFAULT_QUANTITY_VALUE) {
             quantityNumber = leftQuantity;
-            mQuantityTextView.setText(String.valueOf(leftQuantity));
+            mQuantityValueTextView.setText(String.valueOf(leftQuantity));
         } else {
             // Advise the uer to adjust the values of
             // shipped and sold items.
@@ -580,7 +643,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                         Toast.LENGTH_SHORT).show();
             }
         }
-
         finish();
 
     }

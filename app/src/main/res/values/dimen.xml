@@ -44,6 +44,8 @@
     <!-- The margin to be used between views of the form-->
     <dimen name="view_margin">8dp</dimen>
 
+    <dimen name="quantity_text_size">18sp</dimen>
+
     <!-- Margin to use on top of the fields group view-->
     <dimen name="form_top_margin">16dp</dimen>
 

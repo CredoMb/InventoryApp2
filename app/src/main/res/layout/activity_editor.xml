@@ -81,7 +81,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_product_price"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -99,7 +100,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_product_shipped"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="number"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -125,30 +127,41 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_product_sold"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:inputType="number"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
+                <RelativeLayout
                     android:id="@+id/QuantityOutlinedTextField"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:hint="@string/hint_product_sold">
+                    android:paddingLeft="@dimen/view_margin">
 
-                    <!-- Quantity TextView -->
+                    <!-- Quantity Label TextView -->
                     <TextView
-                        android:id="@+id/product_quantity_tv"
+                        android:id="@+id/quantity_label_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:paddingLeft="@dimen/view_margin"
                         android:gravity="center_vertical"
-                        android:hint="@string/hint_product_quantity"
                         android:text="@string/quantity_initial_text"
                         android:textColor="@color/quantity_tv_color"
-                        android:textSize="18sp" />
+                        android:textSize="@dimen/quantity_text_size" />
 
-                </com.google.android.material.textfield.TextInputLayout>
+                    <!-- Quantity Value TextView-->
+                    <TextView
+                        android:id="@+id/quantity_value_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="4dp"
+                        android:layout_toRightOf="@id/quantity_label_tv"
+                        android:gravity="center_vertical"
+                        android:text="@string/quantity_initial_number"
+                        android:textColor="@color/quantity_tv_color"
+                        android:textSize="@dimen/quantity_text_size"/>
+
+                </RelativeLayout>
             </LinearLayout> <!--End of the group view for sold and left quantity-->
 
             <!-- Supplier category -->
@@ -165,7 +178,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_product_supplier"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    />
 
             </com.google.android.material.textfield.TextInputLayout>
 
