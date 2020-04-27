@@ -145,7 +145,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
-                        android:text="@string/quantity_initial_text"
+                        android:text="@string/item_quantity_label"
                         android:textColor="@color/primaryText"
                         android:textSize="@dimen/quantity_text_size" />
 
@@ -182,6 +182,16 @@
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/save_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="16dp"
+                android:background="@color/colorAccent"
+                android:text="@string/save_button_text"
+                />
 
         </LinearLayout> <!--End of the group view for all the fields -->
 

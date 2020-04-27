@@ -26,12 +26,8 @@
     <!-- Hint of the product price Field -->
     <string name="hint_product_price">Price</string>
 
-    <!-- Hint of the product quantity Field -->
-    <string name="hint_product_quantity">Quantity after sales</string>
-    <!-- Initial Text for the product's Quantity TextView -->
-    <string name="quantity_initial_text">Quantity:</string>
-    <!-- Text used in the Editor Activity-->
-    <string name="quantity_text">Quantity:&#160;</string>
+    <!-- Text for the product's Quantity TextView -->
+    <string name="item_quantity_label">Quantity:</string>
 
     <!-- Text used to show the initial number of items, which is 0-->
     <string name="quantity_initial_number">0</string>
@@ -44,6 +40,8 @@
 
     <!-- Hint of the product supplier Field -->
     <string name="hint_product_supplier">Supplier</string>
+    <!-- Text on the save button of the EditorActivity's form-->
+    <string name="save_button_text">Save</string>
 
     <!-- Will be used to display Toast related to the
          user actions inside the Editor Activity-->

@@ -26,6 +26,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
@@ -97,6 +98,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      */
     private EditText mSupplierEdtiText;
 
+    /**Button to save the new item of update an item
+     * into the data base */
+    private MaterialButton mSaveButton;
 
     /**
      * Represent the maximum items that could be
@@ -198,6 +202,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         mSupplierEdtiText = (EditText) findViewById(R.id.edit_product_supplier);
 
+        mSaveButton = (MaterialButton) findViewById(R.id.save_button);
+
         mGlideHelper = new GlideHelperClass(getApplicationContext(),mImageUriString
                 ,R.drawable.placeholder_image,((ImageView) findViewById(R.id.product_image_editor)));
 
@@ -276,6 +282,15 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             }
         });
 
+        // Set a click listener onto the save button of the
+        // layout. When clicked, it will call the "saveItem()"
+        // method which will save/update in the DB
+        mSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveItem();
+            }
+        });
 
         // Setting the same touch listener in all of the Edit Text will
         // help us know if the user started editing an item.
@@ -459,11 +474,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         // User clicked on a menu option in the app bar overflow menu
         switch (item.getItemId()) {
-            // Respond to a click on the "Save" menu option
-            case R.id.action_save:
-                saveItem();
-
-                return true;
 
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
