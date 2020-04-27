@@ -26,9 +26,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    // Will be used to display messages in the Log
-    private static final String TAG = CatalogActivity.class.getSimpleName();
-
     /** Default index for the position received as an intent extra
      *  sent by the EditorActivity*/
     private int DEFAULT_INDEX = -1;

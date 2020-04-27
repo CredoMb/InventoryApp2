@@ -21,7 +21,7 @@ import java.text.NumberFormat;
 
 public class InventoryCursorAdapter extends CursorAdapter {
 
-    // Will be used to display messages in the Log
+    /** Will be used to display messages in the Log*/
     private static final String TAG = InventoryCursorAdapter.class.getSimpleName();
 
     private String NUMBER_FORMAT = "%d";

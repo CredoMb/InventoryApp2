@@ -86,7 +86,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Shipped Input -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/ShippedOutlinedTextField"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -96,7 +95,6 @@
                 android:hint="@string/hint_product_shipped"
                 >
 
-                <!-- Shipped Input Field -->
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_product_shipped"
                     android:layout_width="match_parent"
@@ -104,7 +102,6 @@
                     android:inputType="number"/>
 
             </com.google.android.material.textfield.TextInputLayout>
-
 
             <!-- Container for the Shipped and Sold field -->
             <LinearLayout
@@ -132,6 +129,7 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+
                 <RelativeLayout
                     android:id="@+id/QuantityOutlinedTextField"
                     android:layout_width="0dp"
@@ -139,7 +137,6 @@
                     android:layout_weight="1"
                     android:paddingLeft="@dimen/view_margin">
 
-                    <!-- Quantity Label TextView -->
                     <TextView
                         android:id="@+id/quantity_label_tv"
                         android:layout_width="wrap_content"
@@ -149,7 +146,6 @@
                         android:textColor="@color/primaryText"
                         android:textSize="@dimen/quantity_text_size" />
 
-                    <!-- Quantity Value TextView-->
                     <TextView
                         android:id="@+id/quantity_value_tv"
                         android:layout_width="wrap_content"
@@ -186,11 +182,12 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/save_button"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/save_button_height"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/save_button_top_margin"
                 android:background="@color/colorAccent"
                 android:text="@string/save_button_text"
+                android:textSize="@dimen/primary_text_size"
                 />
 
         </LinearLayout> <!--End of the group view for all the fields -->

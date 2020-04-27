@@ -51,4 +51,9 @@
 
     <!-- Side Padding for the container of the form's fields-->
     <dimen name="fields_container_padding">48dp</dimen>
+
+    <!-- The margin for the top of the Save Button-->
+    <dimen name="save_button_top_margin">8dp</dimen>
+    <!-- Height of the save Button-->
+    <dimen name="save_button_height">56dp</dimen>
 </resources>

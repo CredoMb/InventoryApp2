@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -30,12 +31,13 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.InputStream;
 
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    // Will be used to display messages in the Log
+    /** Will be used to display messages in the Log*/
     private static final String TAG = EditorActivity.class.getSimpleName();
 
     /**
@@ -188,10 +190,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         // Get the ImageView that will contain the thumbnail of the
         // product.
-        ;
 
         // Find the view related to the database column and store them into
-        // appropriate variables
+        // appropriate variables.
         mNameInputEditText = (TextInputEditText) findViewById(R.id.edit_product_name);
 
         mEditPictureIb = (ImageButton) findViewById(R.id.edit_picture_IB);
@@ -205,6 +206,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         mSupplierEdtiText = (EditText) findViewById(R.id.edit_product_supplier);
 
+        // Find the save Button and store it inside a variable
         mSaveButton = (MaterialButton) findViewById(R.id.save_button);
 
         mGlideHelper = new GlideHelperClass(getApplicationContext(),mImageUriString
