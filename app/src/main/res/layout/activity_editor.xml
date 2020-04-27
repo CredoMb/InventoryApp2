@@ -31,7 +31,7 @@
             android:orientation="vertical"
             android:paddingLeft="@dimen/fields_container_padding"
             android:paddingRight="@dimen/fields_container_padding"
-            android:paddingBottom="8dp">
+            android:paddingBottom="@dimen/form_top_margin">
 
             <!-- Name category -->
             <com.google.android.material.textfield.TextInputLayout
