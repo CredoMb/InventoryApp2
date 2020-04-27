@@ -14,7 +14,6 @@ import android.widget.TextView;
 import androidx.core.app.ActivityCompat;
 
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
-
 import java.text.NumberFormat;
 
 

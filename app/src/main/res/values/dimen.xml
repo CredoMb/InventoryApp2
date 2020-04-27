@@ -1,11 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--
+        To be used inside of the
+        CatalogActivity
+    -->
+
     <!-- Margin around the floating action button in CatalogActivity -->
     <dimen name="fab_margin">16dp</dimen>
 
-    <dimen name="activity_margin">16dp</dimen>
+    <!-- The padding for the bottom of the empty state group view-->
+    <dimen name="empty_state_bottom_padding">172dp</dimen>
 
-    <dimen name="tv_margin">8dp</dimen>
+    <!-- The padding for the start of the empty state group view-->
+    <dimen name="empty_state_start_padding">56dp</dimen>
+
+    <!-- The padding for the end of the empty state group view-->
+    <dimen name="empty_state_end_padding">56dp</dimen>
+
+    <!-- Dimensions of the image in the Empty State GroupView-->
+    <dimen name="empty_state_image_dimension">48dp</dimen>
+
+    <!-- Margin below the imageView of the empty state-->
+    <dimen name="empty_state_image_margin">8dp</dimen>
+
+    <!-- The padding the Group View that
+         contains the text of the Empty state-->
+    <dimen name="EmptyStateText_GV_top_padding">16dp</dimen>
+    <dimen name="EmptyStateText_GV_bottom_padding">56dp</dimen>
+
+    <!-- The dimensions for the empty state title-->
+    <dimen name="empty_state_title_textsize">16sp</dimen>
+    <dimen name="empty_state_title_padding">8dp</dimen>
+
+    <!-- The Top padding of the empty state subtitle-->
+    <dimen name="empty_state_subtitle_padding">4dp</dimen>
+
 
     <!--
         To be used in the
@@ -44,7 +73,12 @@
     <!-- The margin to be used between views of the form-->
     <dimen name="view_margin">8dp</dimen>
 
+    <!-- Size of the text in that displays informations
+         related to the Quantity-->
     <dimen name="quantity_text_size">18sp</dimen>
+
+    <!-- Padding to use on the left of the Quantity Value TextView-->
+    <dimen name="quantity_padding">4dp</dimen>
 
     <!-- Margin to use on top of the fields group view-->
     <dimen name="form_top_margin">16dp</dimen>
@@ -52,31 +86,5 @@
     <!-- Side Padding for the container of the form's fields-->
     <dimen name="fields_container_padding">48dp</dimen>
 
-    <!-- The padding for the bottom of the empty state group view-->
-    <dimen name="empty_state_bottom_padding">172dp</dimen>
-
-    <!-- The padding for the start of the empty state group view-->
-    <dimen name="empty_state_start_padding">56dp</dimen>
-
-    <!-- The padding for the end of the empty state group view-->
-    <dimen name="empty_state_end_padding">56dp</dimen>
-
-    <!-- Dimensions of the image in the Empty State GroupView-->
-    <dimen name="empty_state_image_dimension">48dp</dimen>
-
-    <!-- Margin below the imageView of the empty state-->
-    <dimen name="empty_state_image_margin">8dp</dimen>
-
-    <!-- The padding the Group View that
-         contains the text of the Empty state-->
-    <dimen name="EmptyStateText_GV_top_padding">16dp</dimen>
-    <dimen name="EmptyStateText_GV_bottom_padding">56dp</dimen>
-
-    <!-- The dimensions for the empty state title-->
-    <dimen name="empty_state_title_textsize">16sp</dimen>
-    <dimen name="empty_state_title_padding">8dp</dimen>
-
-    <!-- The Top padding of the empty state subtitle-->
-    <dimen name="empty_state_subtitle_padding">4dp</dimen>
 
 </resources>

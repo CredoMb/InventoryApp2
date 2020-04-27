@@ -48,7 +48,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-
             <!-- Price category -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/PriceOutlinedTextField"
@@ -56,10 +55,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/view_margin"
-                android:hint="@string/hint_product_price">
+                android:hint="@string/hint_product_price"
+                >
 
-                <!-- Price field
-                 is the font "rubik"-->
+                <!-- Price field-->
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_product_price"
                     android:layout_width="match_parent"
@@ -110,7 +109,6 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-
                 <RelativeLayout
                     android:id="@+id/QuantityOutlinedTextField"
                     android:layout_width="0dp"
@@ -133,7 +131,7 @@
                         android:layout_height="match_parent"
                         android:layout_toRightOf="@id/quantity_label_tv"
                         android:gravity="center_vertical"
-                        android:paddingLeft="4dp"
+                        android:paddingLeft="@dimen/quantity_padding"
                         android:text="@string/quantity_initial_number"
                         android:textColor="@color/primaryText"
                         android:textSize="@dimen/quantity_text_size" />
