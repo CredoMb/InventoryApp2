@@ -146,7 +146,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="@string/quantity_initial_text"
-                        android:textColor="@color/quantity_tv_color"
+                        android:textColor="@color/primaryText"
                         android:textSize="@dimen/quantity_text_size" />
 
                     <!-- Quantity Value TextView-->
@@ -158,7 +158,7 @@
                         android:layout_toRightOf="@id/quantity_label_tv"
                         android:gravity="center_vertical"
                         android:text="@string/quantity_initial_number"
-                        android:textColor="@color/quantity_tv_color"
+                        android:textColor="@color/primaryText"
                         android:textSize="@dimen/quantity_text_size"/>
 
                 </RelativeLayout>
@@ -182,7 +182,6 @@
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
-
 
         </LinearLayout> <!--End of the group view for all the fields -->
 
