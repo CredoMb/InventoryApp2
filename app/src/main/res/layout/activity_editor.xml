@@ -21,7 +21,6 @@
             android:scaleType="centerCrop"
             android:src="@drawable/placeholder_image" />
 
-
         <!-- Container for all the input fields
              of the form -->
         <LinearLayout
@@ -165,7 +164,7 @@
                 android:layout_height="@dimen/save_button_height"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/save_button_top_margin"
-                android:background="@color/colorAccent"
+                android:layout_marginBottom="@dimen/save_button_top_margin"
                 android:text="@string/save_button_text"
                 android:textSize="@dimen/primary_text_size" />
 
