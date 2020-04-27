@@ -14,30 +14,12 @@
         android:orientation="vertical"
         />
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_add_white_24dp"
-        app:tint="@color/colorPrimaryDark"
-        />
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
     <!-- This group View will contain the empty state
          of the application -->
 
     <RelativeLayout
         android:id="@+id/empty_group_view"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         >
@@ -47,8 +29,8 @@
             android:layout_width="@dimen/empty_state_image_dimension"
             android:layout_height="@dimen/empty_state_image_dimension"
             android:layout_above="@id/EmptyStateText_GV"
-            android:layout_centerHorizontal="true"
-            android:src = "@drawable/outline_inbox_white_48"
+            android:layout_centerInParent="true"
+            android:src="@drawable/outline_inbox_black_48"
             android:scaleType="centerCrop"
             />
 
@@ -57,10 +39,9 @@
             android:id="@+id/EmptyStateText_GV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:orientation="vertical"
             android:paddingTop="@dimen/EmptyStateText_GV_top_padding"
-            android:paddingBottom="@dimen/EmptyStateText_GV_bottom_padding"
-            android:layout_centerHorizontal="true"
             >
 
             <TextView
@@ -91,5 +72,22 @@
 
     </RelativeLayout>
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@drawable/ic_add_white_24dp"
+        app:tint="@color/colorPrimaryDark"
+        />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </RelativeLayout>

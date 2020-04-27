@@ -64,6 +64,9 @@
     <!-- Dimensions of the image in the Empty State GroupView-->
     <dimen name="empty_state_image_dimension">48dp</dimen>
 
+    <!-- Margin below the imageView of the empty state-->
+    <dimen name="empty_state_image_margin">8dp</dimen>
+
     <!-- The padding the Group View that
          contains the text of the Empty state-->
     <dimen name="EmptyStateText_GV_top_padding">16dp</dimen>
