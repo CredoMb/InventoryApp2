@@ -22,39 +22,49 @@ public class InventoryProvider extends ContentProvider {
     // Will be used to display messages in the Log
     private static final String TAG = InventoryProvider.class.getSimpleName();
 
-    /** Tag for the log messages */
+    /**
+     * Tag for the log messages
+     */
     public static final String LOG_TAG = InventoryProvider.class.getSimpleName();
 
-    /** The dataBase helper object*/
+    /**
+     * The dataBase helper object
+     */
     private InventoryDbHelper mDbHelper;
 
-    /** The inventory Id for the URi matcher */
+    /**
+     * The inventory Id for the URi matcher
+     */
     private static final int INVENTORY = 100;
     private static final int INVENTORY_ID = 101;
 
-    /** The Inventory Uri matcher */
+    /**
+     * The Inventory Uri matcher
+     */
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-    /** Constant used when no row has been updated */
+    /**
+     * Constant used when no row has been updated
+     */
     private static final int NO_ROW_UPDATED = 0;
 
 
     static {
         // Adding URI patterns to our uriMatcher
-        sUriMatcher.addURI(InventoryContract.CONTENT_AUTHORITY,InventoryContract.PATH_INVENTORY,INVENTORY);
-        sUriMatcher.addURI(InventoryContract.CONTENT_AUTHORITY,InventoryContract.PATH_INVENTORY + "/#",INVENTORY_ID);
+        sUriMatcher.addURI(InventoryContract.CONTENT_AUTHORITY, InventoryContract.PATH_INVENTORY, INVENTORY);
+        sUriMatcher.addURI(InventoryContract.CONTENT_AUTHORITY, InventoryContract.PATH_INVENTORY + "/#", INVENTORY_ID);
     }
 
     @Override
     public boolean onCreate() {
-         // TODO: Create and initialize a InventoryDbHelper object to gain access to the Inventory database.
-         // Make sure the variable is a global variable, so it can be referenced from other
-         // ContentProvider methods.
+        // TODO: Create and initialize a InventoryDbHelper object to gain access to the Inventory database.
+        // Make sure the variable is a global variable, so it can be referenced from other
+        // ContentProvider methods.
 
-         mDbHelper =  new InventoryDbHelper(getContext());
-         // SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        mDbHelper = new InventoryDbHelper(getContext());
+        // SQLiteDatabase db = mDbHelper.getReadableDatabase();
 
-         return true;
+        return true;
     }
 
     /**
@@ -77,8 +87,8 @@ public class InventoryProvider extends ContentProvider {
                 // For the Inventory code, query the Inventory table directly with the given
                 // projection, selection, selection arguments, and sort order. The cursor
                 // could contain multiple rows of the Inventory table.
-                cursor = database.query(InventoryContract.InventoryEntry.TABLE_NAME,projection,
-                        null,null,null,null,sortOrder);
+                cursor = database.query(InventoryContract.InventoryEntry.TABLE_NAME, projection,
+                        null, null, null, null, sortOrder);
 
                 // The projection is the row demanded by the "query". Do you get it ? I do!
                 // Like the row we target, we want to have.
@@ -96,7 +106,7 @@ public class InventoryProvider extends ContentProvider {
                 // arguments that will fill in the "?". Since we have 1 question mark in the
                 // selection, we have 1 String in the selection arguments' String array.
                 selection = InventoryContract.InventoryEntry._ID + "=?"; // this mean where _id = ?
-                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) }; // the value to replace the "?"
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))}; // the value to replace the "?"
 
                 // This will perform a query on the Inventory table where the _id equals 3 to return a
                 // Cursor containing that row of the table.
@@ -140,7 +150,7 @@ public class InventoryProvider extends ContentProvider {
 
         // Check that the price is valid
         Double price = values.getAsDouble(InventoryEntry.COLUMN_ITEM_PRICE);
-        if ( price < InventoryEntry.DEFAULT_PRICE ) {
+        if (price < InventoryEntry.DEFAULT_PRICE) {
             throw new IllegalArgumentException("The price shouldn't have a negative value");
         }
 
@@ -164,8 +174,8 @@ public class InventoryProvider extends ContentProvider {
         }
 
         // Insert a new item into the inventory database table with the given ContentValues
-        SQLiteDatabase database  = mDbHelper.getWritableDatabase();
-        long id = database.insert(InventoryEntry.TABLE_NAME,null,values);
+        SQLiteDatabase database = mDbHelper.getWritableDatabase();
+        long id = database.insert(InventoryEntry.TABLE_NAME, null, values);
 
         // If the ID is -1, then the insertion failed. Log an error and return null.
         if (id == -1) {
@@ -175,7 +185,7 @@ public class InventoryProvider extends ContentProvider {
 
         // Notifies the changes to the activity,
         // so the activity can update the UI with new content
-        getContext().getContentResolver().notifyChange(uri,null);
+        getContext().getContentResolver().notifyChange(uri, null);
 
         // Once we know the ID of the new row in the table,
         // return the new URI with the ID appended to the end of it
@@ -197,22 +207,23 @@ public class InventoryProvider extends ContentProvider {
                 // so we know which row to update. Selection will be "_id=?" and selection
                 // arguments will be a String array containing the actual ID.
                 selection = InventoryEntry._ID + "=?";
-                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 return updateItem(uri, contentValues, selection, selectionArgs);
             default:
                 throw new IllegalArgumentException("Update is not supported for " + uri);
         }
     }
 
-    /**  Helper method used to communicate with the database through the
-     *   database helper and update it.
+    /**
+     * Helper method used to communicate with the database through the
+     * database helper and update it.
      *
-     *   @param   uri represent the uri of the item or group of items that should be update
-     *   @param   values contains the name of the rows that should be updated
-     *   @param   selection is the condition that will be used to help us
-     *                     narrow our search and find a specific category of items.
-     *   @param   selectionArgs The value of the condition we've entered in the selection.
-     *   */
+     * @param uri           represent the uri of the item or group of items that should be update
+     * @param values        contains the name of the rows that should be updated
+     * @param selection     is the condition that will be used to help us
+     *                      narrow our search and find a specific category of items.
+     * @param selectionArgs The value of the condition we've entered in the selection.
+     */
     private int updateItem(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
 
         // If the {@link InventoryEntry#COLUMN_ITEM_NAME} key is present,
@@ -237,7 +248,7 @@ public class InventoryProvider extends ContentProvider {
 
         // If the {@link InventoryEntry#COLUMN_ITEM_SHIPPED} key is present,
         // check that the name value is valid.
-        if (values.containsKey(InventoryEntry.COLUMN_ITEM_SHIPPED)){
+        if (values.containsKey(InventoryEntry.COLUMN_ITEM_SHIPPED)) {
             // Check that the shipped value is not negative
             Integer shipped = values.getAsInteger(InventoryEntry.COLUMN_ITEM_SHIPPED);
             if (shipped < InventoryEntry.DEFAULT_SOLD_OR_SHIPPED) {
@@ -247,7 +258,7 @@ public class InventoryProvider extends ContentProvider {
 
         // If the {@link InventoryEntry#COLUMN_ITEM_SOLD} key is present,
         // check that the name value is valid.
-        if(values.containsKey(InventoryEntry.COLUMN_ITEM_SOLD)){
+        if (values.containsKey(InventoryEntry.COLUMN_ITEM_SOLD)) {
             Integer sold = values.getAsInteger(InventoryEntry.COLUMN_ITEM_SOLD);
             // Check that the sold value is not negative
             if (sold < InventoryEntry.DEFAULT_SOLD_OR_SHIPPED
@@ -255,7 +266,8 @@ public class InventoryProvider extends ContentProvider {
 
                 throw new IllegalArgumentException("The sold value shouldn't be negative " +
                         "or greater than the shipped value");
-            }}
+            }
+        }
 
         // If the {@link InventoryEntry#COLUMN_ITEM_QUANTITY} key is present,
         // check that the name value is valid.
@@ -288,13 +300,13 @@ public class InventoryProvider extends ContentProvider {
         return rowsUpdated;
     }
 
-        /**
-         * Delete from the database, the element specified by the Uri
-         */
+    /**
+     * Delete from the database, the element specified by the Uri
+     */
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
 
-        // Get writeable database
+        // Get writable database
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
         // Track the number of rows that were deleted
@@ -309,7 +321,7 @@ public class InventoryProvider extends ContentProvider {
             case INVENTORY_ID:
                 // Delete a single row given by the ID in the URI
                 selection = InventoryEntry._ID + "=?";
-                selectionArgs = new String[] { String.valueOf(ContentUris.parseId(uri)) };
+                selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
                 rowsDeleted = database.delete(InventoryEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             default:
@@ -340,13 +352,13 @@ public class InventoryProvider extends ContentProvider {
 
             case INVENTORY_ID:
                 return InventoryEntry.CONTENT_ITEM_TYPE;
-            default :
+            default:
                 throw new IllegalStateException("Unknown URI " + uri + " with match " + match);
         }
 
     }
 
-     private Cursor randomCurs() {
+    private Cursor randomCurs() {
         return new Cursor() {
             @Override
             public int getCount() {
@@ -542,6 +554,7 @@ public class InventoryProvider extends ContentProvider {
             public void setExtras(Bundle bundle) {
 
             }
+
             @Override
             public Bundle getExtras() {
                 return null;
@@ -552,6 +565,6 @@ public class InventoryProvider extends ContentProvider {
                 return null;
             }
         };
-     }
+    }
 
 }
