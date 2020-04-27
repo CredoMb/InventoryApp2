@@ -11,33 +11,15 @@
         android:orientation="vertical"
         tools:context=".EditorActivity">
 
-        <RelativeLayout
-            android:id="@+id/image_viewGroup"
+        <ImageView
+            android:id="@+id/product_image_editor"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/product_image_editor"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/product_image_height"
-                android:background="?android:attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/placeholder_image" />
-
-            <ImageButton
-                android:id="@+id/edit_picture_IB"
-                android:layout_width="@dimen/icon_dimensions"
-                android:layout_height="@dimen/icon_dimensions"
-                android:layout_marginLeft="@dimen/view_margin"
-                android:layout_marginTop="@dimen/view_margin"
-                android:layout_marginRight="@dimen/view_margin"
-                android:layout_marginBottom="@dimen/view_margin"
-                android:layout_alignParentBottom="true"
-                android:src="@drawable/baseline_edit_black_24"
-                />
-        </RelativeLayout>
+            android:layout_height="@dimen/product_image_height"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder_image" />
 
 
         <!-- Container for all the input fields
@@ -46,8 +28,8 @@
             android:id="@+id/container_measurement"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginTop="@dimen/form_top_margin"
+            android:orientation="vertical"
             android:paddingLeft="@dimen/fields_container_padding"
             android:paddingRight="@dimen/fields_container_padding">
 
@@ -82,7 +64,7 @@
                     android:id="@+id/edit_product_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"/>
+                    android:inputType="numberDecimal" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -92,14 +74,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/view_margin"
-                android:hint="@string/hint_product_shipped"
-                >
+                android:hint="@string/hint_product_shipped">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_product_shipped"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"/>
+                    android:inputType="number" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -125,7 +106,7 @@
                         android:id="@+id/edit_product_sold"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="number"/>
+                        android:inputType="number" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -150,12 +131,12 @@
                         android:id="@+id/quantity_value_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:paddingLeft="4dp"
                         android:layout_toRightOf="@id/quantity_label_tv"
                         android:gravity="center_vertical"
+                        android:paddingLeft="4dp"
                         android:text="@string/quantity_initial_number"
                         android:textColor="@color/primaryText"
-                        android:textSize="@dimen/quantity_text_size"/>
+                        android:textSize="@dimen/quantity_text_size" />
 
                 </RelativeLayout>
             </LinearLayout> <!--End of the group view for sold and left quantity-->
@@ -174,8 +155,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_product_supplier"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
+                    android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -187,8 +167,7 @@
                 android:layout_marginTop="@dimen/save_button_top_margin"
                 android:background="@color/colorAccent"
                 android:text="@string/save_button_text"
-                android:textSize="@dimen/primary_text_size"
-                />
+                android:textSize="@dimen/primary_text_size" />
 
         </LinearLayout> <!--End of the group view for all the fields -->
 
