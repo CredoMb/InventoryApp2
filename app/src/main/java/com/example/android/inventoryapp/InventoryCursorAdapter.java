@@ -106,7 +106,6 @@ public class InventoryCursorAdapter extends CursorAdapter {
         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
         priceTextView.setText(currencyFormat.format(price));
         quantityTextView.setText(quantity + LEFT_TAG);
-
     }
 
 }

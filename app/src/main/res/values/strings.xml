@@ -39,6 +39,8 @@
 
     <!-- Hint of the product price Field -->
     <string name="hint_product_price">Price</string>
+    <!-- Prefix Text for the item price EditText-->
+    <string name="currency" translatable="true">$</string>
 
     <!-- Text for the product's Quantity TextView -->
     <string name="item_quantity_label">Quantity:</string>

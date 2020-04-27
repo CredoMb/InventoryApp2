@@ -56,6 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/view_margin"
                 android:hint="@string/hint_product_price"
+                app:prefixText="@string/currency"
                 >
 
                 <!-- Price field-->
