@@ -100,9 +100,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      */
     private EditText mSupplierEdtiText;
 
-    /**Button to save the new item of update an item
-     * into the data base */
-    private MaterialButton mSaveButton;
 
     /**
      * Represent the maximum items that could be
@@ -201,9 +198,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         mSupplierEdtiText = (EditText) findViewById(R.id.edit_product_supplier);
 
-        // Find the save Button and store it inside a variable
-        mSaveButton = (MaterialButton) findViewById(R.id.save_button);
-
         mGlideHelper = new GlideHelperClass(getApplicationContext(),mImageUriString
                 ,R.drawable.placeholder_image,((ImageView) findViewById(R.id.product_image_editor)));
 
@@ -269,16 +263,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // When clicked, it will start an intent to find a picture
         // from the device's files.
 
-
-        // Set a click listener onto the save button of the
-        // layout. When clicked, it will call the "saveItem()"
-        // method which will save/update in the DB
-        mSaveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveItem();
-            }
-        });
 
         // Setting the same touch listener in all of the Edit Text will
         // help us know if the user started editing an item.
@@ -471,6 +455,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, SELECT_PICTURE), PICK_IMAGE);
 
+                return true;
+
+            // In case the user clicks on the save icon,
+            // save the item by calling the saveItem() method
+            case R.id.action_save:
+                saveItem();
                 return true;
 
             // Respond to a click on the "Delete" menu option

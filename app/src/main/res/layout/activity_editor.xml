@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,7 +30,8 @@
             android:layout_marginTop="@dimen/form_top_margin"
             android:orientation="vertical"
             android:paddingLeft="@dimen/fields_container_padding"
-            android:paddingRight="@dimen/fields_container_padding">
+            android:paddingRight="@dimen/fields_container_padding"
+            android:paddingBottom="8dp">
 
             <!-- Name category -->
             <com.google.android.material.textfield.TextInputLayout
@@ -147,7 +148,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/view_margin"
-                android:layout_marginBottom="@dimen/view_margin"
                 android:hint="@string/hint_product_supplier">
 
                 <!-- Supplier field -->
@@ -157,16 +157,6 @@
                     android:layout_height="wrap_content" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/save_button"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/save_button_height"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/save_button_top_margin"
-                android:layout_marginBottom="@dimen/save_button_top_margin"
-                android:text="@string/save_button_text"
-                android:textSize="@dimen/primary_text_size" />
 
         </LinearLayout> <!--End of the group view for all the fields -->
 

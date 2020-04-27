@@ -10,9 +10,16 @@
     <!-- name for the delete option on the Catalogue and Editor menu -->
     <string name="action_delete_selected">Delete</string>
 
+
     <!--
         Used in the Editor Activity
     -->
+
+    <!-- The title of the photo change icon-->
+    <string name="action_change_image">Change Image</string>
+
+    <!-- The title of the save icon-->
+    <string name="action_save">Save</string>
 
     <!-- Title for the Editor Activity -->
     <string name="addItemTitle">Add an Item</string>
