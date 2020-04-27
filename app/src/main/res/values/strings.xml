@@ -10,6 +10,15 @@
     <!-- name for the delete option on the Catalogue and Editor menu -->
     <string name="action_delete_selected">Delete</string>
 
+    <!-- The following resources will be used for the EmptyState
+         View -->
+
+    <!-- Title text for the empty view, which describes the empty icon image [CHAR LIMIT=50] -->
+    <string name="empty_view_title_text">It\'s a bit lonely here...</string>
+
+    <!-- Subtitle text for the empty view that prompts the user to add a pet [CHAR LIMIT=50] -->
+    <string name="empty_view_subtitle_text">Get started by adding an item</string>
+
 
     <!--
         Used in the Editor Activity

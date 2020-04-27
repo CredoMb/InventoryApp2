@@ -19,6 +19,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.view.ActionMode;
+import android.widget.RelativeLayout;
 
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -47,6 +48,9 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     // The cursor Adapter
     private InventoryCursorAdapter mInventoryCursorAdapter;
 
+    // Will contain the groupView for the empty state
+    private RelativeLayout emptyGroupView;
+
     // Variable that will store the listview
     ListView mItemsListView;
 
@@ -67,8 +71,14 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         // Initialize the mInventoryCursorAdapter
         mInventoryCursorAdapter = new InventoryCursorAdapter(this, null);
 
+        // Store the empty state group view in a variable
+        emptyGroupView = (RelativeLayout) findViewById(R.id.empty_group_view);
+
         // find the listView and set the CusorAdaptor on it
         mItemsListView = (ListView) findViewById(R.id.list_view);
+
+        // Set the empty state groupView onto it listView
+        mItemsListView.setEmptyView(emptyGroupView);
 
         // This will make it possible to select many items at once
         mItemsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
