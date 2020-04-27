@@ -21,8 +21,10 @@ import java.text.NumberFormat;
 
 public class InventoryCursorAdapter extends CursorAdapter {
 
-    private String NUMBER_FORMAT = "%d";
+    // Will be used to display messages in the Log
+    private static final String TAG = InventoryCursorAdapter.class.getSimpleName();
 
+    private String NUMBER_FORMAT = "%d";
     private String LEFT_TAG = " left";
     // To help us laod photo using Glide library
     private GlideHelperClass glideHelper;

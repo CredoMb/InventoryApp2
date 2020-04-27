@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.view.ActionMode;
 
@@ -26,6 +25,9 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+
+    // Will be used to display messages in the Log
+    private static final String TAG = CatalogActivity.class.getSimpleName();
 
     /** Default index for the position received as an intent extra
      *  sent by the EditorActivity*/

@@ -1,19 +1,16 @@
 package com.example.android.inventoryapp.data;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Build;
 
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
 
 public class InventoryDbHelper extends SQLiteOpenHelper {
+
+    // Will be used to display messages in the Log
+    private static final String TAG = InventoryDbHelper.class.getSimpleName();
 
     // The following constant contains the data base version
     public static final int DATABASE_VERSION = 1;

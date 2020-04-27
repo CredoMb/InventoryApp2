@@ -6,6 +6,9 @@ import android.provider.BaseColumns;
 
 public class InventoryContract {
 
+    // Will be used to display messages in the Log
+    private static final String TAG = InventoryContract.class.getSimpleName();
+
     private InventoryContract() {}
 
     /* The following informations will serve to build the URI for the Inventory provider */

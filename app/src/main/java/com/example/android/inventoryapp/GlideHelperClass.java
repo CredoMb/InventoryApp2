@@ -2,18 +2,19 @@ package com.example.android.inventoryapp;
 
 
 import android.content.Context;
-import android.media.Image;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.RequestOptions;
 
 
 public class GlideHelperClass extends AppGlideModule {
+
+    // Will be used to display messages in the Log
+    private static final String TAG = GlideHelperClass.class.getSimpleName();
 
     private Context mContext;
     private String mImageLink;

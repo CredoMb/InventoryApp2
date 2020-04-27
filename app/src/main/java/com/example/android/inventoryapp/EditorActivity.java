@@ -35,6 +35,9 @@ import java.io.InputStream;
 
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
+    // Will be used to display messages in the Log
+    private static final String TAG = EditorActivity.class.getSimpleName();
+
     /**
      * EditText field to enter the product's name
      */

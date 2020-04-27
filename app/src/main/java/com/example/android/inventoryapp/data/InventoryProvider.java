@@ -19,6 +19,9 @@ import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
 
 public class InventoryProvider extends ContentProvider {
 
+    // Will be used to display messages in the Log
+    private static final String TAG = InventoryProvider.class.getSimpleName();
+
     /** Tag for the log messages */
     public static final String LOG_TAG = InventoryProvider.class.getSimpleName();
 
