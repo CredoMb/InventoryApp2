@@ -18,8 +18,6 @@
     <string name="addItemTitle">Add an Item</string>
     <string name="editItemTitle">Edit Item</string>
 
-    <!-- name for the save option on the Edit menu -->
-    <string name="action_save">Save</string>
     <!-- Hint of the product name Field -->
     <string name="hint_product_name">Name</string>
 

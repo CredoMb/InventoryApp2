@@ -19,7 +19,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +30,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
-import com.google.android.material.textfield.TextInputLayout;
+
 
 import java.io.InputStream;
 
@@ -45,17 +44,15 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      */
     private TextInputEditText mNameInputEditText;
 
+    /** Will be used as the title of the Intent
+     *  to open the image stored in the phone*/
+    private static final String SELECT_PICTURE = "Select Picture";
+
     /**
      * This will contain the uri of the image
      * in a String format*/
 
     private String mImageUriString;
-
-    /**
-     * This will contain the image Button
-     * used to modify the item picture*/
-
-    private ImageButton mEditPictureIb;
 
 
     /**
@@ -195,8 +192,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // appropriate variables.
         mNameInputEditText = (TextInputEditText) findViewById(R.id.edit_product_name);
 
-        mEditPictureIb = (ImageButton) findViewById(R.id.edit_picture_IB);
-
         mPriceEditText = (EditText) findViewById(R.id.edit_product_price);
         mQuantityLabelTextView = (TextView) findViewById(R.id.quantity_label_tv);
         mQuantityValueTextView = (TextView) findViewById(R.id.quantity_value_tv);
@@ -274,18 +269,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // When clicked, it will start an intent to find a picture
         // from the device's files.
 
-        // This use of the Product imageView is temporary, until we find a solution
-        // because storing the ImageView inside a variable doesn't work.
-        mEditPictureIb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
-            }
-        });
 
         // Set a click listener onto the save button of the
         // layout. When clicked, it will call the "saveItem()"
@@ -479,6 +462,16 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         // User clicked on a menu option in the app bar overflow menu
         switch (item.getItemId()) {
+
+            // In case the user want to change the image of the item
+            case R.id.action_change_image:
+
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, SELECT_PICTURE), PICK_IMAGE);
+
+                return true;
 
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:

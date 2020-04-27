@@ -5,6 +5,13 @@
     tools:context=".EditorActivity">
 
     <item
+        android:id="@+id/action_change_image"
+        android:title="action_change_image"
+        android:icon="@drawable/outline_add_photo_alternate_white_24"
+        app:showAsAction="always"
+        />
+
+    <item
         android:id="@+id/action_delete"
         android:title="@string/action_delete_selected"
         app:showAsAction="never" />
