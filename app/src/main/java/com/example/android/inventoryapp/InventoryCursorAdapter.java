@@ -44,7 +44,8 @@ public class InventoryCursorAdapter extends CursorAdapter {
     InventoryCursorAdapter(Context context, Cursor c) {
         super(context,c,0);
 
-        // Request the permission to read external storage.
+        // Request the permission to read external storage
+        // and open documents.
         // For instance, the permission to read photos from the
         // Gallery.
         ActivityCompat.requestPermissions(
