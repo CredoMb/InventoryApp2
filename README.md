@@ -13,4 +13,4 @@ The App also supports multi-selection mode to delete many items at once.
 
 ## Contributors
 
-The mockup used to draw the application's layout was inspired by Udacity's petsApp https://github.com/udacity/ud845-Pets.git. Exept that, the owner of this github profile is the only contributor to this app. New Ideas and innovative concepts are welcomed :)
+The mockup used to draw the application's layout was inspired by Udacity's petsApp https://github.com/udacity/ud845-Pets.git. Except that, the owner of this github profile is the only contributor to this app. New Ideas and innovative concepts are welcomed :)
