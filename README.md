@@ -1,4 +1,4 @@
-![Inventory_Screens](https://user-images.githubusercontent.com/48886200/80657779-8ca81b00-8a52-11ea-9b95-7bc68ec19153.png)
+![InventoryApp_Screens](https://user-images.githubusercontent.com/48886200/81458603-341b0100-9169-11ea-9b22-944e2d773cca.png)
 
 # InventoryApp
 Helps to create a list of items stored in a database. A custom ContentProvider Class is used along with a ContractClass to perform every database operation. Each item possess a picture along with 6 other attributes all stored in one database table. 
