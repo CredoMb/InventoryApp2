@@ -52,7 +52,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     private String mImageUriString;
 
-
     /**
      * ImageView to store the product's Image
      * Unfortunatelly,for some reasons, the imageView variable doesn't work.

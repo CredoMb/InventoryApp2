@@ -40,18 +40,21 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
      */
     private String LOG_TAG = CatalogActivity.class.getSimpleName();
 
-    // Id for the Loader
+    /**ID to identify the Loader of that proceed to
+     * the data base query*/
     private static int INVENTORY_LOADER = 1;
 
+    /**Will store the floating Button used to
+     * add a new item*/
     private FloatingActionButton fabNewItem;
 
-    // The cursor Adapter
+    /** The cursor Adapter for the ListView*/
     private InventoryCursorAdapter mInventoryCursorAdapter;
 
-    // Will contain the groupView for the empty state
+    /** Will contain the groupView for the empty state*/
     private RelativeLayout emptyGroupView;
 
-    // Variable that will store the listview
+    /** Variable that will store the listview*/
     ListView mItemsListView;
 
     @Override
@@ -80,8 +83,6 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         // Set the empty state groupView onto it listView
         mItemsListView.setEmptyView(emptyGroupView);
 
-        // This will make it possible to select many items at once
-        mItemsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
         mItemsListView.setAdapter(mInventoryCursorAdapter);
         mItemsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -108,6 +109,12 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 startActivity(intent);
             }
         });
+
+        /**
+         * The following code defines the behaviour of
+         * the list view whenever the user select multiple
+         * items at the same time.
+         * */
 
         mItemsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         mItemsListView.setMultiChoiceModeListener((new AbsListView.MultiChoiceModeListener() {
@@ -194,8 +201,6 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 InventoryEntry.COLUMN_ITEM_SUPPLIER
         };
 
-        // The cursor loader makes the database connection
-        // for us !
         return new CursorLoader(this,
                 InventoryEntry.CONTENT_URI,
                 projection,
@@ -206,13 +211,10 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        // What do you mean by notification URI ?
 
         cursor.setNotificationUri(getContentResolver(), InventoryEntry.CONTENT_URI);
         mInventoryCursorAdapter.swapCursor(cursor);
 
-        //  Why is our crusor null ? Why ? Ithink i know why !
-        // It's because of the database name may be ?
     }
 
     @Override
@@ -303,5 +305,4 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         // the selected items from the database.
         getContentResolver().delete(InventoryEntry.CONTENT_URI, selection, null);
     }
-
 }
