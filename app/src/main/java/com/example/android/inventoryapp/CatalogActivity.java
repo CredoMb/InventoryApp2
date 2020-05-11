@@ -11,6 +11,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,6 +31,16 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     /** Default index for the position received as an intent extra
      *  sent by the EditorActivity*/
     private int DEFAULT_INDEX = -1;
+
+    /**Will be used to determine if
+     * we can retrieve the data base's cursor
+     * without initializing the Loader.
+     *
+     * This is important in case of a device
+     * rotation. We might just save and retrieve the
+     * app state instead of quering the data base once
+     * again.*/
+    private boolean shouldStartLoader = false;
 
     /**The key used to pass the an item position
      * as an extra of the intent. */
@@ -83,8 +94,9 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         // Set the empty state groupView onto it listView
         mItemsListView.setEmptyView(emptyGroupView);
 
-
         mItemsListView.setAdapter(mInventoryCursorAdapter);
+        // Everytime an item is clicked on, the code
+        // inside "OnItemClick" will be executed.
         mItemsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -112,8 +124,8 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
         /**
          * The following code defines the behaviour of
-         * the list view whenever the user select multiple
-         * items at the same time.
+         * the list view whenever the user select one or multiple
+         * items.
          * */
 
         mItemsListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
@@ -214,6 +226,8 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
         cursor.setNotificationUri(getContentResolver(), InventoryEntry.CONTENT_URI);
         mInventoryCursorAdapter.swapCursor(cursor);
+
+        Log.e("The loooder used","biatch");
 
     }
 
