@@ -32,16 +32,6 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
      *  sent by the EditorActivity*/
     private int DEFAULT_INDEX = -1;
 
-    /**Will be used to determine if
-     * we can retrieve the data base's cursor
-     * without initializing the Loader.
-     *
-     * This is important in case of a device
-     * rotation. We might just save and retrieve the
-     * app state instead of quering the data base once
-     * again.*/
-    private boolean shouldStartLoader = false;
-
     /**The key used to pass the an item position
      * as an extra of the intent. */
     private static String ITEM_POSITION = "item_position";
@@ -226,8 +216,6 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
         cursor.setNotificationUri(getContentResolver(), InventoryEntry.CONTENT_URI);
         mInventoryCursorAdapter.swapCursor(cursor);
-
-        Log.e("The loooder used","biatch");
 
     }
 
