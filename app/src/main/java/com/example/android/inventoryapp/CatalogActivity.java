@@ -28,14 +28,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class CatalogActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    /** Default index for the position received as an intent extra
-     *  sent by the EditorActivity*/
-    private int DEFAULT_INDEX = -1;
-
-    /**The key used to pass the an item position
-     * as an extra of the intent. */
-    private static String ITEM_POSITION = "item_position";
-
     /**
      * Tag to display with the LOG message
      */
@@ -85,7 +77,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         mItemsListView.setEmptyView(emptyGroupView);
 
         mItemsListView.setAdapter(mInventoryCursorAdapter);
-        // Everytime an item is clicked on, the code
+        // Everytime an item is clicked, the code
         // inside "OnItemClick" will be executed.
         mItemsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
