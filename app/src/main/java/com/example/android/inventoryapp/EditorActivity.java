@@ -98,17 +98,28 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private EditText mSupplierEdtiText;
 
 
-    /**
+/*
+   MAX_ITEM_TO_SALE and MAX_ITEM_TO_SHIP
+   could be use in a later version of the App,
+   that's why they stay in comment.
+
+
+    */
+/**
      * Represent the maximum items that could be
      * sold
-     */
+     *//*
+
     private int MAX_ITEM_TO_SALE = 1000;
 
-    /**
+    */
+/**
      * Represent the maximum items that could be
      * shipped
-     */
+     *//*
+
     private int MAX_ITEM_TO_SHIP = 1000;
+*/
 
     /**
      * This will be used to store the product Uri received from the Catalog Activity
