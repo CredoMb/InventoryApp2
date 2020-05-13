@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,8 @@ public class InventoryCursorAdapter extends CursorAdapter {
                 (Activity) context,
                 new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
                 MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+
+        //Manifest.permission.ACTI
     }
 
     /**
@@ -94,6 +97,8 @@ public class InventoryCursorAdapter extends CursorAdapter {
         Float price = cursor.getFloat(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_PRICE));
         String quantity = String.format(NUMBER_FORMAT,cursor.getInt(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_QUANTITY)));
         String imageUriString = cursor.getString(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_IMAGE));
+
+        Log.e("The image Yiheray",imageUriString);
 
         // Initialize the Glide Helper
         glideHelper = new GlideHelperClass(context.getApplicationContext(),imageUriString,R.drawable.placeholder_image,itemThumbnail);
