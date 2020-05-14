@@ -3,6 +3,7 @@ package com.example.android.inventoryapp;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,7 +54,6 @@ public class InventoryCursorAdapter extends CursorAdapter {
                 new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
                 MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
 
-        //Manifest.permission.ACTI
     }
 
     /**

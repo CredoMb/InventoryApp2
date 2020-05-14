@@ -33,21 +33,31 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
      */
     private String LOG_TAG = CatalogActivity.class.getSimpleName();
 
-    /**ID to identify the Loader of that proceed to
-     * the data base query*/
+    /**
+     * ID to identify the Loader of that proceed to
+     * the data base query
+     */
     private static int INVENTORY_LOADER = 1;
 
-    /**Will store the floating Button used to
-     * add a new item*/
+    /**
+     * Will store the floating Button used to
+     * add a new item
+     */
     private FloatingActionButton fabNewItem;
 
-    /** The cursor Adapter for the ListView*/
+    /**
+     * The cursor Adapter for the ListView
+     */
     private InventoryCursorAdapter mInventoryCursorAdapter;
 
-    /** Will contain the groupView for the empty state*/
+    /**
+     * Will contain the groupView for the empty state
+     */
     private RelativeLayout emptyGroupView;
 
-    /** Variable that will store the listview*/
+    /**
+     * Variable that will store the listview
+     */
     ListView mItemsListView;
 
     @Override
@@ -97,7 +107,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 intent.setData(itemUri);
 
                 // Add the position of the item to the intent
-                intent.putExtra(Intent.EXTRA_INDEX,position);
+                intent.putExtra(Intent.EXTRA_INDEX, position);
 
                 // Start the Editor Activity
                 startActivity(intent);
@@ -156,8 +166,8 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                         showDeleteConfirmationDialog(checkedItemsIds, mode);
                         return true;
 
-                        // Define the behavior for when the
-                        // user clicks on the "SELECT ALL" option
+                    // Define the behavior for when the
+                    // user clicks on the "SELECT ALL" option
                     case R.id.action_select_all:
 
                         // Iterate through the list and select each
@@ -230,9 +240,9 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
     /**
      * Prompt the user to confirm that they want to delete the checked items.
      */
-    private void showDeleteConfirmationDialog(long []checkedItemsIds, final ActionMode mode) {
+    private void showDeleteConfirmationDialog(long[] checkedItemsIds, final ActionMode mode) {
 
-        final long [] ItemsIds = checkedItemsIds;
+        final long[] ItemsIds = checkedItemsIds;
         String deleteMsg = getString(R.string.delete_dialog_msg);
 
         if (ItemsIds.length > 1) {
@@ -266,11 +276,13 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
     }
 
-    /** Will delete selected items of the listView.
-     *
-     *  Will be called in the showDeleteConfirmationDialog(),
-     *  which will be used inside the AbsListView.MultiChoiceModeListener()
-     *  of the listView */
+    /**
+     * Will delete selected items of the listView.
+     * <p>
+     * Will be called in the showDeleteConfirmationDialog(),
+     * which will be used inside the AbsListView.MultiChoiceModeListener()
+     * of the listView
+     */
 
     public void deleteItems(long[] checkedItemsIds) {
 
@@ -281,7 +293,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         // after the "WHERE" clause to query the database.
         String selection = InventoryEntry._ID + " IN (";
 
-        for (int i = 0;i < checkedItemsCount; i++) {
+        for (int i = 0; i < checkedItemsCount; i++) {
             // Add the Ids to the selection
             selection += String.valueOf(checkedItemsIds[i]);
             // As long as there are still ids inside of the

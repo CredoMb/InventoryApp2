@@ -32,6 +32,7 @@ public class GlideHelperClass extends AppGlideModule {
         mTargetIv = targetIv;
         // mErrorImageId = errorId;
     }
+
     public void loadImage() {
 
         if (!TextUtils.isEmpty(mImageLink) && mImageLink != null) {
@@ -44,7 +45,7 @@ public class GlideHelperClass extends AppGlideModule {
     }
 
     // Important setters
-    public void setImageLink (String imageLink) {
+    public void setImageLink(String imageLink) {
         mImageLink = imageLink;
     }
 }

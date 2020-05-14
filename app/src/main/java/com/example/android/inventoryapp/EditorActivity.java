@@ -34,7 +34,9 @@ import java.io.InputStream;
 
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    /** Will be used to display messages in the Log*/
+    /**
+     * Will be used to display messages in the Log
+     */
     private static final String TAG = EditorActivity.class.getSimpleName();
 
     /**
@@ -42,13 +44,16 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      */
     private TextInputEditText mNameInputEditText;
 
-    /** Will be used as the title of the Intent
-     *  to open the image stored in the phone*/
+    /**
+     * Will be used as the title of the Intent
+     * to open the image stored in the phone
+     */
     private static final String SELECT_PICTURE = "Select Picture";
 
     /**
      * This will contain the uri of the image
-     * in a String format*/
+     * in a String format
+     */
 
     private String mImageUriString;
 
@@ -59,8 +64,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      */
     // private ImageView mProductImageView;
 
-    /**Will help us to load the item image onto its
-     * ImageView */
+    /**
+     * Will help us to load the item image onto its
+     * ImageView
+     */
 
     private GlideHelperClass mGlideHelper;
 
@@ -74,8 +81,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      */
     private TextView mQuantityLabelTextView;
 
-    /** TextView that holds the value of the
-     *  item's Quantity
+    /**
+     * TextView that holds the value of the
+     * item's Quantity
      */
 
     private TextView mQuantityValueTextView;
@@ -106,17 +114,17 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     */
 /**
-     * Represent the maximum items that could be
-     * sold
-     *//*
+ * Represent the maximum items that could be
+ * sold
+ *//*
 
     private int MAX_ITEM_TO_SALE = 1000;
 
     */
 /**
-     * Represent the maximum items that could be
-     * shipped
-     *//*
+ * Represent the maximum items that could be
+ * shipped
+ *//*
 
     private int MAX_ITEM_TO_SHIP = 1000;
 */
@@ -126,15 +134,21 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      */
     private Uri mItemUri;
 
-    /** Will store the index received from the CatalogActivity*/
+    /**
+     * Will store the index received from the CatalogActivity
+     */
     private int mItemPostion;
 
-    /** Default index for the position received as an intent extra
-     *  sent by the CatalogActivity*/
+    /**
+     * Default index for the position received as an intent extra
+     * sent by the CatalogActivity
+     */
     private int DEFAULT_INDEX = -1;
 
-    /** Will receive the stream for the image that should be set
-     *  as the thumbnail of the item*/
+    /**
+     * Will receive the stream for the image that should be set
+     * as the thumbnail of the item
+     */
     private InputStream mImageStream;
 
     /**
@@ -206,8 +220,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         mSupplierEdtiText = (EditText) findViewById(R.id.edit_product_supplier);
 
-        mGlideHelper = new GlideHelperClass(getApplicationContext(),mImageUriString
-                ,R.drawable.placeholder_image,((ImageView) findViewById(R.id.product_image_editor)));
+        mGlideHelper = new GlideHelperClass(getApplicationContext(), mImageUriString
+                , R.drawable.placeholder_image, ((ImageView) findViewById(R.id.product_image_editor)));
 
         // Create a TextWatcher that is going to be used inside of the
         // Sold and Shipped Edit Text. This will help update in real time
@@ -215,9 +229,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         TextWatcher soldAndShippedTextWatcher = new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) { }
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
             @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
 
             // After the text of the sold Editor has been changed
             // update the Quantity value.
@@ -226,7 +243,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 String leftQuantity = "0";
 
                 // Check if the Sold Editor is not empty
-                if (!(TextUtils.isEmpty(mSoldEditText.getText().toString()))){
+                if (!(TextUtils.isEmpty(mSoldEditText.getText().toString()))) {
                     // If so, make sure that the shipped editText is not
                     // null/empty and get the difference between the shipped and sold value
 
@@ -238,7 +255,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                     // In case the Shipped value is empty,
                     // assign it the default value of zero
                     // and deduct the left quantity
-                    else{
+                    else {
                         leftQuantity = quantityLeft(0,
                                 Integer.parseInt(mSoldEditText.getText().toString()));
                     }
@@ -288,7 +305,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // Change the title of the Editor Activity based on the action that will occur
         // Get the item Uri from the intent made by the Catalog activity
         mItemUri = getIntent().getData(); // There are no data
-        mItemPostion = getIntent().getIntExtra(Intent.EXTRA_INDEX,DEFAULT_INDEX);
+        mItemPostion = getIntent().getIntExtra(Intent.EXTRA_INDEX, DEFAULT_INDEX);
 
         if (mItemUri == null) {
             // If the extra doesn't contain an Uri, the title Activity's should be "Add an Item"
@@ -431,6 +448,15 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         if (requestCode == PICK_IMAGE) {
             try {
+
+                // Get permanent access to the returned file.
+                // What does the "&" mean ?
+                final int takeFlags = data.getFlags()
+                        & (Intent.FLAG_GRANT_READ_URI_PERMISSION
+                        | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                // Check for the freshest data.
+                getContentResolver().takePersistableUriPermission(data.getData(), takeFlags);
+
                 // Turn the uri of the image into a String
                 // to store it inside the mImageUriString.
                 mImageUriString = data.getData().toString();
@@ -594,7 +620,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // Create a ContentValues to store the informations of the new item
         ContentValues values = new ContentValues();
         values.put(InventoryEntry.COLUMN_ITEM_NAME, nameString);
-        values.put(InventoryEntry.COLUMN_ITEM_IMAGE,imageStringUri);
+        values.put(InventoryEntry.COLUMN_ITEM_IMAGE, imageStringUri);
         values.put(InventoryEntry.COLUMN_ITEM_PRICE, priceNumber);
         values.put(InventoryEntry.COLUMN_ITEM_QUANTITY, quantityNumber);
         values.put(InventoryEntry.COLUMN_ITEM_SOLD, soldNumber);
