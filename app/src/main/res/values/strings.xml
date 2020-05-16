@@ -66,7 +66,7 @@
     <string name="emptyNameMessage">The name can not be empty</string>
 
     <!-- Text for the Toast to help the user correct the shipped and sold values -->
-    <string name="invalidQuantityMessage">The sold value can not be \ngreater than the shipped value</string>
+    <string name="invalidQuantityMessage">The Quantity can not be negative</string>
 
     <!-- Toast message in editor when current item was successfully saved -->
     <string name="editor_insert_item_successful">Item saved</string>
@@ -104,5 +104,12 @@
 
     <!-- Dialog button text for the option to keep editing the current pet [CHAR LIMIT=20] -->
     <string name="keep_editing">Keep Editing</string>
+
+    <!--
+        Used in the list_item.xml
+    -->
+
+    <!-- Text for the "Sale" button -->
+    <string name="sale_button_text">Sale</string>
 
 </resources>

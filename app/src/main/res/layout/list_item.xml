@@ -50,7 +50,28 @@
             android:layout_toRightOf="@id/price_tv"
             android:textSize="@dimen/secondary_text_size"
             tools:text="2 left"
+
             />
+
+        <!-- style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
+        @android:style/Widget.Button-->
+
+        <!-- The click item click listener doesn't work
+             with a button on it. May be because
+             when you click on a button, you also click
+             on the item, so which one get called ?-->
+
+        <!-- Try an image button, an outlined button or something else-->
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/sale_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="88dp"
+            android:textAllCaps="false"
+            android:text="@string/sale_button_text" />
     </RelativeLayout>
+
+
 
 </LinearLayout>

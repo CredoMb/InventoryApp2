@@ -87,6 +87,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
         mItemsListView.setEmptyView(emptyGroupView);
 
         mItemsListView.setAdapter(mInventoryCursorAdapter);
+
         // Everytime an item is clicked, the code
         // inside "OnItemClick" will be executed.
         mItemsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
