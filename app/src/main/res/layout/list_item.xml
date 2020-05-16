@@ -63,15 +63,16 @@
 
         <!-- Try an image button, an outlined button or something else-->
 
+        <!--  -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/sale_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_marginRight="88dp"
             android:textAllCaps="false"
             android:text="@string/sale_button_text" />
+
     </RelativeLayout>
-
-
 
 </LinearLayout>

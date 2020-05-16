@@ -90,7 +90,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
         // Everytime an item is clicked, the code
         // inside "OnItemClick" will be executed.
-        mItemsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+       /* mItemsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 
@@ -113,7 +113,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 // Start the Editor Activity
                 startActivity(intent);
             }
-        });
+        });*/
 
         /**
          * The following code defines the behaviour of

@@ -76,7 +76,6 @@ public class InventoryCursorAdapter extends CursorAdapter {
         return LayoutInflater.from(context).inflate(R.layout.list_item,parent,false);
     }
 
-
     /**
      * This method binds the item data (in the current row pointed to by cursor) to the given
      * list item layout. For example, the name for the current item can be set on the name TextView
@@ -88,8 +87,41 @@ public class InventoryCursorAdapter extends CursorAdapter {
      *                correct row.
      */
 
+
     @Override
     public void bindView(View view, final Context context, final Cursor cursor) {
+
+        // Get the position of the current item in the
+        // listView
+        final int currentPosition = cursor.getPosition();
+
+        view.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                // Create an intent to start the Editor Activity
+                Intent intent = new Intent(context, EditorActivity.class);
+
+                // Build the Uri of the item that has been clicked on.
+                // the Uri will be made of "content://com.example.android.inventoryapp"
+                // and the Id of the selected item. For example, if the second item was clicked
+                // the Uri would be "content://com.example.android.inventoryapp/inventory/2"
+
+                Uri itemUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, getItemId(currentPosition));
+
+                // Add the Item Uri to the intent as an extra,
+                // So that the Editor Activiy would use it to modify the item's informations
+                intent.setData(itemUri);
+
+                // How to get the id then ?
+                //
+
+                // Add the position of the item to the intent
+                intent.putExtra(Intent.EXTRA_INDEX, currentPosition);
+
+                // Start the Editor Activity
+                context.startActivity(intent);
+            }
+        });
 
         // Find the Views of an item_layout.
         // Each view will be stored in a variable.
@@ -126,6 +158,7 @@ public class InventoryCursorAdapter extends CursorAdapter {
         // Add a click listener to the sale button
         // whenever it clicked, it will
         // decrease the quantity value
+
         /*saleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
