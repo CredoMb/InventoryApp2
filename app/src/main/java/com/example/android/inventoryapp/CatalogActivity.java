@@ -177,10 +177,10 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                         for (int i = 0; i < mItemsListView.getCount(); i++) {
                             mItemsListView.setItemChecked(i, true);
                         }
-                        mode.finish();
                         return true;
 
                 }
+                mode.finish();
                 return false;
             }
 
