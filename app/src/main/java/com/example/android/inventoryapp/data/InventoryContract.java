@@ -35,8 +35,6 @@ public class InventoryContract {
         public static final String COLUMN_ITEM_IMAGE = "image";
         public static final String COLUMN_ITEM_PRICE = "price";
         public static final String COLUMN_ITEM_QUANTITY = "quantity";
-        public static final String COLUMN_ITEM_SOLD = "sold";
-        public static final String COLUMN_ITEM_SHIPPED = "shipped";
         public static final String COLUMN_ITEM_SUPPLIER = "supplier";
 
         /* Represent the value of the default image */
