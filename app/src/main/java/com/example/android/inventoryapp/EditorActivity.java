@@ -208,10 +208,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mGlideHelper = new GlideHelperClass(getApplicationContext(), mImageUriString
                 , R.drawable.placeholder_image, ((ImageView) findViewById(R.id.product_image_editor)));
 
-        // Create a TextWatcher that is going to be used inside of the
-        // Sold and Shipped Edit Text. This will help update in real time
-        // the mQuantityValueTextView
-
         // Set a click listener onto the item Image Button.
         // When clicked, it will start an intent to find a picture
         // from the device's files.
@@ -225,8 +221,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         ((ImageView) findViewById(R.id.product_image_editor)).setOnTouchListener(mTouchListener);
         mNameInputEditText.setOnTouchListener(mTouchListener);
         mPriceEditText.setOnTouchListener(mTouchListener);
-        mShippedEditText.setOnTouchListener(mTouchListener);
-        mSoldEditText.setOnTouchListener(mTouchListener);
         mSupplierEdtiText.setOnTouchListener(mTouchListener);
 
         // Get the intent from the CatalogActivity
@@ -263,8 +257,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 InventoryEntry.COLUMN_ITEM_IMAGE,
                 InventoryEntry.COLUMN_ITEM_PRICE,
                 InventoryEntry.COLUMN_ITEM_QUANTITY,
-                InventoryEntry.COLUMN_ITEM_SOLD,
-                InventoryEntry.COLUMN_ITEM_SHIPPED,
                 InventoryEntry.COLUMN_ITEM_SUPPLIER,
         };
 
@@ -328,6 +320,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+
     }
 
     /**
@@ -444,17 +437,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         return super.onOptionsItemSelected(item);
     }
 
-    // This method provides the Quantity by soustracting the
-    // Sold items from the shipped items.
-    private String quantityLeft(int shipped, int sold) {
-
-        // Find the left Quantity by soustracting the sold
-        // items from the shipped.
-        int leftQuantity = shipped - sold;
-
-        return String.format(NUMBER_FORMAT, leftQuantity);
-    }
-
     /**
      * This method will be called once the user
      * clicks on "save" icon. It contains instruction
@@ -492,19 +474,13 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         int leftQuantity = 0;
 
-        // Set the Quantity based on the number of shipped and sold items.
-        // If the difference between the shipped and sold item is greater than 0,
-        // set the quantity TextView with the value of that difference.
-        // Else, show a Toast to signify that the quantity can't be
-        // negative
         int quantityNumber = DEFAULT_QUANTITY_VALUE;
 
         if (leftQuantity >= DEFAULT_QUANTITY_VALUE) {
             quantityNumber = leftQuantity;
             mQuantityValueTextView.setText(String.valueOf(leftQuantity));
         } else {
-            // Advise the uer to adjust the values of
-            // shipped and sold items.
+            // Advise the uer to adjust the values of the quantity
             Toast.makeText(this, R.string.invalidQuantityMessage, Toast.LENGTH_LONG).show();
             return;
         }
