@@ -154,19 +154,6 @@ public class InventoryProvider extends ContentProvider {
             throw new IllegalArgumentException("The price shouldn't have a negative value");
         }
 
-        // Check that the number of shipped items is valid
-        Integer shipped = values.getAsInteger(InventoryEntry.COLUMN_ITEM_SHIPPED);
-        if (shipped < InventoryEntry.DEFAULT_SOLD_OR_SHIPPED) {
-            throw new IllegalArgumentException("The shipped value shouldn't be negative");
-        }
-
-        // Check that the number of sold items is valid
-        Integer sold = values.getAsInteger(InventoryEntry.COLUMN_ITEM_SOLD);
-        if (sold < InventoryEntry.DEFAULT_SOLD_OR_SHIPPED || sold > shipped) {
-            throw new IllegalArgumentException("The sold value shouldn't be negative " +
-                    "or greater than the shipped value");
-        }
-
         // Check that the quantity is valid
         Integer quantity = values.getAsInteger(InventoryEntry.COLUMN_ITEM_QUANTITY);
         if (quantity < InventoryEntry.DEFAULT_QUANTITY) {
@@ -243,29 +230,6 @@ public class InventoryProvider extends ContentProvider {
             Double price = values.getAsDouble(InventoryEntry.COLUMN_ITEM_PRICE);
             if (price < InventoryEntry.DEFAULT_PRICE) {
                 throw new IllegalArgumentException("The price shouldn't have a negative value");
-            }
-        }
-
-        // If the {@link InventoryEntry#COLUMN_ITEM_SHIPPED} key is present,
-        // check that the name value is valid.
-        if (values.containsKey(InventoryEntry.COLUMN_ITEM_SHIPPED)) {
-            // Check that the shipped value is not negative
-            Integer shipped = values.getAsInteger(InventoryEntry.COLUMN_ITEM_SHIPPED);
-            if (shipped < InventoryEntry.DEFAULT_SOLD_OR_SHIPPED) {
-                throw new IllegalArgumentException("The shipped value shouldn't be negative");
-            }
-        }
-
-        // If the {@link InventoryEntry#COLUMN_ITEM_SOLD} key is present,
-        // check that the name value is valid.
-        if (values.containsKey(InventoryEntry.COLUMN_ITEM_SOLD)) {
-            Integer sold = values.getAsInteger(InventoryEntry.COLUMN_ITEM_SOLD);
-            // Check that the sold value is not negative
-            if (sold < InventoryEntry.DEFAULT_SOLD_OR_SHIPPED
-                    || sold > values.getAsInteger(InventoryEntry.COLUMN_ITEM_SHIPPED)) {
-
-                throw new IllegalArgumentException("The sold value shouldn't be negative " +
-                        "or greater than the shipped value");
             }
         }
 
