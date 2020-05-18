@@ -61,17 +61,22 @@
              when you click on a button, you also click
              on the item, so which one get called ?-->
 
-        <!-- Try an image button, an outlined button or something else-->
+        <!-- Try an image button, an outlined button or something else
+        Widget.MaterialComponents.Button-->
 
-        <!--  -->
-        <com.google.android.material.button.MaterialButton
+        <!-- com.google.android.material.button.MaterialButton
+         style/com.google.android.material.button.MaterialButton
+         "@android:style/Widget.Button"
+            -->
+        <TextView
             android:id="@+id/sale_button"
+            style="@android:style/Widget.DeviceDefault.Button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="88dp"
-            android:textAllCaps="false"
-            android:text="@string/sale_button_text" />
+            android:layout_marginRight="54dp"
+            android:text="@string/sale_button_text"
+            android:textAllCaps="false" />
 
     </RelativeLayout>
 

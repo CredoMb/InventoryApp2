@@ -95,41 +95,13 @@ public class InventoryCursorAdapter extends CursorAdapter {
         // listView
         final int currentPosition = cursor.getPosition();
 
-        view.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                // Create an intent to start the Editor Activity
-                Intent intent = new Intent(context, EditorActivity.class);
-
-                // Build the Uri of the item that has been clicked on.
-                // the Uri will be made of "content://com.example.android.inventoryapp"
-                // and the Id of the selected item. For example, if the second item was clicked
-                // the Uri would be "content://com.example.android.inventoryapp/inventory/2"
-
-                Uri itemUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, getItemId(currentPosition));
-
-                // Add the Item Uri to the intent as an extra,
-                // So that the Editor Activiy would use it to modify the item's informations
-                intent.setData(itemUri);
-
-                // How to get the id then ?
-                //
-
-                // Add the position of the item to the intent
-                intent.putExtra(Intent.EXTRA_INDEX, currentPosition);
-
-                // Start the Editor Activity
-                context.startActivity(intent);
-            }
-        });
-
         // Find the Views of an item_layout.
         // Each view will be stored in a variable.
         TextView nameTextView = (TextView) view.findViewById(R.id.name_tv);
         TextView priceTextView = (TextView) view.findViewById(R.id.price_tv);
         final TextView quantityTextView = (TextView) view.findViewById(R.id.quantity_tv);
         ImageView itemThumbnail = (ImageView) view.findViewById(R.id.catalog_product_iv);
-        //Button saleButton = (Button) view.findViewById(R.id.sale_button);
+        TextView saleTextView = (TextView) view.findViewById(R.id.sale_button);
 
         // Get the name, the price and the quantity from the cursor
         String name =  cursor.getString(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_NAME));
@@ -151,15 +123,15 @@ public class InventoryCursorAdapter extends CursorAdapter {
         quantityTextView.setText(quantity + LEFT_TAG);
 
         // This will be used inside of the onClick method
-        // of the saleButton. It will indicate weither or
+        // of the saleTextView. It will indicate weither or
         // not the quantity has been updated.
         final int rowsAffected = 0;
 
-        // Add a click listener to the sale button
+        // Add a click listener to the sale TextView
         // whenever it clicked, it will
         // decrease the quantity value
 
-        /*saleButton.setOnClickListener(new View.OnClickListener() {
+        saleTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -212,7 +184,7 @@ public class InventoryCursorAdapter extends CursorAdapter {
                     return;
                 }
             }
-        });*/
+        });
     }
 /*
 
