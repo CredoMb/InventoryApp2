@@ -71,7 +71,7 @@
          "@android:style/Widget.Button"
             -->
         <TextView
-            android:id="@+id/sale_button"
+            android:id="@+id/sale_textview"
             style="@android:style/Widget.DeviceDefault.Button"
             android:layout_width="wrap_content"
             android:layout_height="48dp"

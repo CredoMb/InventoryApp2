@@ -107,7 +107,7 @@ public class InventoryCursorAdapter extends CursorAdapter {
         Float price = cursor.getFloat(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_PRICE));
         final String quantity = String.format(NUMBER_FORMAT,cursor.getInt(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_QUANTITY)));
         String imageUriString = cursor.getString(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_IMAGE));
-        TextView saleTextView = (TextView) view.findViewById(R.id.sale_button);
+        TextView saleTextView = (TextView) view.findViewById(R.id.sale_textview);
 
         // Initialize the Glide Helper
         glideHelper = new GlideHelperClass(context.getApplicationContext(),imageUriString,R.drawable.placeholder_image,itemThumbnail);

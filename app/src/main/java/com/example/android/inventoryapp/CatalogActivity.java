@@ -202,8 +202,6 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 InventoryEntry.COLUMN_ITEM_IMAGE,
                 InventoryEntry.COLUMN_ITEM_PRICE,
                 InventoryEntry.COLUMN_ITEM_QUANTITY,
-                InventoryEntry.COLUMN_ITEM_SOLD,
-                InventoryEntry.COLUMN_ITEM_SHIPPED,
                 InventoryEntry.COLUMN_ITEM_SUPPLIER
         };
 
