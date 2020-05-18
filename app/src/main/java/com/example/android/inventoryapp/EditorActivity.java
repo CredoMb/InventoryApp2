@@ -89,18 +89,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private TextView mQuantityValueTextView;
 
     /**
-     * EditText Field to enter the number of sold Items.
-     * Will only be visible when adding a new item
-     */
-
-    private EditText mSoldEditText;
-    /**
-     * EditText Field to enter the number of shipped Items.
-     * Will only be visible when adding a new item
-     */
-    private EditText mShippedEditText;
-
-    /**
      * EditText field to enter the supplier's name
      */
     private EditText mSupplierEdtiText;
@@ -215,9 +203,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mQuantityLabelTextView = (TextView) findViewById(R.id.quantity_label_tv);
         mQuantityValueTextView = (TextView) findViewById(R.id.quantity_value_tv);
 
-        mSoldEditText = (EditText) findViewById(R.id.edit_product_sold);
-        mShippedEditText = (EditText) findViewById(R.id.edit_product_shipped);
-
         mSupplierEdtiText = (EditText) findViewById(R.id.edit_product_supplier);
 
         mGlideHelper = new GlideHelperClass(getApplicationContext(), mImageUriString
@@ -226,63 +211,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // Create a TextWatcher that is going to be used inside of the
         // Sold and Shipped Edit Text. This will help update in real time
         // the mQuantityValueTextView
-
-        TextWatcher soldAndShippedTextWatcher = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            // After the text of the sold Editor has been changed
-            // update the Quantity value.
-            @Override
-            public void afterTextChanged(Editable editable) {
-                String leftQuantity = "0";
-
-                // Check if the Sold Editor is not empty
-                if (!(TextUtils.isEmpty(mSoldEditText.getText().toString()))) {
-                    // If so, make sure that the shipped editText is not
-                    // null/empty and get the difference between the shipped and sold value
-
-                    if (!(TextUtils.isEmpty(mShippedEditText.getText().toString()))) {
-                        leftQuantity = quantityLeft(Integer.parseInt(mShippedEditText.getText().toString()),
-                                Integer.parseInt(mSoldEditText.getText().toString()));
-                    }
-
-                    // In case the Shipped value is empty,
-                    // assign it the default value of zero
-                    // and deduct the left quantity
-                    else {
-                        leftQuantity = quantityLeft(0,
-                                Integer.parseInt(mSoldEditText.getText().toString()));
-                    }
-                }
-
-                // If the soldEditText value is empty,
-                // then get the value inside of the
-                // shippedEditText and set it in the QuantityValueTextView
-                else {
-
-                    if (!(TextUtils.isEmpty(mShippedEditText.getText().toString()))) {
-                        leftQuantity = mShippedEditText.getText().toString();
-                    }
-                    // If both the shipped and sold value are empty
-                    // then
-                    else {
-
-                    }
-                }
-                mQuantityValueTextView.setText(leftQuantity);
-            }
-        };
-
-        // Set the TextWatcher onto the Shipped and Sold Edit Text
-        mSoldEditText.addTextChangedListener(soldAndShippedTextWatcher);
-        mShippedEditText.addTextChangedListener(soldAndShippedTextWatcher);
-
 
         // Set a click listener onto the item Image Button.
         // When clicked, it will start an intent to find a picture
@@ -377,16 +305,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             double priceNumber = cursor.getDouble(priceColumnIndex);
 
             mPriceEditText.setText(String.valueOf(priceNumber), TextView.BufferType.EDITABLE);
-
-            // Get the shipped value from the cursor and put it on the appropriate edit text
-            int shippedColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_SHIPPED);
-            int shippedNumber = cursor.getInt(shippedColumnIndex);
-            mShippedEditText.setText(String.format(NUMBER_FORMAT, shippedNumber), TextView.BufferType.EDITABLE);
-
-            // Get the sold value from the cursor and put it on the appropriate edit text
-            int soldColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_SOLD);
-            int soldNumber = cursor.getInt(soldColumnIndex);
-            mSoldEditText.setText(String.format(NUMBER_FORMAT, soldNumber), TextView.BufferType.EDITABLE);
 
             // Get the quantity from the cursor and put it on the appropriate edit text
             int quantityColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_QUANTITY);
@@ -566,39 +484,13 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             return;
         }
 
-        // Check if it's a new item
-        // and check if all the fields are blank.
-        // If the mItemUri is null, this means that the user clicked on the
-        // button to create a new item.
-        if (mItemUri == null &&
-                TextUtils.isEmpty(nameString)
-                && TextUtils.isEmpty(mSoldEditText.getText().toString().trim()) &&
-                TextUtils.isEmpty(mShippedEditText.getText().toString().trim())
-                && TextUtils.isEmpty(supplierString)) {
-            // Since no fields were modified, we can return early without creating a new item.
-            // No need to create ContentValues and no need to do any ContentProvider operations.
-            return;
-        }
-
-        // If the shipped number is not provided by the user,
-        // don't try to parse the string into an integer value. Use 0 by default.
-        int shippedNumber = TextUtils.isEmpty(mShippedEditText.getText().toString()) ?
-                InventoryEntry.DEFAULT_SOLD_OR_SHIPPED
-                : Integer.parseInt(mShippedEditText.getText().toString().trim());
-
-        // If the sold number is not provided by the user,
-        // don't try to parse the string into an integer value. Use 0 by default.
-        int soldNumber = TextUtils.isEmpty(mSoldEditText.getText().toString()) ?
-                InventoryEntry.DEFAULT_SOLD_OR_SHIPPED
-                : Integer.parseInt(mSoldEditText.getText().toString().trim());
-
         // If the price number is not provided by the user,
         // don't try to parse the string into an integer value. Use 0 by default.
         double priceNumber = TextUtils.isEmpty(mPriceEditText.getText().toString()) ?
                 InventoryEntry.DEFAULT_PRICE
                 : Double.parseDouble(mPriceEditText.getText().toString().trim());
 
-        int leftQuantity = Integer.parseInt(quantityLeft(shippedNumber, soldNumber));
+        int leftQuantity = 0;
 
         // Set the Quantity based on the number of shipped and sold items.
         // If the difference between the shipped and sold item is greater than 0,
@@ -623,8 +515,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         values.put(InventoryEntry.COLUMN_ITEM_IMAGE, imageStringUri);
         values.put(InventoryEntry.COLUMN_ITEM_PRICE, priceNumber);
         values.put(InventoryEntry.COLUMN_ITEM_QUANTITY, quantityNumber);
-        values.put(InventoryEntry.COLUMN_ITEM_SOLD, soldNumber);
-        values.put(InventoryEntry.COLUMN_ITEM_SHIPPED, shippedNumber);
         values.put(InventoryEntry.COLUMN_ITEM_SUPPLIER, supplierString);
 
         // Check if the "mItemUri" is null.
@@ -677,7 +567,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             }
         }
         finish();
-
     }
 
     /**
