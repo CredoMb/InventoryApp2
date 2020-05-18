@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:background="@drawable/select_list_background"
+    android:descendantFocusability="blocksDescendants"
     >
 
     <ImageView
@@ -13,7 +14,8 @@
         android:layout_width="@dimen/product_image_dimension"
         android:layout_height="@dimen/product_image_dimension"
         android:scaleType="centerCrop"
-        android:src="@drawable/placeholder_image" />
+        android:src="@drawable/placeholder_image"
+        />
 
     <RelativeLayout
         android:id="@+id/text_container"

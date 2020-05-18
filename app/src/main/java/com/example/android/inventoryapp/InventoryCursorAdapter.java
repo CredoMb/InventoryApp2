@@ -101,13 +101,13 @@ public class InventoryCursorAdapter extends CursorAdapter {
         TextView priceTextView = (TextView) view.findViewById(R.id.price_tv);
         final TextView quantityTextView = (TextView) view.findViewById(R.id.quantity_tv);
         ImageView itemThumbnail = (ImageView) view.findViewById(R.id.catalog_product_iv);
-        TextView saleTextView = (TextView) view.findViewById(R.id.sale_button);
 
         // Get the name, the price and the quantity from the cursor
         String name =  cursor.getString(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_NAME));
         Float price = cursor.getFloat(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_PRICE));
         final String quantity = String.format(NUMBER_FORMAT,cursor.getInt(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_QUANTITY)));
         String imageUriString = cursor.getString(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_IMAGE));
+        TextView saleTextView = (TextView) view.findViewById(R.id.sale_button);
 
         // Initialize the Glide Helper
         glideHelper = new GlideHelperClass(context.getApplicationContext(),imageUriString,R.drawable.placeholder_image,itemThumbnail);
@@ -121,15 +121,6 @@ public class InventoryCursorAdapter extends CursorAdapter {
         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
         priceTextView.setText(currencyFormat.format(price));
         quantityTextView.setText(quantity + LEFT_TAG);
-
-        // This will be used inside of the onClick method
-        // of the saleTextView. It will indicate weither or
-        // not the quantity has been updated.
-        final int rowsAffected = 0;
-
-        // Add a click listener to the sale TextView
-        // whenever it clicked, it will
-        // decrease the quantity value
 
         saleTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,8 +176,99 @@ public class InventoryCursorAdapter extends CursorAdapter {
                 }
             }
         });
+
+        // This will be used inside of the onClick method
+        // of the saleTextView. It will indicate weither or
+        // not the quantity has been updated.
+        final int rowsAffected = 0;
+
     }
-/*
+
+    /*// I don't know when the "getview" method is actually called by the framework. So
+    // How Am I making this work ?
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+
+        *//*if(convertView == null) {
+
+        }*//*
+
+        // get the cursor with the data of the current element
+        // This is the general cursor not the cursor for the specific element
+        // we are pointing to...
+        final Cursor cursor = getCursor();
+
+        // Get the Quantity from the data base
+        final String quantity = String.format(NUMBER_FORMAT,cursor.getInt(cursor.getColumnIndexOrThrow(InventoryEntry.COLUMN_ITEM_QUANTITY)));
+
+        // Get the context of the current adaptor
+        final Context context = convertView.getContext();
+
+        TextView saleTextView = (TextView) convertView.findViewById(R.id.sale_button);
+        final TextView quantityTextView = (TextView) convertView.findViewById(R.id.quantity_tv);
+
+        // Add a click listener to the sale TextView
+        // whenever it clicked, it will
+        // decrease the quantity value.
+        *//*
+        saleTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Get the value of the new quantity
+                // by decrementing the old one.
+                int leftQuantityNumber = Integer.parseInt(quantity) - 1;
+
+                // Turn the new quantity value to a
+                // String
+                String leftQuantityText = String.valueOf(
+                        leftQuantityNumber);
+
+                // Create a content value. This will help us
+                // later to indicate the database column to update
+                ContentValues values = new ContentValues();
+
+                // Make sure that the left quantity is equal or
+                // greater than 0. This will insure to not set
+                // a negative value for the quantity.
+                if (leftQuantityNumber >= DEFAULT_QUANTITY_VALUE) {
+
+                    quantityTextView.setText(leftQuantityText + LEFT_TAG);
+
+                    // Indicate that only the quantity should be update
+                    // and pass in the value to update with.
+                    values.put(InventoryEntry.COLUMN_ITEM_QUANTITY, leftQuantityNumber);
+
+                    // Create a selection
+                    // The call to the update method of the content resolver
+                    // will return the number of rows that were affected by the operation.
+                    // In our case, It should be one.
+
+                    // Get the Id of the current item
+                    int itemId = cursor.getInt(cursor.getColumnIndexOrThrow(InventoryEntry._ID));
+
+                    // By using the CONTENT_URI and the item's id,
+                    // build the URI of the item we need to update
+                    Uri itemUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI,itemId);
+
+                    // Update the Quantity of the current item with
+                    // it new value. Return an int to indicate the number
+                    // of row updated.
+                    int rowsAffected = context.getContentResolver().
+                            update(itemUri, values, null, null);
+
+                } else {
+                    // Advise the uer to adjust the values of
+                    // shipped and sold items.
+                    Toast.makeText(context, R.string.invalidQuantityMessage, Toast.LENGTH_LONG).show();
+                    return;
+                }
+            }
+        });*//*
+        return super.getView(position, convertView, parent);
+    }
+*/
+    /*
 
     private void saveItem() {
 
