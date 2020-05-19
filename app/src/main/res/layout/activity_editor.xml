@@ -102,7 +102,7 @@
                     android:paddingLeft="@dimen/view_margin">
 
                     <Button
-                        android:id="@+id/quantity_increase_button"
+                        android:id="@+id/quantity_increment_button"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_weight="1"
@@ -112,7 +112,7 @@
                         android:textColor="@color/primaryText" />
 
                     <Button
-                        android:id="@+id/quantity_decrease_button"
+                        android:id="@+id/quantity_decrement_button"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:layout_weight="1"
