@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -80,6 +81,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      * EditText to enter the Quantity
      */
     private EditText mQuantityEditText;
+
+    /**Button to icrement the Quantity */
+    private Button mIncrementQtyButton;
+
+    /**Button to decrement the Quantity */
+    private Button mDecrementQtyButton;
 
     /**
      * EditText field to enter the supplier's name
@@ -195,6 +202,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mPriceEditText = (EditText) findViewById(R.id.edit_product_price);
         mQuantityEditText = (EditText) findViewById(R.id.edit_product_quantity);
 
+        mIncrementQtyButton = (Button) findViewById(R.id.quantity_increment_button);
+        mDecrementQtyButton = (Button) findViewById(R.id.quantity_decrement_button);
+
         /*
         mQuantityLabelTextView = (TextView) findViewById(R.id.quantity_label_tv);
         mQuantityValueTextView = (TextView) findViewById(R.id.quantity_value_tv);
@@ -205,10 +215,22 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mGlideHelper = new GlideHelperClass(getApplicationContext(), mImageUriString
                 , R.drawable.placeholder_image, ((ImageView) findViewById(R.id.product_image_editor)));
 
-        // Set a click listener onto the item Image Button.
-        // When clicked, it will start an intent to find a picture
-        // from the device's files.
+        // Set a click listener onto the buttons associated
+        // to the Quantity EditText.
+        mIncrementQtyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // call the decrement quantity method
+                // I should...
+            }
+        });
 
+        mDecrementQtyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Call the decrement quantity method
+            }
+        });
 
         // Setting the same touch listener in all of the Edit Text will
         // help us know if the user started editing an item.
@@ -459,7 +481,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             // Initializing the Toast used when the user forget to type the name
             // of the product.
             Toast.makeText(this, R.string.emptyNameMessage, Toast.LENGTH_LONG).show();
-
             return;
         }
 
