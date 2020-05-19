@@ -77,16 +77,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private EditText mPriceEditText;
 
     /**
-     * TextView displaying the Quantity label
+     * EditText to enter the Quantity
      */
-    private TextView mQuantityLabelTextView;
-
-    /**
-     * TextView that holds the value of the
-     * item's Quantity
-     */
-
-    private TextView mQuantityValueTextView;
+    private EditText mQuantityEditText;
 
     /**
      * EditText field to enter the supplier's name
@@ -200,8 +193,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mNameInputEditText = (TextInputEditText) findViewById(R.id.edit_product_name);
 
         mPriceEditText = (EditText) findViewById(R.id.edit_product_price);
+        mQuantityEditText = (EditText) findViewById(R.id.edit_product_quantity);
+
+        /*
         mQuantityLabelTextView = (TextView) findViewById(R.id.quantity_label_tv);
         mQuantityValueTextView = (TextView) findViewById(R.id.quantity_value_tv);
+        */
 
         mSupplierEdtiText = (EditText) findViewById(R.id.edit_product_supplier);
 
@@ -302,7 +299,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             int quantityColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_ITEM_QUANTITY);
             int quantityValueNumber = cursor.getInt(quantityColumnIndex);
 
-            mQuantityValueTextView.setText(String.format(NUMBER_FORMAT, quantityValueNumber)
+            mQuantityEditText.setText(String.format(NUMBER_FORMAT, quantityValueNumber)
                     , TextView.BufferType.EDITABLE);
 
             // Get the supplier from the cursor and put it on the appropriate edit text
@@ -467,19 +464,22 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         }
 
         // If the price number is not provided by the user,
-        // don't try to parse the string into an integer value. Use 0 by default.
+        // don't try to parse the string into an double value. Use 0 by default.
         double priceNumber = TextUtils.isEmpty(mPriceEditText.getText().toString()) ?
                 InventoryEntry.DEFAULT_PRICE
                 : Double.parseDouble(mPriceEditText.getText().toString().trim());
 
-        int leftQuantity = 0;
+        // If the quantity number is not provided by the user,
+        // don't try to parse the string into an integer value. Use 0 by default.
+        int quantityNumber = TextUtils.isEmpty(mQuantityEditText.getText().toString()) ?
+                InventoryEntry.DEFAULT_QUANTITY
+                : Integer.parseInt(mQuantityEditText.getText().toString().trim());
 
-        int quantityNumber = DEFAULT_QUANTITY_VALUE;
-
-        if (leftQuantity >= DEFAULT_QUANTITY_VALUE) {
-            quantityNumber = leftQuantity;
-            mQuantityValueTextView.setText(String.valueOf(leftQuantity));
-        } else {
+        // Make sure the user didn't enter a negative value for
+        // the quantity. If he did, a toast message will be displayed
+        // to prevent him.
+        if (quantityNumber <= DEFAULT_QUANTITY_VALUE)
+        {
             // Advise the uer to adjust the values of the quantity
             Toast.makeText(this, R.string.invalidQuantityMessage, Toast.LENGTH_LONG).show();
             return;
@@ -519,7 +519,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         else {
             // The content URI of the item is: mItemUri.
             // Update the item and pass in the new ContentValues.
-            // Pass in null for the selection and selection args
+            // For the selection and selection args, pass in null values
             // because mItemUri will already identify the correct row in the database that
             // we want to modify.
 
