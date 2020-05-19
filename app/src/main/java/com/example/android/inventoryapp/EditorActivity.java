@@ -437,7 +437,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     /**
      * This method will be called once the user
      * clicks on "save" icon. It contains instruction
-     * to either save or update an item in the database
+     * to either save or update an item in the database.
      */
 
     private void saveItem() {
