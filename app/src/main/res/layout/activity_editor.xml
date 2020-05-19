@@ -124,6 +124,7 @@
 
             </LinearLayout> <!--End of the group view for sold and left quantity-->
 
+
             <!-- Supplier category -->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/SupplierOutlinedTextField"

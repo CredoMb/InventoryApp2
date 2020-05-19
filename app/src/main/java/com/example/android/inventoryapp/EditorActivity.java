@@ -10,9 +10,8 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -87,6 +86,14 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     /**Button to decrement the Quantity */
     private Button mDecrementQtyButton;
+
+    /** Will be used inside "incrementOrDecrementQuantity" to determine
+     * that the Quantity value must be incremented */
+    private final String ACTION_INCREMENT ="increment";
+
+    /**Will be used inside "incrementOrDecrementQuantity" to signify
+     * that the Quantity value must be decremented*/
+    private final String ACTION_DECREMENT ="decrement";
 
     /**
      * EditText field to enter the supplier's name
@@ -220,15 +227,20 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mIncrementQtyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // call the decrement quantity method
-                // I should...
+                // Set the "ACTION_INCREMENT" option to
+                // the incrementOrDecrementQuantity().
+                // The function will increment the quantity value
+                incrementOrDecrementQuantity(ACTION_INCREMENT);
             }
         });
 
         mDecrementQtyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Call the decrement quantity method
+                // Set the "ACTION_DECREMENT" option to
+                // the incrementOrDecrementQuantity().
+                // The function will decrement the quantity value
+                incrementOrDecrementQuantity(ACTION_DECREMENT);
             }
         });
 
@@ -455,6 +467,52 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         }
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * Increments or decrements the value of the item Quantity.
+     * This will update the quantity edit text in real time,
+     * as the user presses on the "+" or "-" button
+     *
+     * @param operationCode will help us determine if we need to
+     *                      decrement or increment the quantity value.
+     * */
+    private void incrementOrDecrementQuantity(String operationCode) {
+
+        // Get the current value of the Quantity EditText.
+        // If the Quantity Edit Text is empty, set the current quantity
+        // to zero. Else, use the current value of the Edit Text
+        int currentQuantity = TextUtils.isEmpty(mQuantityEditText.getText().toString()) ?
+                DEFAULT_QUANTITY_VALUE :
+                Integer.parseInt(mQuantityEditText.getText().toString());
+
+        // Based on the value of "operationCode",
+        // determine the operation that should be applied to
+        // the "currentQuantity" variable. Either increment or decrement its value.
+        switch (operationCode){
+            case ACTION_INCREMENT: currentQuantity++;
+            break;
+            case ACTION_DECREMENT:
+                // If the quantity is equal to zero,
+                // display a toast message and leave the
+                // function, without decrementing
+                if(currentQuantity == DEFAULT_QUANTITY_VALUE) {
+                    Toast.makeText(this, R.string.invalidQuantityMessage, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                currentQuantity--;
+            break;
+
+            // In case the user enters a bad option,
+            // display an error message inside the log
+            // and leave the function
+            default: Log.e(TAG,"Unknown argument for the incrementOrDecrementQuantity() method");
+            return;
+        }
+
+        // Set the updated quantity value onto the EditText.
+        mQuantityEditText.setText(String.valueOf(currentQuantity),EditText.BufferType.EDITABLE);
+    }
+
 
     /**
      * This method will be called once the user
