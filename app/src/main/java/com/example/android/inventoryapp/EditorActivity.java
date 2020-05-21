@@ -106,7 +106,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     /**
      * Will be used as the signature for the supply request
      */
-    private final String APP_NAME = getString(R.string.app_name);
+    private String APP_NAME;
 
     /**
      * EditText field to enter the supplier's name
@@ -193,9 +193,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
 
-        /*// Get the ImageView that will contain the thumbnail of the
-        // product.
-
         // Find the view related to the database column and store them into
         // appropriate variables.
         mNameInputEditText = (TextInputEditText) findViewById(R.id.edit_product_name);
@@ -208,6 +205,11 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         mSupplierEdtiText = (EditText) findViewById(R.id.edit_product_supplier);
         mOrderButton = (Button) findViewById(R.id.order_button);
+
+        // When creating an email intent for the for the supplier
+        // APP_NAME will be used as the default signature, at the bottom of the
+        // email.
+        APP_NAME = getString(R.string.app_name);
 
         mGlideHelper = new GlideHelperClass(getApplicationContext(), mImageUriString
                 , R.drawable.placeholder_image, ((ImageView) findViewById(R.id.product_image_editor)));
@@ -233,18 +235,18 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 incrementOrDecrementQuantity(ACTION_DECREMENT);
             }
         });
-*/
+
         // Set a click listener onto the button associated
         // to the Supplier. When clicked, it will open an intent
         // to send an email to the Supplier.
 
-        /*mOrderButton.setOnClickListener(new View.OnClickListener() {
+        mOrderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Create an email to request more supply for the product
                 submitRequest();
-                // send an email with the product supply request
             }
-        });*/
+        });
 
         // Setting the same touch listener in all of the Edit Text will
         // help us know if the user started editing an item.
@@ -276,7 +278,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
             // Initialize a loader to read the item data from the database
             // and display the current values in the editor
-            //getLoaderManager().initLoader(EDITOR_LOADER_ID, null, this);
+            getLoaderManager().initLoader(EDITOR_LOADER_ID, null, this);
         }
 
     }
@@ -527,16 +529,23 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         // Get the item name of the item from its editText
         String itemName = "";
+
+        // Get the name of the supplier from the Edit Text. If the
+        // Edit Text doesn't contain any name, then use the default value.
+        String supplierName = TextUtils.isEmpty(mSupplierEdtiText.getText()) ?
+                getString(R.string.supplier_name_default):
+                mSupplierEdtiText.getText().toString();
+
         // In case the name is empty, show a toast message and
         // quit the function
         if (TextUtils.isEmpty(mNameInputEditText.getText())) {
             Toast.makeText(this, R.string.emptyNameMessage, Toast.LENGTH_LONG).show();
             return;
         } else {
-            itemName =mNameInputEditText.getText().toString();
+            itemName = mNameInputEditText.getText().toString();
         }
 
-        String message = createSupplyRequest(itemName, APP_NAME);
+        String message = createSupplyRequest(itemName, supplierName,APP_NAME);
 
         // Use an intent to launch an email app.
         // Send the order summary in the email body.
@@ -560,9 +569,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      *                       the email body
      */
 
-    private String createSupplyRequest(String itemName, String emailSignature) {
+    private String createSupplyRequest(String itemName, String supplierName, String emailSignature) {
 
-        String supplyMessage = getString(R.string.supply_request_body, itemName);
+        String supplyMessage = getString(R.string.supply_request_greeting, supplierName);
+        supplyMessage += getString(R.string.supply_request_body, itemName);
         supplyMessage += "\n\n";
         supplyMessage += getString(R.string.supply_request_signature, emailSignature);
 
