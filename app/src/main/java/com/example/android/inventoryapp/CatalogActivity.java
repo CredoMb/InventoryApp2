@@ -276,7 +276,7 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
 
     }
 
-    /**
+    /**m
      * Will delete selected items of the listView.
      * <p>
      * Will be called in the showDeleteConfirmationDialog(),

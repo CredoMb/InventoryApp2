@@ -81,24 +81,42 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      */
     private EditText mQuantityEditText;
 
-    /**Button to icrement the Quantity */
+    /**
+     * Button to icrement the Quantity
+     */
     private Button mIncrementQtyButton;
 
-    /**Button to decrement the Quantity */
+    /**
+     * Button to decrement the Quantity
+     */
     private Button mDecrementQtyButton;
 
-    /** Will be used inside "incrementOrDecrementQuantity" to determine
-     * that the Quantity value must be incremented */
-    private final String ACTION_INCREMENT ="increment";
+    /**
+     * Will be used inside "incrementOrDecrementQuantity" to determine
+     * that the Quantity value must be incremented
+     */
+    private final String ACTION_INCREMENT = "increment";
 
-    /**Will be used inside "incrementOrDecrementQuantity" to signify
-     * that the Quantity value must be decremented*/
-    private final String ACTION_DECREMENT ="decrement";
+    /**
+     * Will be used inside "incrementOrDecrementQuantity" to signify
+     * that the Quantity value must be decremented
+     */
+    private final String ACTION_DECREMENT = "decrement";
+
+    /**
+     * Will be used as the signature for the supply request
+     */
+    private final String APP_NAME = getString(R.string.app_name);
 
     /**
      * EditText field to enter the supplier's name
      */
     private EditText mSupplierEdtiText;
+
+    /**
+     * The order button to send an email to the supplier
+     */
+    private Button mOrderButton;
 
     /**
      * This will be used to store the product Uri received from the Catalog Activity
@@ -175,7 +193,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
 
-        // Get the ImageView that will contain the thumbnail of the
+        /*// Get the ImageView that will contain the thumbnail of the
         // product.
 
         // Find the view related to the database column and store them into
@@ -189,6 +207,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mDecrementQtyButton = (Button) findViewById(R.id.quantity_decrement_button);
 
         mSupplierEdtiText = (EditText) findViewById(R.id.edit_product_supplier);
+        mOrderButton = (Button) findViewById(R.id.order_button);
 
         mGlideHelper = new GlideHelperClass(getApplicationContext(), mImageUriString
                 , R.drawable.placeholder_image, ((ImageView) findViewById(R.id.product_image_editor)));
@@ -214,6 +233,18 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 incrementOrDecrementQuantity(ACTION_DECREMENT);
             }
         });
+*/
+        // Set a click listener onto the button associated
+        // to the Supplier. When clicked, it will open an intent
+        // to send an email to the Supplier.
+
+        /*mOrderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                submitRequest();
+                // send an email with the product supply request
+            }
+        });*/
 
         // Setting the same touch listener in all of the Edit Text will
         // help us know if the user started editing an item.
@@ -245,7 +276,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
             // Initialize a loader to read the item data from the database
             // and display the current values in the editor
-            getLoaderManager().initLoader(EDITOR_LOADER_ID, null, this);
+            //getLoaderManager().initLoader(EDITOR_LOADER_ID, null, this);
         }
 
     }
@@ -446,7 +477,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      *
      * @param operationCode will help us determine if we need to
      *                      decrement or increment the quantity value.
-     * */
+     */
     private void incrementOrDecrementQuantity(String operationCode) {
 
         // Get the current value of the Quantity EditText.
@@ -459,31 +490,84 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // Based on the value of "operationCode",
         // determine the operation that should be applied to
         // the "currentQuantity" variable. Either increment or decrement its value.
-        switch (operationCode){
-            case ACTION_INCREMENT: currentQuantity++;
-            break;
+        switch (operationCode) {
+            case ACTION_INCREMENT:
+                currentQuantity++;
+                break;
             case ACTION_DECREMENT:
                 // If the quantity is equal to zero,
                 // display a toast message and leave the
                 // function, without decrementing
-                if(currentQuantity == DEFAULT_QUANTITY_VALUE) {
+                if (currentQuantity == DEFAULT_QUANTITY_VALUE) {
                     Toast.makeText(this, R.string.invalidQuantityMessage, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 currentQuantity--;
-            break;
+                break;
 
             // In case the user enters a bad option,
             // display an error message inside the log
             // and leave the function
-            default: Log.e(TAG,"Unknown argument for the incrementOrDecrementQuantity() method");
-            return;
+            default:
+                Log.e(TAG, "Unknown argument for the incrementOrDecrementQuantity() method");
+                return;
         }
 
         // Set the updated quantity value onto the EditText.
-        mQuantityEditText.setText(String.valueOf(currentQuantity),EditText.BufferType.EDITABLE);
+        mQuantityEditText.setText(String.valueOf(currentQuantity), EditText.BufferType.EDITABLE);
     }
 
+    /**
+     * Will create an email intent. The intent will contain a
+     * text made of the supplier name and a small description
+     * of the article needed.
+     */
+
+    private void submitRequest() {
+
+        // Get the item name of the item from its editText
+        String itemName = "";
+        // In case the name is empty, show a toast message and
+        // quit the function
+        if (TextUtils.isEmpty(mNameInputEditText.getText())) {
+            Toast.makeText(this, R.string.emptyNameMessage, Toast.LENGTH_LONG).show();
+            return;
+        } else {
+            itemName =mNameInputEditText.getText().toString();
+        }
+
+        String message = createSupplyRequest(itemName, APP_NAME);
+
+        // Use an intent to launch an email app.
+        // Send the order summary in the email body.
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+        intent.putExtra(Intent.EXTRA_SUBJECT,
+                getString(R.string.supply_request_email_subject, itemName));
+        intent.putExtra(Intent.EXTRA_TEXT, message);
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
+
+    /**
+     * Create the request summary that should be sent by email to the
+     * supplier
+     *
+     * @param itemName       is the name of the item we shall send a request for.
+     * @param emailSignature is the signature that will be placed at the bottom of
+     *                       the email body
+     */
+
+    private String createSupplyRequest(String itemName, String emailSignature) {
+
+        String supplyMessage = getString(R.string.supply_request_body, itemName);
+        supplyMessage += "\n\n";
+        supplyMessage += getString(R.string.supply_request_signature, emailSignature);
+
+        return supplyMessage;
+    }
 
     /**
      * This method will be called once the user
@@ -528,8 +612,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // Make sure the user didn't enter a negative value for
         // the quantity. If he did, a toast message will be displayed
         // to prevent him.
-        if (quantityNumber <= DEFAULT_QUANTITY_VALUE)
-        {
+        if (quantityNumber <= DEFAULT_QUANTITY_VALUE) {
             // Advise the uer to adjust the values of the quantity
             Toast.makeText(this, R.string.invalidQuantityMessage, Toast.LENGTH_LONG).show();
             return;

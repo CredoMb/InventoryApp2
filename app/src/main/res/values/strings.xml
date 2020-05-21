@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">InventoryApp</string>
 
     <!--
@@ -14,7 +14,7 @@
          View -->
 
     <!-- Title text for the empty view, which describes the empty icon image [CHAR LIMIT=50] -->
-    <string name="empty_view_title_text">It\'s a bit lonely here...</string>
+    <string name="empty_view_title_text">It\'s a bit lonely here&#8230;</string>
 
     <!-- Subtitle text for the empty view that prompts the user to add a pet [CHAR LIMIT=50] -->
     <string name="empty_view_subtitle_text">Get started by adding an item</string>
@@ -58,6 +58,31 @@
     <string name="hint_product_supplier">Supplier</string>
     <!-- Text on the save button of the EditorActivity's form-->
     <string name="save_button_text">Save</string>
+    <!--
+       Subject line for the supply request email. It will be in the format of
+       "Supply request for Playstation 4" where Playstation 4 is the item's name. [CHAR LIMIT=NONE]
+     -->
+    <string name="supply_request_email_subject">Supply request for <xliff:g id="itemName" example="Rolex">%s</xliff:g> </string>
+
+    <!--
+       Greeting intro for the supply request. It will be shown in the format of
+       "Hello Apple" where Apple is the supplier name. [CHAR LIMIT=NONE]
+     -->
+    <string name="supply_request_greeting">Hello <xliff:g id="greeting" example="Hi">%s</xliff:g></string>
+
+    <!--
+       Body of intro for the supply request. It will be shown in the format of
+       "We are running out of iPhoneX and we would..." where iPhoneX is the
+       item name. [CHAR LIMIT=NONE]
+     -->
+    <string name="supply_request_body">We are running out of <xliff:g id="itemName" example="iPhoneX">%s</xliff:g>\n
+    and we would need more supplies \nas soon as possible!</string>
+
+    <!--
+       Signature for the supply request. It will be shown in the format of
+       "Cheers, \n Mohombi" where Mohombi is the owner's name. [CHAR LIMIT=NONE]
+     -->
+    <string name="supply_request_signature">Cheers,\n<xliff:g id="signature" example="Mohombi">%s</xliff:g></string>
 
     <!-- Will be used to display Toast related to the
          user actions inside the Editor Activity-->
