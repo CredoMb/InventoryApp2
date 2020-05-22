@@ -68,7 +68,7 @@
        Greeting intro for the supply request. It will be shown in the format of
        "Hello Apple" where Apple is the supplier name. [CHAR LIMIT=NONE]
      -->
-    <string name="supply_request_greeting">Hello <xliff:g id="greeting" example="Apple">%s</xliff:g></string>
+    <string name="supply_request_greeting">Hello <xliff:g id="greeting" example="Apple">%s</xliff:g>!\n\n</string>
 
     <!-- In case the supplier name is unknown, this Will be used as the default supplier
          name on the "Supply request email".-->

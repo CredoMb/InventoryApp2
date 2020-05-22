@@ -83,7 +83,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:layout_marginTop="@dimen/view_margin"
                     android:hint="@string/item_quantity_label">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -131,25 +130,24 @@
                  android:layout_marginTop="@dimen/view_margin"
                  android:orientation="horizontal">
 
-                  Supplier TextField
+                  <!-- Supplier TextField -->
                  <com.google.android.material.textfield.TextInputLayout
                      android:id="@+id/SupplierOutlinedTextField"
                      style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                      android:layout_width="0dp"
                      android:layout_height="wrap_content"
                      android:layout_weight="2"
-                     android:layout_marginTop="@dimen/view_margin"
                      android:hint="@string/hint_product_supplier">
 
-                      Supplier field
+                     <!-- Supplier field -->
                      <com.google.android.material.textfield.TextInputEditText
                          android:id="@+id/edit_product_supplier"
                          android:layout_width="match_parent"
-                         android:layout_height="wrap_content" />
+                         android:layout_height="match_parent" />
 
                  </com.google.android.material.textfield.TextInputLayout>
-                  Button to order from the supplier
 
+                 <!-- Button to order from the supplier -->
                  <Button
                      android:id="@+id/order_button"
                      android:layout_width="0dp"

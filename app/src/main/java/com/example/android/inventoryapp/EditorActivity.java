@@ -622,7 +622,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // Make sure the user didn't enter a negative value for
         // the quantity. If he did, a toast message will be displayed
         // to prevent him.
-        if (quantityNumber <= DEFAULT_QUANTITY_VALUE) {
+        if (quantityNumber < DEFAULT_QUANTITY_VALUE) {
             // Advise the uer to adjust the values of the quantity
             Toast.makeText(this, R.string.invalidQuantityMessage, Toast.LENGTH_LONG).show();
             return;
