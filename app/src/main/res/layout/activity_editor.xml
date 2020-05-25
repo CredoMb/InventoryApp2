@@ -84,8 +84,12 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:hint="@string/item_quantity_label"
+                    app:startIconDrawable="@drawable/ic_add_gray_24dp"
                     app:endIconMode="custom"
-                    app:endIconDrawable="@drawable/ic_add_gray_24dp">
+                    app:endIconDrawable="@drawable/ic_add_gray_24dp"
+                    app:endIconContentDescription="@string/item_quantity_label"
+
+                    >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/edit_product_quantity"
@@ -115,6 +119,7 @@
                         android:layout_width="48dp"
                         android:layout_height="48dp"
                         android:gravity="center_vertical"
+
                         android:layout_weight="1"
                         android:text="+"
                         android:textColor="@color/primaryText"/>

@@ -28,6 +28,7 @@ import androidx.core.app.NavUtils;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
+import com.google.android.material.textfield.TextInputLayout;
 
 
 import java.io.InputStream;
@@ -81,15 +82,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
      */
     private EditText mQuantityEditText;
 
-    /**
-     * Button to icrement the Quantity
-     */
-    private Button mIncrementQtyButton;
-
-    /**
-     * Button to decrement the Quantity
-     */
-    private Button mDecrementQtyButton;
+    /** TextInputLayout of the Quantity EditText*/
+    private TextInputLayout mQuantityTextInputLayout;
 
     /**
      * Will be used inside "incrementOrDecrementQuantity" to determine
@@ -199,6 +193,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         mPriceEditText = (EditText) findViewById(R.id.edit_product_price);
         mQuantityEditText = (EditText) findViewById(R.id.edit_product_quantity);
+        mQuantityTextInputLayout = (TextInputLayout) findViewById(R.id.QuantityOutlinedTextField);
 
         mIncrementQtyButton = (Button) findViewById(R.id.quantity_increment_button);
         mDecrementQtyButton = (Button) findViewById(R.id.quantity_decrement_button);
@@ -214,9 +209,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mGlideHelper = new GlideHelperClass(getApplicationContext(), mImageUriString
                 , R.drawable.placeholder_image, ((ImageView) findViewById(R.id.product_image_editor)));
 
-        // Set a click listener onto the buttons associated
-        // to the Quantity EditText.
-        mIncrementQtyButton.setOnClickListener(new View.OnClickListener() {
+        mQuantityTextInputLayout.setStartIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Set the "ACTION_INCREMENT" option to
@@ -226,7 +219,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             }
         });
 
-        mDecrementQtyButton.setOnClickListener(new View.OnClickListener() {
+        mQuantityTextInputLayout.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Set the "ACTION_DECREMENT" option to
@@ -235,6 +228,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 incrementOrDecrementQuantity(ACTION_DECREMENT);
             }
         });
+
 
         // Set a click listener onto the button associated
         // to the Supplier. When clicked, it will open an intent
