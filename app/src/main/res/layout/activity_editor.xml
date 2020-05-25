@@ -99,43 +99,6 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!--  TODO : Code the common style in the style file
-                       Do that with all my apps. My next goal : limit
-                       boiler plate code-->
-
-                <LinearLayout
-                    android:id="@+id/QuantityInfoRelativeLayout"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:paddingEnd="8dp"
-                    android:paddingStart="8dp">
-
-                    <Button
-                        android:id="@+id/quantity_increment_button"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:gravity="center_vertical"
-
-                        android:layout_weight="1"
-                        android:text="+"
-                        android:textColor="@color/primaryText"/>
-
-                    <Button
-                        android:id="@+id/quantity_decrement_button"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:layout_weight="1"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_gravity="center_horizontal"
-                        android:text="-"
-                        android:textColor="@android:color/black"/>
-
-                </LinearLayout>
             </LinearLayout> <!--End of the group view related to the quantity-->
 
             <!--  Container for supplier infos -->
