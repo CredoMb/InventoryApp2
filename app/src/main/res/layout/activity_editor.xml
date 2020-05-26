@@ -84,10 +84,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:hint="@string/item_quantity_label"
-                    app:startIconDrawable="@drawable/ic_add_gray_24dp"
-                    app:endIconMode="custom"
+                    app:startIconDrawable="@drawable/ic_remove_gray_24dp"
+                    app:startIconContentDescription="the increment button"
                     app:endIconDrawable="@drawable/ic_add_gray_24dp"
-                    app:endIconContentDescription="@string/item_quantity_label"
+                    app:endIconContentDescription="the decrement button"
 
                     >
 
