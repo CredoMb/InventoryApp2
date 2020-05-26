@@ -195,9 +195,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mQuantityEditText = (EditText) findViewById(R.id.edit_product_quantity);
         mQuantityTextInputLayout = (TextInputLayout) findViewById(R.id.QuantityOutlinedTextField);
 
-        mIncrementQtyButton = (Button) findViewById(R.id.quantity_increment_button);
-        mDecrementQtyButton = (Button) findViewById(R.id.quantity_decrement_button);
-
         mSupplierEdtiText = (EditText) findViewById(R.id.edit_product_supplier);
         mOrderButton = (Button) findViewById(R.id.order_button);
 
