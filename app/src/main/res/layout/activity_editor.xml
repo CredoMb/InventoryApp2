@@ -170,10 +170,12 @@
                  <!-- Button to order from the supplier -->
                  <Button
                      android:id="@+id/order_button"
-                     android:layout_width="wrap_content"
+                     android:layout_width="96dp"
                      android:layout_height="48dp"
                      android:layout_gravity="left"
+                     android:gravity="center"
                      android:text="Order"
+                     android:textSize="14sp"
                      android:background="@android:color/transparent"
                      android:textColor="@color/secondaryText"
                      />
