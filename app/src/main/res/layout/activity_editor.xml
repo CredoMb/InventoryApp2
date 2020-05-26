@@ -132,6 +132,7 @@
                         />
                 </RelativeLayout>
             </LinearLayout>
+
             <!--  Container for supplier infos -->
              <LinearLayout
                  android:id="@+id/container_supplier_infos"

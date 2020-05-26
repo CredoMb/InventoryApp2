@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -18,6 +19,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -84,6 +86,14 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     /** TextInputLayout of the Quantity EditText*/
     private TextInputLayout mQuantityTextInputLayout;
+
+    /** Button to store the image Button used
+     *  to decrease the quantity*/
+    private ImageButton mDecreaseIB;
+
+    /** Button to store the image Button used
+     *  to increase the quantity*/
+    private ImageButton mIncreaseIB;
 
     /**
      * Will be used inside "incrementOrDecrementQuantity" to determine
@@ -195,6 +205,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mQuantityEditText = (EditText) findViewById(R.id.edit_product_quantity);
         mQuantityTextInputLayout = (TextInputLayout) findViewById(R.id.QuantityOutlinedTextField);
 
+        mDecreaseIB = (ImageButton) findViewById(R.id.decreaseImageButton);
+        mIncreaseIB = (ImageButton) findViewById(R.id.increaseImageButton);
+
         mSupplierEdtiText = (EditText) findViewById(R.id.edit_product_supplier);
         mOrderButton = (Button) findViewById(R.id.order_button);
 
@@ -206,7 +219,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mGlideHelper = new GlideHelperClass(getApplicationContext(), mImageUriString
                 , R.drawable.placeholder_image, ((ImageView) findViewById(R.id.product_image_editor)));
 
-        mQuantityTextInputLayout.setStartIconOnClickListener(new View.OnClickListener() {
+        mIncreaseIB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Set the "ACTION_INCREMENT" option to
@@ -216,7 +229,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             }
         });
 
-        mQuantityTextInputLayout.setEndIconOnClickListener(new View.OnClickListener() {
+        mDecreaseIB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Set the "ACTION_DECREMENT" option to
