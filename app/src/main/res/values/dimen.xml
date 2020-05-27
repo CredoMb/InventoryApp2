@@ -54,12 +54,17 @@
     <!--Size for the quantity and the price's text -->
     <dimen name="secondary_text_size">14sp</dimen>
 
-    <!-- Value of the spacing between the groupview containing
-         the text-->
-    <dimen name="groupview_spacing">8dp</dimen>
+    <!-- Value of the standard space used between views -->
+    <dimen name="standard_view_spacing">8dp</dimen>
 
     <!-- Height of the textViews -->
-    <dimen name="text_view_dimension">40dp</dimen>
+    <dimen name="text_view_dimension">44dp</dimen>
+
+    <!-- Height of the textView used as the "sale" button -->
+    <dimen name="sale_text_view_dimension">48dp</dimen>
+
+    <!-- margin for the textView used as the "sale" button -->
+    <dimen name="margin_sale_textview">16dp</dimen>
 
     <!--
         To be used in the
@@ -73,7 +78,7 @@
     <dimen name="icon_dimensions">48dp</dimen>
 
     <!-- The margin to be used between views of the form-->
-    <dimen name="view_margin">8dp</dimen>
+    <dimen name="editor_activity_spacing">8dp</dimen>
 
     <!-- Size of the text in that displays informations
          related to the Quantity-->
@@ -87,6 +92,15 @@
 
     <!-- Side Padding for the container of the form's fields-->
     <dimen name="fields_container_padding">48dp</dimen>
+
+    <!-- The width for the order button-->
+    <dimen name="order_button_width">96dp</dimen>
+
+    <!-- The size for the order button text-->
+    <dimen name="order_button_text_size">14sp</dimen>
+
+    <!-- The average dimension of buttons -->
+    <dimen name="average_button_dimension">48dp</dimen>
 
 
 </resources>

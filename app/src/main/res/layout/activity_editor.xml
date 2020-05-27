@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <ImageView
@@ -55,7 +55,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/view_margin"
+                android:layout_marginTop="@dimen/editor_activity_spacing"
                 android:hint="@string/hint_product_price"
                 app:prefixText="@string/currency">
 
@@ -72,7 +72,7 @@
                 android:id="@+id/container_quantity_infos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/view_margin"
+                android:layout_marginTop="@dimen/editor_activity_spacing"
                 android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -97,20 +97,20 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight=".9"
-                    android:paddingStart="8dp"
-                    android:paddingLeft="8dp">
+                    android:paddingStart="@dimen/editor_activity_spacing"
+                    android:paddingLeft="@dimen/editor_activity_spacing">
 
                     <ImageButton
                         android:id="@+id/increaseImageButton"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_width="@dimen/average_button_dimension"
+                        android:layout_height="@dimen/average_button_dimension"
                         android:background="?android:attr/selectableItemBackground"
                         android:src="@drawable/ic_add_black_24dp" />
 
                     <ImageButton
                         android:id="@+id/decreaseImageButton"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
+                        android:layout_width="@dimen/average_button_dimension"
+                        android:layout_height="@dimen/average_button_dimension"
                         android:layout_toRightOf="@id/increaseImageButton"
                         android:background="?android:attr/selectableItemBackground"
                         android:src="@drawable/ic_remove_black_24dp" />
@@ -122,7 +122,7 @@
                 android:id="@+id/container_supplier_infos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/view_margin"
+                android:layout_marginTop="@dimen/editor_activity_spacing"
                 android:orientation="horizontal">
 
                 <!-- Supplier TextField -->
@@ -147,20 +147,20 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight=".9"
-                    android:paddingStart="8dp"
-                    android:paddingLeft="8dp">
+                    android:paddingStart="@dimen/editor_activity_spacing"
+                    android:paddingLeft="@dimen/editor_activity_spacing">
 
                     <!-- Button to order from the supplier -->
                     <Button
                         android:id="@+id/order_button"
-                        android:layout_width="96dp"
+                        android:layout_width="@dimen/order_button_width"
                         android:layout_height="wrap_content"
                         android:layout_gravity="left"
                         android:background="?android:attr/selectableItemBackground"
                         android:gravity="center"
                         android:text="Order"
                         android:textColor="@color/primaryText"
-                        android:textSize="14sp" />
+                        android:textSize="@dimen/order_button_text_size" />
 
                 </FrameLayout>
 

@@ -20,9 +20,8 @@
     <RelativeLayout
         android:id="@+id/text_container"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/groupview_spacing"
-        android:paddingLeft="@dimen/groupview_spacing">
+        android:layout_height="@dimen/product_image_dimension"
+        android:paddingLeft="@dimen/standard_view_spacing">
 
         <TextView
             android:id="@+id/name_tv"
@@ -36,7 +35,7 @@
         <TextView
             android:id="@+id/price_tv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/text_view_dimension"
             android:gravity="top"
             android:layout_below="@id/name_tv"
             android:layout_marginRight="@dimen/margin_price_textview"
@@ -46,7 +45,7 @@
         <TextView
             android:id="@+id/quantity_tv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/text_view_dimension"
             android:gravity="top"
             android:layout_below="@+id/name_tv"
             android:layout_toRightOf="@id/price_tv"
@@ -57,16 +56,15 @@
 
         <TextView
             android:id="@+id/sale_textview"
-            style="@android:style/Widget.DeviceDefault.Button"
+            style="@android:style/Widget.DeviceDefault.Button.Small"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/sale_text_view_dimension"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/groupview_spacing"
-            android:layout_marginEnd="@dimen/groupview_spacing"
             android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_sale_textview"
+            android:layout_marginEnd="@dimen/margin_sale_textview"
             android:text="@string/sale_button_text"
             android:textAllCaps="false" />
 
     </RelativeLayout>
-
 </LinearLayout>

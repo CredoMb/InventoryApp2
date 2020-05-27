@@ -1,19 +1,15 @@
-package com.example.android.inventoryapp;
+package com.example.android.inventoryapp2;
 
 import android.Manifest;
 import android.app.Activity;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,7 +17,7 @@ import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 
-import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
+import com.example.android.inventoryapp2.data.InventoryContract.InventoryEntry;
 import java.text.NumberFormat;
 
 
@@ -116,11 +112,12 @@ public class InventoryCursorAdapter extends CursorAdapter {
 
         // Put the name, the price and the quantity inside the corresponding textViews
         nameTextView.setText(name);
-
-        // Format the price to appear with the currency
+        quantityTextView.setText(quantity + LEFT_TAG);
+            // Format the price to appear with the currency
+            // before putting it into the TextView
         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
         priceTextView.setText(currencyFormat.format(price));
-        quantityTextView.setText(quantity + LEFT_TAG);
+
 
         // Decrease the quantity value every time the
         // sale TextView is clicked
@@ -160,9 +157,8 @@ public class InventoryCursorAdapter extends CursorAdapter {
                     Uri itemUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI,itemId);
 
                     // Update the Quantity of the current item with
-                    // it new value. Return an int to indicate the number
-                    // of row updated.
-                    int rowsAffected = context.getContentResolver().
+                    // it new value.
+                    context.getContentResolver().
                             update(itemUri, values, null, null);
 
                 } else {

@@ -1,4 +1,4 @@
-package com.example.android.inventoryapp;
+package com.example.android.inventoryapp2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,7 +11,6 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,9 +20,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.view.ActionMode;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
+import com.example.android.inventoryapp2.data.InventoryContract.InventoryEntry;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -105,8 +103,6 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 // the Uri would be "content://com.example.android.inventoryapp/inventory/2"
                 Uri itemUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, id);
 
-                Toast.makeText(getBaseContext(),"Id from Catalog " + String.valueOf(id),Toast.LENGTH_LONG)
-                        .show();
                 // Add the Item Uri to the intent as an extra,
                 // So that the Editor Activiy would use it to modify the item's informations
                 intent.setData(itemUri);

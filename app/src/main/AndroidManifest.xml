@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.android.inventoryapp">
+    package="com.example.android.inventoryapp2">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CatalogActivity"
+        <activity android:name="com.example.android.inventoryapp2.CatalogActivity"
             android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,18 +20,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".EditorActivity"
+            android:name="com.example.android.inventoryapp2.EditorActivity"
             android:configChanges="orientation|screenSize"
-            android:parentActivityName=".CatalogActivity">
+            android:parentActivityName="com.example.android.inventoryapp2.CatalogActivity">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CatalogActivity" />
+                android:value="com.example.android.inventoryapp2.CatalogActivity" />
         </activity>
 
         <provider
-            android:name=".data.InventoryProvider"
-            android:authorities="com.example.android.inventoryapp"
+            android:name="com.example.android.inventoryapp2.data.InventoryProvider"
+            android:authorities="com.example.android.inventoryapp2"
             android:exported="false" />
     </application>
 

@@ -1,4 +1,4 @@
-package com.example.android.inventoryapp.data;
+package com.example.android.inventoryapp2.data;
 
 import android.content.ContentProvider;
 import android.content.ContentResolver;
@@ -15,7 +15,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.example.android.inventoryapp.data.InventoryContract.InventoryEntry;
+import com.example.android.inventoryapp2.data.InventoryContract.InventoryEntry;
 
 public class InventoryProvider extends ContentProvider {
 
@@ -42,11 +42,6 @@ public class InventoryProvider extends ContentProvider {
      * The Inventory Uri matcher
      */
     private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-
-    /**
-     * Constant used when no row has been updated
-     */
-    private static final int NO_ROW_UPDATED = 0;
 
 
     static {
