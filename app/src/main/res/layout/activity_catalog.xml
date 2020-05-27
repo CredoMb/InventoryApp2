@@ -80,7 +80,7 @@
             android:layout_gravity="bottom|right"
             android:layout_margin="@dimen/fab_margin"
             app:srcCompat="@drawable/ic_add_white_24dp"
-            app:tint="@color/colorPrimaryDark" />
+            app:tint="@android:color/white" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

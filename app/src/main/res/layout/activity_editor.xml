@@ -68,14 +68,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!--
-                        &lt;!&ndash; Container for Quantity infos &ndash;&gt;
-
-                                app:endIconDrawable="@drawable/ic_remove_gray_24dp"
-                                app:endIconContentDescription="the decrement button"
-                                app:startIconDrawable="@drawable/ic_add_gray_24dp"
-                                app:startIconContentDescription="the increment button"
-            -->
             <LinearLayout
                 android:id="@+id/container_quantity_infos"
                 android:layout_width="match_parent"

@@ -9,7 +9,7 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <!-- Padding for the bottom of the ListView-->
-    <dimen name="listview_padding">16dp</dimen>
+    <dimen name="listview_padding">56dp</dimen>
     <!-- The padding for the bottom of the empty state group view-->
     <dimen name="empty_state_bottom_padding">172dp</dimen>
 

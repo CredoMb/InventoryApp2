@@ -92,7 +92,7 @@ public class InventoryCursorAdapter extends CursorAdapter {
     public void bindView(View view, final Context context, final Cursor cursor) {
 
         // Get the position of the current item in the
-        // listView
+        // listView.
         final int currentPosition = cursor.getPosition();
 
         // Find the Views of an item_layout.
@@ -150,13 +150,8 @@ public class InventoryCursorAdapter extends CursorAdapter {
                     // and pass in the value to update with.
                     values.put(InventoryEntry.COLUMN_ITEM_QUANTITY, leftQuantityNumber);
 
-                    // Create a selection
-                    // The call to the update method of the content resolver
-                    // will return the number of rows that were affected by the operation.
-                    // In our case, It should be one.
-
                     // Get the Id of the current item
-                    int itemId = cursor.getInt(cursor.getColumnIndexOrThrow(InventoryEntry._ID));
+                    long itemId = getItemId(currentPosition);
 
                     // By using the CONTENT_URI and the item's id,
                     // build the URI of the item we need to update
@@ -167,6 +162,8 @@ public class InventoryCursorAdapter extends CursorAdapter {
                     // of row updated.
                     int rowsAffected = context.getContentResolver().
                             update(itemUri, values, null, null);
+
+                    // Les changements affectent d'autres affaireds
 
                 } else {
                     // Advise the uer to adjust the values of

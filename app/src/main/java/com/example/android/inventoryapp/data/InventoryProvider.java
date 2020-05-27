@@ -248,10 +248,10 @@ public class InventoryProvider extends ContentProvider {
             return 0;
         }
 
-        // Otherwise, get writeable database to update the data
+        // Otherwise, get writable database to update the data
         SQLiteDatabase database = mDbHelper.getWritableDatabase();
 
-        // Perform the update on the database and get the number of rows affected
+        // Perform the update on the database and get the number of rows affected.
         int rowsUpdated = database.update(InventoryEntry.TABLE_NAME, values, selection, selectionArgs);
 
         // If 1 or more rows were updated, then notify all listeners that the data at the
