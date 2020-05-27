@@ -19,7 +19,7 @@
 
     <RelativeLayout
         android:id="@+id/text_container"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/groupview_spacing"
         android:paddingLeft="@dimen/groupview_spacing">
@@ -36,7 +36,7 @@
         <TextView
             android:id="@+id/price_tv"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/text_view_dimension"
+            android:layout_height="wrap_content"
             android:gravity="top"
             android:layout_below="@id/name_tv"
             android:layout_marginRight="@dimen/margin_price_textview"
@@ -46,37 +46,24 @@
         <TextView
             android:id="@+id/quantity_tv"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/text_view_dimension"
+            android:layout_height="wrap_content"
             android:gravity="top"
             android:layout_below="@+id/name_tv"
             android:layout_toRightOf="@id/price_tv"
+            android:layout_toEndOf="@id/price_tv"
             android:textSize="@dimen/secondary_text_size"
             tools:text="2 left"
-
             />
 
-        <!-- style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
-        @android:style/Widget.Button-->
-
-        <!-- The click item click listener doesn't work
-             with a button on it. May be because
-             when you click on a button, you also click
-             on the item, so which one get called ?-->
-
-        <!-- Try an image button, an outlined button or something else
-        Widget.MaterialComponents.Button-->
-
-        <!-- com.google.android.material.button.MaterialButton
-         style/com.google.android.material.button.MaterialButton
-         "@android:style/Widget.Button"
-            -->
         <TextView
             android:id="@+id/sale_textview"
             style="@android:style/Widget.DeviceDefault.Button"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="54dp"
+            android:layout_marginRight="@dimen/groupview_spacing"
+            android:layout_marginEnd="@dimen/groupview_spacing"
+            android:layout_centerVertical="true"
             android:text="@string/sale_button_text"
             android:textAllCaps="false" />
 
