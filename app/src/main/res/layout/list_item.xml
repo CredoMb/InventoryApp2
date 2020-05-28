@@ -64,7 +64,8 @@
             android:layout_marginRight="@dimen/margin_sale_textview"
             android:layout_marginEnd="@dimen/margin_sale_textview"
             android:text="@string/sale_button_text"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"/>
 
     </RelativeLayout>
 </LinearLayout>

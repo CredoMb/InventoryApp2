@@ -98,9 +98,9 @@ public class CatalogActivity extends AppCompatActivity implements LoaderManager.
                 Intent intent = new Intent(CatalogActivity.this, EditorActivity.class);
 
                 // Build the Uri of the item that has been clicked on.
-                // the Uri will be made of "content://com.example.android.inventoryapp"
+                // the Uri will be made of "content://com.example.android.inventoryapp2"
                 // and the Id of the selected item. For example, if the second item was clicked
-                // the Uri would be "content://com.example.android.inventoryapp/inventory/2"
+                // the Uri would be "content://com.example.android.inventoryapp2/inventory/2"
                 Uri itemUri = ContentUris.withAppendedId(InventoryEntry.CONTENT_URI, id);
 
                 // Add the Item Uri to the intent as an extra,
