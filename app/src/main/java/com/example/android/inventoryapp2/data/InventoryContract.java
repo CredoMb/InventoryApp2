@@ -13,7 +13,7 @@ public class InventoryContract {
     }
 
     /* The following informations will serve to build the URI for the Inventory provider */
-    public static final String CONTENT_AUTHORITY = "com.example.android.inventoryapp";
+    public static final String CONTENT_AUTHORITY = "com.example.android.inventoryapp2";
 
     /* The base URI that will be used with the InventoryProvider */
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
