@@ -398,13 +398,17 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         if (requestCode == PICK_IMAGE) {
             try {
 
+/*              This code could be use in case
+                there's permission problems.
+
                 // Get permanent access to the returned file.
-                // What does the "&" mean ?
+                //
                 final int takeFlags = data.getFlags()
                         & (Intent.FLAG_GRANT_READ_URI_PERMISSION
                         | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 // Check for the freshest data.
                 getContentResolver().takePersistableUriPermission(data.getData(), takeFlags);
+*/
 
                 // Turn the uri of the image into a String
                 // to store it inside the mImageUriString.

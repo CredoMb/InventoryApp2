@@ -7,6 +7,7 @@
     android:orientation="horizontal"
     android:background="@drawable/select_list_background"
     android:descendantFocusability="blocksDescendants"
+    android:paddingBottom="@dimen/standard_view_spacing"
     >
 
     <ImageView
@@ -30,6 +31,7 @@
             android:gravity="bottom"
             android:textSize="@dimen/primary_text_size"
             android:textStyle="bold"
+            android:textColor="@color/primaryText"
             tools:text="Shoes"/>
 
         <TextView
@@ -54,18 +56,16 @@
             tools:text="2 left"
             />
 
-        <TextView
-            android:id="@+id/sale_textview"
-            style="@android:style/Widget.DeviceDefault.Button.Small"
-            android:layout_width="wrap_content"
+        <ImageButton
+            android:src="@drawable/baseline_point_of_sale_black_24"
+            android:id="@+id/sale_ImageButton"
+            android:layout_width="48dp"
             android:layout_height="@dimen/sale_text_view_dimension"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/margin_sale_textview"
             android:layout_marginEnd="@dimen/margin_sale_textview"
-            android:text="@string/sale_button_text"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"/>
+            android:background="?attr/selectableItemBackground"/>
 
     </RelativeLayout>
 </LinearLayout>
