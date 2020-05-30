@@ -12,6 +12,7 @@
         android:orientation="vertical"
         android:paddingBottom="@dimen/listview_padding"
         android:clipToPadding="false"
+        android:divider="@android:color/transparent"
         android:overScrollFooter="@android:color/transparent"/>
 
     <!--

@@ -7,7 +7,11 @@
     android:orientation="horizontal"
     android:background="@drawable/select_list_background"
     android:descendantFocusability="blocksDescendants"
-    android:paddingBottom="@dimen/standard_view_spacing"
+    android:paddingLeft="@dimen/standard_view_spacing"
+    android:paddingStart="@dimen/standard_view_spacing"
+    android:paddingRight="@dimen/standard_view_spacing"
+    android:paddingEnd="@dimen/standard_view_spacing"
+    android:paddingBottom="16dp"
     >
 
     <ImageView
@@ -63,8 +67,6 @@
             android:layout_height="@dimen/sale_text_view_dimension"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/margin_sale_textview"
-            android:layout_marginEnd="@dimen/margin_sale_textview"
             android:background="?attr/selectableItemBackground"/>
 
     </RelativeLayout>
