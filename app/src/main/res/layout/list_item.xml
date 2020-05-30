@@ -11,7 +11,7 @@
     android:paddingStart="@dimen/standard_view_spacing"
     android:paddingRight="@dimen/standard_view_spacing"
     android:paddingEnd="@dimen/standard_view_spacing"
-    android:paddingBottom="16dp"
+    android:paddingBottom="@dimen/list_item_bottom_padding"
     >
 
     <ImageView

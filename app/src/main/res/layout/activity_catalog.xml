@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:paddingTop="@dimen/standard_view_spacing"
         android:paddingBottom="@dimen/listview_padding"
         android:clipToPadding="false"
         android:divider="@android:color/transparent"
