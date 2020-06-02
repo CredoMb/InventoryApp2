@@ -58,6 +58,9 @@
     <dimen name="standard_view_spacing">8dp</dimen>
 
     <!-- Value of the standard space used between views -->
+    <dimen name="text_container_padding">16dp</dimen>
+
+    <!-- Value of the standard space used between views -->
     <dimen name="list_item_bottom_padding">16dp</dimen>
 
     <!-- Height of the textViews -->
