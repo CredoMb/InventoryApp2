@@ -1,3 +1,5 @@
+![InventoryApp2_Screens](https://user-images.githubusercontent.com/48886200/83701199-e57d4d00-a5d6-11ea-92ef-93917c2d5454.png)
+
 # InventoryApp2
 This app is an updated version of the InventoryApp (https://github.com/CredoMb/InventoryApp). 
 
